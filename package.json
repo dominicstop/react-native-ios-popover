@@ -4,7 +4,6 @@
   "description": "placeholder",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
-  "types": "lib/typescript/src/index.d.ts",
   "react-native": "src/index",
   "source": "src/index",
   "files": [
@@ -30,8 +29,7 @@
   },
   "keywords": [
     "react-native",
-    "ios",
-    "android"
+    "ios"
   ],
   "repository": "https://github.com/dominicstop/react-native-ios-popover",
   "author": "Dominic Go <dominicstop@gmail.com> (https://github.com/dominicstop)",
@@ -61,7 +59,7 @@
   },
   "release-it": {
     "git": {
-      "commitMessage": "chore: release ${version}",
+      "commitMessage": "⚙️ chore: release ${version}",
       "tagName": "v${version}"
     },
     "npm": {
@@ -100,6 +98,6 @@
   "@react-native-community/bob": {
     "source": "src",
     "output": "lib",
-    "targets": ["commonjs", "module", "typescript"]
+    "targets": ["commonjs", "module"]
   }
 }
