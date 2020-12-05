@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		880A28F3257902820013DE2C /* PresentAsPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880A28EB257902820013DE2C /* PresentAsPopover.swift */; };
 		880A28F4257902820013DE2C /* RCTPopoverViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 880A28EF257902820013DE2C /* RCTPopoverViewManager.m */; };
 		880A28F5257902820013DE2C /* RCTPopoverViewControlller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880A28F0257902820013DE2C /* RCTPopoverViewControlller.swift */; };
 		880A28F6257902820013DE2C /* RCTPopoverViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880A28F1257902820013DE2C /* RCTPopoverViewManager.swift */; };
@@ -28,7 +27,6 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libIosPopover.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libIosPopover.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		880A28EB257902820013DE2C /* PresentAsPopover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresentAsPopover.swift; sourceTree = "<group>"; };
 		880A28EC257902820013DE2C /* IosPopover-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IosPopover-Bridging-Header.h"; sourceTree = "<group>"; };
 		880A28EF257902820013DE2C /* RCTPopoverViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTPopoverViewManager.m; sourceTree = "<group>"; };
 		880A28F0257902820013DE2C /* RCTPopoverViewControlller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCTPopoverViewControlller.swift; sourceTree = "<group>"; };
@@ -76,7 +74,6 @@
 		880A28EA257902820013DE2C /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				880A28EB257902820013DE2C /* PresentAsPopover.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -161,7 +158,6 @@
 				880A28F7257902820013DE2C /* RCTPopoverView.swift in Sources */,
 				880A28F4257902820013DE2C /* RCTPopoverViewManager.m in Sources */,
 				880A28F5257902820013DE2C /* RCTPopoverViewControlller.swift in Sources */,
-				880A28F3257902820013DE2C /* PresentAsPopover.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

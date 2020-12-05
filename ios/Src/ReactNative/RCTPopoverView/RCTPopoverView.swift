@@ -50,6 +50,26 @@ class RCTPopoverView: UIView {
     return popoverVC;
   };
   
+  // -----------------------
+  // MARK: RN Exported Props
+  // -----------------------
+  
+  private var _preferredContentSize: CGSize?;
+  @objc var preferredContentSize: NSDictionary? {
+    didSet {
+      guard let dict   = self.preferredContentSize,
+            let width  = dict["width" ] as? NSNumber,
+            let height = dict["height"] as? NSNumber
+      else { return };
+      
+      
+    }
+  };
+  
+  // ----------------
+  // MARK: Initialize
+  // ----------------
+  
   init(bridge: RCTBridge) {
     super.init(frame: CGRect());
     

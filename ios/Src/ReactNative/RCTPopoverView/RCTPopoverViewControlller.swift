@@ -24,6 +24,5 @@ class RCTPopoverViewControlller: UIViewController {
   
   override func viewWillLayoutSubviews() {
     self.boundsDidChangeBlock?(self.view.bounds);
-    self.preferredContentSize = CGSize(width: 0, height: 0);
   };
 };

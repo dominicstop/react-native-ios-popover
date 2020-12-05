@@ -36,5 +36,6 @@ export class PopoverView extends React.PureComponent {
 const styles = StyleSheet.create({
   popoverContainer: {
     position: 'absolute',
+    color: 'transparent',
   },
 });
