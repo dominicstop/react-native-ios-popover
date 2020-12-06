@@ -47,8 +47,8 @@ class RCTPopoverView: UIView {
       popoverController.sourceView = self;
       popoverController.sourceRect = self.bounds;
       
-      popoverController.permittedArrowDirections = [.down];
       popoverController.backgroundColor = self._popoverBackgroundColor;
+      popoverController.permittedArrowDirections = self._permittedArrowDirections;
     };
     
     return popoverVC;
@@ -81,6 +81,17 @@ class RCTPopoverView: UIView {
       else { return };
       
       self._popoverBackgroundColor = color;
+    }
+  };
+  
+  private var _permittedArrowDirections: UIPopoverArrowDirection = .any;
+  @objc var permittedArrowDirections: [NSString]? {
+    didSet {
+      guard let items = self.permittedArrowDirections as [String]?,
+            let arrowDirections = UIPopoverArrowDirection(stringValues: items)
+      else { return };
+      
+      self._permittedArrowDirections = arrowDirections;
     }
   };
   

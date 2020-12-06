@@ -24,7 +24,8 @@ export class PopoverView extends React.PureComponent {
 
     const nativeProps = {
       popoverSize: props.popoverSize,
-      popoverBackgroundColor: processColor(props.popoverBackgroundColor)
+      popoverBackgroundColor: processColor(props.popoverBackgroundColor),
+      permittedArrowDirections: props.permittedArrowDirections,
     };
 
     return(
