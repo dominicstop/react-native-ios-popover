@@ -11,6 +11,9 @@
 
 @interface RCT_EXTERN_MODULE(RCTPopoverViewManager, RCTViewManager)
 
+RCT_EXPORT_VIEW_PROPERTY(popoverSize, NSString);
+RCT_EXPORT_VIEW_PROPERTY(popoverBackgroundColor, NSNumber);
+
 // ---------------------------
 // MARK: View Manager Commands
 // ---------------------------

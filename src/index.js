@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Platform, requireNativeComponent, UIManager, Text, View, TouchableOpacity, findNodeHandle } from 'react-native';
+import { StyleSheet, Platform, requireNativeComponent, UIManager, Text, View, TouchableOpacity, findNodeHandle, processColor } from 'react-native';
 
 const componentName   = "RCTPopoverView";
 const NativeCommands  = UIManager[componentName]?.Commands;
@@ -22,12 +22,20 @@ export class PopoverView extends React.PureComponent {
   render(){
     const props = this.props;
 
+    const nativeProps = {
+      popoverSize: props.popoverSize,
+      popoverBackgroundColor: processColor(props.popoverBackgroundColor)
+    };
+
     return(
-      <NativeComponent ref={r => this.nativeRef = r}>
-      <View style={styles.popoverContainer}>
-        {props.renderPopoverContent?.()}
-      </View>
-      {this.props.children}
+      <NativeComponent
+        ref={r => this.nativeRef = r}
+        {...nativeProps}
+      >
+        <View style={styles.popoverContainer}>
+          {props.renderPopoverContent?.()}
+        </View>
+        {this.props.children}
       </NativeComponent>
     );
   };

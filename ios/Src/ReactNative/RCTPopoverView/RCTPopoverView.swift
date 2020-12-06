@@ -30,7 +30,9 @@ class RCTPopoverView: UIView {
       
       // setup popover vc
       vc.reactPopoverView = self.reactPopoverView;
+      vc.popoverSize = self._popoverSize;
       vc.modalPresentationStyle = .popover;
+      
       vc.boundsDidChangeBlock = { [weak self] (newBounds: CGRect) in
         self?.popoverViewNotifyForBoundsChange(newBounds);
       };
@@ -44,7 +46,9 @@ class RCTPopoverView: UIView {
       popoverController.delegate   = self;
       popoverController.sourceView = self;
       popoverController.sourceRect = self.bounds;
+      
       popoverController.permittedArrowDirections = [.down];
+      popoverController.backgroundColor = self._popoverBackgroundColor;
     };
     
     return popoverVC;
@@ -54,15 +58,29 @@ class RCTPopoverView: UIView {
   // MARK: RN Exported Props
   // -----------------------
   
-  private var _preferredContentSize: CGSize?;
-  @objc var preferredContentSize: NSDictionary? {
+  private var _popoverSize: RCTPopoverSize = .INHERIT;
+  @objc var popoverSize: NSString? {
     didSet {
-      guard let dict   = self.preferredContentSize,
-            let width  = dict["width" ] as? NSNumber,
-            let height = dict["height"] as? NSNumber
+      guard let string      = self.popoverSize as String?,
+            let popoverSize = RCTPopoverSize(rawValue: string)
       else { return };
       
+      self._popoverSize = popoverSize;
       
+      if let popoverVC = self._popoverController {
+        popoverVC.popoverSize = popoverSize;
+      };
+    }
+  };
+  
+  private var _popoverBackgroundColor: UIColor = .clear;
+  @objc var popoverBackgroundColor: NSNumber? {
+    didSet {
+      guard let number = self.popoverBackgroundColor,
+            let color  = RCTConvert.uiColor(number)
+      else { return };
+      
+      self._popoverBackgroundColor = color;
     }
   };
   
