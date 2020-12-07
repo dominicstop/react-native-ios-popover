@@ -2,10 +2,12 @@ import * as React from 'react';
 import { StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 
 import PopoverViewExample01 from './components/PopoverViewExample01';
+import PopoverViewExample02 from './components/PopoverViewExample02';
 
 
 const examples = [
-  PopoverViewExample01
+  PopoverViewExample01,
+  PopoverViewExample02
 ];
 
 export default function App() {
