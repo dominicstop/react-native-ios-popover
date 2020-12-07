@@ -42,13 +42,15 @@ class RCTPopoverView: UIView {
     }();
     
     // setup popover presentation controller
-    if let popoverController = popoverVC.popoverPresentationController {
-      popoverController.delegate   = self;
-      popoverController.sourceView = self;
-      popoverController.sourceRect = self.bounds;
+    if let presentation = popoverVC.popoverPresentationController {
+      presentation.delegate   = self;
+      presentation.sourceView = self;
+      presentation.sourceRect = self.bounds;
       
-      popoverController.backgroundColor = self._popoverBackgroundColor;
-      popoverController.permittedArrowDirections = self._permittedArrowDirections;
+      presentation.backgroundColor = self._popoverBackgroundColor;
+      presentation.permittedArrowDirections = self._permittedArrowDirections;
+      presentation.canOverlapSourceViewRect = self.popoverCanOverlapSourceViewRect;
+      
     };
     
     return popoverVC;
@@ -100,6 +102,17 @@ class RCTPopoverView: UIView {
       };
     }
   };
+  
+  @objc var popoverCanOverlapSourceViewRect: Bool = true {
+    willSet {
+      if let popoverVC         = self._popoverController,
+         let popoverController = popoverVC.popoverPresentationController {
+        
+        popoverController.canOverlapSourceViewRect = newValue;
+      };
+    }
+  };
+
   
   // ----------------
   // MARK: Initialize

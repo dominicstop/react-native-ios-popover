@@ -57,24 +57,6 @@ class RCTPopoverViewControlller: UIViewController {
     guard let frame = self.reactPopoverView?.subviews.first?.frame
     else { return nil };
     
-    let (extraWidth, extraHeight): (CGFloat, CGFloat) = {
-      if let presentation = self.popoverPresentationController {
-        switch presentation.arrowDirection {
-          case .down:
-            <#code#>
-          default:
-            <#code#>
-        }
-        return (0, 0);
-      } else {
-        return (0, 0);
-      };
-    }();
-    
-    
-    
-    UIPopoverBackgroundView.arrowHeight();
-    
     return CGSize(
       // set min. size
       width : max(frame.size.width , 25),

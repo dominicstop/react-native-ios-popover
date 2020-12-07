@@ -14,8 +14,7 @@
 RCT_EXPORT_VIEW_PROPERTY(popoverSize, NSString);
 RCT_EXPORT_VIEW_PROPERTY(permittedArrowDirections, NSArray);
 RCT_EXPORT_VIEW_PROPERTY(popoverBackgroundColor, NSNumber);
-
-
+RCT_EXPORT_VIEW_PROPERTY(popoverCanOverlapSourceViewRect, BOOL);
 
 // ---------------------------
 // MARK: View Manager Commands
