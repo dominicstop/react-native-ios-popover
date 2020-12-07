@@ -57,6 +57,18 @@ class RCTPopoverView: UIView {
     return popoverVC;
   };
   
+  // -----------------------------
+  // MARK: RN Exported Event Props
+  // -----------------------------
+  
+  @objc var onPopoverWillShow: RCTBubblingEventBlock?;
+  @objc var onPopoverWillHide: RCTBubblingEventBlock?;
+  
+  @objc var onPopoverDidShow: RCTBubblingEventBlock?;
+  @objc var onPopoverDidHide: RCTBubblingEventBlock?;
+
+  @objc var onPopoverWillCreate: RCTBubblingEventBlock?;
+  
   // -----------------------
   // MARK: RN Exported Props
   // -----------------------

@@ -11,6 +11,22 @@
 
 @interface RCT_EXTERN_MODULE(RCTPopoverViewManager, RCTViewManager)
 
+// ---------------------------
+// MARK: Export Props - Events
+// ---------------------------
+
+RCT_EXPORT_VIEW_PROPERTY(onPopoverWillShow, RCTBubblingEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onPopoverWillHide, RCTBubblingEventBlock);
+
+RCT_EXPORT_VIEW_PROPERTY(onPopoverDidShow, RCTBubblingEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onPopoverDidHide, RCTBubblingEventBlock);
+
+RCT_EXPORT_VIEW_PROPERTY(onPopoverWillCreate, RCTBubblingEventBlock);
+
+// ---------------------------
+// MARK: Export Props - Values
+// ---------------------------
+
 RCT_EXPORT_VIEW_PROPERTY(popoverSize, NSString);
 RCT_EXPORT_VIEW_PROPERTY(permittedArrowDirections, NSArray);
 RCT_EXPORT_VIEW_PROPERTY(popoverBackgroundColor, NSNumber);
