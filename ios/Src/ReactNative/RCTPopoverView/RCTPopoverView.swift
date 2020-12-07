@@ -11,27 +11,6 @@ typealias Completion = (() -> ());
 
 class RCTPopoverView: UIView {
   
-  static var sharedBridge: RCTBridge? {
-    didSet {
-      #if DEBUG
-      print("RCTPopoverView, sharedBridge: didSet");
-      NotificationCenter.default.addObserver(RCTPopoverView.self,
-        selector: #selector(Self.resetSharedBridge),
-        name: NSNotification.Name(rawValue: "RCTBridgeWillReloadNotification"),
-        object: nil
-      );
-      #endif
-    }
-  };
-  
-  /// invalidate RCTBridge instance
-  @objc static func resetSharedBridge() {
-    #if DEBUG
-    print("RCTPopoverView: resetSharedBridge...");
-    #endif
-    Self.sharedBridge = nil;
-  };
-  
   // ----------------
   // MARK: Properties
   // ----------------
@@ -153,9 +132,6 @@ class RCTPopoverView: UIView {
     super.init(frame: CGRect());
     
     self.bridge = bridge;
-    if Self.sharedBridge == nil {
-      Self.sharedBridge = bridge;
-    };
   };
   
   required init?(coder: NSCoder) {

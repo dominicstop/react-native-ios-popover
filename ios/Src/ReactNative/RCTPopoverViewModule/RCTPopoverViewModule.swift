@@ -22,7 +22,7 @@ class RCTPopoverViewModule: NSObject {
   ) {
     
     DispatchQueue.main.async {
-      guard let bridge = RCTPopoverView.sharedBridge,
+      guard let bridge = RCTPopoverViewManager.sharedBridge,
             let view   = bridge.uiManager?.view(forReactTag: node),
             let popoverView = view as? RCTPopoverView
       else {
