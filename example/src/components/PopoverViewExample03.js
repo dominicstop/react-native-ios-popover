@@ -16,14 +16,15 @@ export default function PopoverViewExample03(props) {
   return (
     <ExampleItemPopoverView
       title={'PopoverViewExample03'}
-      subtitle={'Stretch'}
-      desc={'A example `PopoverView` with the `popoverSize` props set to "STRETCH"'}
+      subtitle={'popoverSize: "STRETCH"'}
+      desc={'A example `PopoverView` with the `popoverSize` prop set to "STRETCH"'}
       {...props}
     >
       <PopoverView
         ref={popoverRef}
         popoverSize={'STRETCH'}
-        permittedArrowDirections={["down"]}
+        popoverCanOverlapSourceViewRect={false}
+        permittedArrowDirections={["up", "down"]}
         renderPopoverContent={() => (
           <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
             <Text style={styles.popoverText}>
