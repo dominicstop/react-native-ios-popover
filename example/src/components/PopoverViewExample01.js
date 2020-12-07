@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useCallback, useRef } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 import { PopoverView } from 'react-native-ios-popover';
 import { Button } from './Button';
@@ -16,8 +16,8 @@ export default function PopoverViewExample01(props) {
   return (
     <ExampleItemPopoverView
       title={'PopoverViewExample01'}
-      subtitle={'Bare Min. Example'}
-      desc={'Basic `PopoverView` example'}
+      subtitle={'Min. Example'}
+      desc={'A bare min. `PopoverView` example usage'}
       {...props}
     >
       <PopoverView
