@@ -22,9 +22,27 @@ class RCTPopoverViewControlller: UIViewController {
   
   override func loadView() {
     super.loadView();
+    
+    
 
-    if let reactPopoverView = self.reactPopoverView {
-      self.view = reactPopoverView;
+    if let reactPopoverView  = self.reactPopoverView {
+      
+      self.view.addSubview(reactPopoverView);
+      reactPopoverView.translatesAutoresizingMaskIntoConstraints = false;
+      
+      if #available(iOS 11.0, *) {
+        let safeArea = view.safeAreaLayoutGuide;
+        
+        NSLayoutConstraint.activate([
+          // pin content to parent edges
+          reactPopoverView.topAnchor     .constraint(equalTo: safeArea.topAnchor     ),
+          reactPopoverView.bottomAnchor  .constraint(equalTo: safeArea.bottomAnchor  ),
+          reactPopoverView.leadingAnchor .constraint(equalTo: safeArea.leadingAnchor ),
+          reactPopoverView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+        ]);
+      };
+      
+      
     };
   };
   
@@ -39,7 +57,26 @@ class RCTPopoverViewControlller: UIViewController {
     guard let frame = self.reactPopoverView?.subviews.first?.frame
     else { return nil };
     
+    let (extraWidth, extraHeight): (CGFloat, CGFloat) = {
+      if let presentation = self.popoverPresentationController {
+        switch presentation.arrowDirection {
+          case .down:
+            <#code#>
+          default:
+            <#code#>
+        }
+        return (0, 0);
+      } else {
+        return (0, 0);
+      };
+    }();
+    
+    
+    
+    UIPopoverBackgroundView.arrowHeight();
+    
     return CGSize(
+      // set min. size
       width : max(frame.size.width , 25),
       height: max(frame.size.height, 40)
     );

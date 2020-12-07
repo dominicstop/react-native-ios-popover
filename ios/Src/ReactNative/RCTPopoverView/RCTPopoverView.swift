@@ -92,6 +92,12 @@ class RCTPopoverView: UIView {
       else { return };
       
       self._permittedArrowDirections = arrowDirections;
+      
+      if let popoverVC         = self._popoverController,
+         let popoverController = popoverVC.popoverPresentationController {
+        
+        popoverController.permittedArrowDirections = self._permittedArrowDirections;
+      };
     }
   };
   
