@@ -94,7 +94,7 @@ export class PopoverView extends React.PureComponent {
       // Values ----------------------------------------
       popoverSize                    : props.popoverSize,
       permittedArrowDirections       : props.permittedArrowDirections,
-      popoverCanOverlapSourceViewRect: props.canOverlapSourceViewRect,
+      popoverCanOverlapSourceViewRect: props.popoverCanOverlapSourceViewRect,
       popoverBackgroundColor         : processColor(props.popoverBackgroundColor),
       // Events ---------------------------------------
       onPopoverWillShow: this._handleOnPopoverWillShow,
