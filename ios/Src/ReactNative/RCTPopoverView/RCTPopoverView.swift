@@ -7,6 +7,8 @@
 
 import UIKit;
 
+typealias Completion = (() -> ());
+
 class RCTPopoverView: UIView {
   
   // ----------------
@@ -50,7 +52,6 @@ class RCTPopoverView: UIView {
       presentation.backgroundColor = self._popoverBackgroundColor;
       presentation.permittedArrowDirections = self._permittedArrowDirections;
       presentation.canOverlapSourceViewRect = self.popoverCanOverlapSourceViewRect;
-      
     };
     
     return popoverVC;
@@ -162,7 +163,7 @@ fileprivate extension RCTPopoverView {
 
 extension RCTPopoverView {
   /// show or hide the popover
-  func setVisibility(_ visibility: Bool) {
+  func setVisibility(_ visibility: Bool, completion: Completion? = nil) {
     guard self.isPopoverVisible != visibility,
           // get the closest view controller
           let parentVC  = self.reactViewController()
@@ -172,10 +173,13 @@ extension RCTPopoverView {
       // update popover visibility
       self.isPopoverVisible = true;
       // show popover
-      parentVC.present(self.popoverController, animated: true, completion: nil);
+      parentVC.present(self.popoverController, animated: true){
+        completion?();
+      };
       
     } else {
       self.popoverController.dismiss(animated: true){
+        completion?();
         // update popover visibility
         self.isPopoverVisible = false;
       };

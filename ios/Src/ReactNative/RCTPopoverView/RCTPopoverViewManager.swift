@@ -19,13 +19,13 @@ class RCTPopoverViewManager: RCTViewManager {
     return RCTPopoverView(bridge: self.bridge);
   };
   
-  @objc func setVisibility(_ node: NSNumber){
+  @objc func setVisibility(_ node: NSNumber, visibility: Bool){
     DispatchQueue.main.async {
       guard let view = self.bridge.uiManager.view(forReactTag: node),
             let popoverView = view as? RCTPopoverView
       else { return };
       
-      popoverView.setVisibility(true);
+      popoverView.setVisibility(visibility);
     };
   };
 };

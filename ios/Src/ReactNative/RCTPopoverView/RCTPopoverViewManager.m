@@ -20,6 +20,7 @@ RCT_EXPORT_VIEW_PROPERTY(popoverCanOverlapSourceViewRect, BOOL);
 // MARK: View Manager Commands
 // ---------------------------
 
-RCT_EXTERN_METHOD(setVisibility:(nonnull NSNumber *)node);
+RCT_EXTERN_METHOD(setVisibility: (nonnull NSNumber *)node
+                  visibility   : (nonnull BOOL     *)visibility);
 
 @end

@@ -11,11 +11,11 @@ const NATIVE_COMMAND_KEYS = {
 
 export class PopoverView extends React.PureComponent {
 
-  setVisibility = () => {
+  setVisibility = (visibility) => {
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.nativeRef),
       NativeCommands?.[NATIVE_COMMAND_KEYS.setVisibility],
-      null
+      [visibility]
     );
   };
 
