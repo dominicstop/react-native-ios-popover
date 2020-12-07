@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Platform, requireNativeComponent, UIManager, Text, View, TouchableOpacity, findNodeHandle, processColor } from 'react-native';
 import Proptypes from 'prop-types';
 
+import * as Helpers from './functions/helpers';
+
 const componentName   = "RCTPopoverView";
 const NativeCommands  = UIManager[componentName]?.Commands;
 const NativeComponent = requireNativeComponent(componentName);
@@ -15,6 +17,8 @@ export class PopoverView extends React.PureComponent {
     popoverSize             : Proptypes.string,
     popoverBackgroundColor  : Proptypes.string,
     permittedArrowDirections: Proptypes.arrayOf(Proptypes.string),
+    // flags -------------------
+    lazyPopover: Proptypes.bool,
     popoverCanOverlapSourceViewRect: Proptypes.bool,
     // events --------------------------
     onPopoverWillShow  : Proptypes.func,
@@ -24,7 +28,23 @@ export class PopoverView extends React.PureComponent {
     onPopoverWillCreate: Proptypes.func,
   };
 
-  setVisibility = (visibility) => {
+  static defaultProps = {
+    lazyPopover: true,
+  };
+  
+  constructor(props){
+    super(props);
+
+    this.state = {
+      mountPopover: false,
+    };
+  };
+
+  setVisibility = async (visibility) => {
+    if(visibility){
+      await Helpers.setStateAsync(this, {mountPopover: true});
+    };
+
     UIManager.dispatchViewManagerCommand(
       findNodeHandle(this.nativeRef),
       NativeCommands?.[NATIVE_COMMAND_KEYS.setVisibility],
@@ -48,12 +68,14 @@ export class PopoverView extends React.PureComponent {
 
   _handleOnPopoverDidHide = () => {
     this.props.onPopoverDidHide?.();
+    Helpers.setStateAsync(this, {mountPopover: false});
   };
 
   //#endregion
 
   render(){
     const props = this.props;
+    const { mountPopover } = this.state;
 
     const nativeProps = {
       // Values ----------------------------------------
@@ -74,7 +96,9 @@ export class PopoverView extends React.PureComponent {
         {...nativeProps}
       >
         <View style={styles.popoverContainer}>
-          {props.renderPopoverContent?.()}
+          {(mountPopover || !props.lazyPopover) && (
+            props.renderPopoverContent?.()
+          )}
         </View>
         {this.props.children}
       </NativeComponent>

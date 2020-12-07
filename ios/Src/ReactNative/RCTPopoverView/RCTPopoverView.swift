@@ -66,8 +66,6 @@ class RCTPopoverView: UIView {
   
   @objc var onPopoverDidShow: RCTBubblingEventBlock?;
   @objc var onPopoverDidHide: RCTBubblingEventBlock?;
-
-  @objc var onPopoverWillCreate: RCTBubblingEventBlock?;
   
   // -----------------------
   // MARK: RN Exported Props
@@ -182,14 +180,19 @@ extension RCTPopoverView {
     else { return };
     
     if visibility {
+      self.onPopoverWillShow?([:]);
       // update popover visibility
       self.isPopoverVisible = true;
+      
       // show popover
       parentVC.present(self.popoverController, animated: true){
         completion?();
+        self.onPopoverDidShow?([:]);
       };
       
     } else {
+      self.onPopoverWillHide?([:]);
+      
       self.popoverController.dismiss(animated: true){
         completion?();
         // update popover visibility
@@ -212,5 +215,6 @@ extension RCTPopoverView: UIPopoverPresentationControllerDelegate {
   
   func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
     self.isPopoverVisible = false;
+    self.onPopoverDidHide?([:]);
   };
 };

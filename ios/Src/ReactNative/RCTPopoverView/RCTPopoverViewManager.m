@@ -21,8 +21,6 @@ RCT_EXPORT_VIEW_PROPERTY(onPopoverWillHide, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onPopoverDidShow, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onPopoverDidHide, RCTBubblingEventBlock);
 
-RCT_EXPORT_VIEW_PROPERTY(onPopoverWillCreate, RCTBubblingEventBlock);
-
 // ---------------------------
 // MARK: Export Props - Values
 // ---------------------------
