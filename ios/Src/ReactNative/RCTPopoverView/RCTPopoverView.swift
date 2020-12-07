@@ -109,7 +109,10 @@ class RCTPopoverView: UIView {
       if let popoverVC         = self._popoverController,
          let popoverController = popoverVC.popoverPresentationController {
         
-        popoverController.permittedArrowDirections = self._permittedArrowDirections;
+        popoverController.permittedArrowDirections = arrowDirections;
+        if #available(iOS 11.0, *) {
+          popoverVC.viewSafeAreaInsetsDidChange();
+        };
       };
     }
   };

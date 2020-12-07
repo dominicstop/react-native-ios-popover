@@ -49,8 +49,14 @@ export class PopoverView extends React.PureComponent {
   };
 
   setVisibility = async (visibility) => {
+    const { lazyPopover } = this.props;
+
     if(visibility){
-      await Helpers.setStateAsync(this, {mountPopover: true});
+      await Promise.all([
+        Helpers.setStateAsync(this, {mountPopover: true}),
+        // temp bugfix: wait for popover to mount
+        lazyPopover && Helpers.timeout(50)
+      ]);
     };
 
     await PopoverModule[MODULE_COMMAND_KEYS.setVisibility](
