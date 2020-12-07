@@ -7,10 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		880A28F4257902820013DE2C /* RCTPopoverViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 880A28EF257902820013DE2C /* RCTPopoverViewManager.m */; };
-		880A28F5257902820013DE2C /* RCTPopoverViewControlller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880A28F0257902820013DE2C /* RCTPopoverViewControlller.swift */; };
-		880A28F6257902820013DE2C /* RCTPopoverViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880A28F1257902820013DE2C /* RCTPopoverViewManager.swift */; };
-		880A28F7257902820013DE2C /* RCTPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880A28F2257902820013DE2C /* RCTPopoverView.swift */; };
+		886C6A2A257E7B0F00842001 /* UIPopoverArrowDirection+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C6A1E257E7B0F00842001 /* UIPopoverArrowDirection+Helpers.swift */; };
+		886C6A2B257E7B0F00842001 /* RCTPopoverViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 886C6A22257E7B0F00842001 /* RCTPopoverViewManager.m */; };
+		886C6A2C257E7B0F00842001 /* RCTPopoverViewControlller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C6A23257E7B0F00842001 /* RCTPopoverViewControlller.swift */; };
+		886C6A2D257E7B0F00842001 /* RCTPopoverViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C6A24257E7B0F00842001 /* RCTPopoverViewManager.swift */; };
+		886C6A2E257E7B0F00842001 /* RCTPopoverTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C6A25257E7B0F00842001 /* RCTPopoverTypes.swift */; };
+		886C6A2F257E7B0F00842001 /* RCTPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C6A26257E7B0F00842001 /* RCTPopoverView.swift */; };
+		886C6A30257E7B0F00842001 /* RCTPopoverViewModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 886C6A28257E7B0F00842001 /* RCTPopoverViewModule.m */; };
+		886C6A31257E7B0F00842001 /* RCTPopoverViewModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 886C6A29257E7B0F00842001 /* RCTPopoverViewModule.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,11 +31,15 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libIosPopover.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libIosPopover.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		880A28EC257902820013DE2C /* IosPopover-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IosPopover-Bridging-Header.h"; sourceTree = "<group>"; };
-		880A28EF257902820013DE2C /* RCTPopoverViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTPopoverViewManager.m; sourceTree = "<group>"; };
-		880A28F0257902820013DE2C /* RCTPopoverViewControlller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCTPopoverViewControlller.swift; sourceTree = "<group>"; };
-		880A28F1257902820013DE2C /* RCTPopoverViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCTPopoverViewManager.swift; sourceTree = "<group>"; };
-		880A28F2257902820013DE2C /* RCTPopoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCTPopoverView.swift; sourceTree = "<group>"; };
+		886C6A1E257E7B0F00842001 /* UIPopoverArrowDirection+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPopoverArrowDirection+Helpers.swift"; sourceTree = "<group>"; };
+		886C6A1F257E7B0F00842001 /* IosPopover-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IosPopover-Bridging-Header.h"; sourceTree = "<group>"; };
+		886C6A22257E7B0F00842001 /* RCTPopoverViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTPopoverViewManager.m; sourceTree = "<group>"; };
+		886C6A23257E7B0F00842001 /* RCTPopoverViewControlller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCTPopoverViewControlller.swift; sourceTree = "<group>"; };
+		886C6A24257E7B0F00842001 /* RCTPopoverViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCTPopoverViewManager.swift; sourceTree = "<group>"; };
+		886C6A25257E7B0F00842001 /* RCTPopoverTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCTPopoverTypes.swift; sourceTree = "<group>"; };
+		886C6A26257E7B0F00842001 /* RCTPopoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCTPopoverView.swift; sourceTree = "<group>"; };
+		886C6A28257E7B0F00842001 /* RCTPopoverViewModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTPopoverViewModule.m; sourceTree = "<group>"; };
+		886C6A29257E7B0F00842001 /* RCTPopoverViewModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCTPopoverViewModule.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,45 +64,57 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				880A28E9257902820013DE2C /* Src */,
+				886C6A1C257E7B0F00842001 /* Src */,
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		880A28E9257902820013DE2C /* Src */ = {
+		886C6A1C257E7B0F00842001 /* Src */ = {
 			isa = PBXGroup;
 			children = (
-				880A28EA257902820013DE2C /* Utilities */,
-				880A28EC257902820013DE2C /* IosPopover-Bridging-Header.h */,
-				880A28ED257902820013DE2C /* ReactNative */,
+				886C6A1D257E7B0F00842001 /* Extensions */,
+				886C6A1F257E7B0F00842001 /* IosPopover-Bridging-Header.h */,
+				886C6A20257E7B0F00842001 /* ReactNative */,
 			);
 			path = Src;
 			sourceTree = "<group>";
 		};
-		880A28EA257902820013DE2C /* Utilities */ = {
+		886C6A1D257E7B0F00842001 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				886C6A1E257E7B0F00842001 /* UIPopoverArrowDirection+Helpers.swift */,
 			);
-			path = Utilities;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
-		880A28ED257902820013DE2C /* ReactNative */ = {
+		886C6A20257E7B0F00842001 /* ReactNative */ = {
 			isa = PBXGroup;
 			children = (
-				880A28EE257902820013DE2C /* RCTPopoverView */,
+				886C6A21257E7B0F00842001 /* RCTPopoverView */,
+				886C6A27257E7B0F00842001 /* RCTPopoverViewModule */,
 			);
 			path = ReactNative;
 			sourceTree = "<group>";
 		};
-		880A28EE257902820013DE2C /* RCTPopoverView */ = {
+		886C6A21257E7B0F00842001 /* RCTPopoverView */ = {
 			isa = PBXGroup;
 			children = (
-				880A28EF257902820013DE2C /* RCTPopoverViewManager.m */,
-				880A28F0257902820013DE2C /* RCTPopoverViewControlller.swift */,
-				880A28F1257902820013DE2C /* RCTPopoverViewManager.swift */,
-				880A28F2257902820013DE2C /* RCTPopoverView.swift */,
+				886C6A22257E7B0F00842001 /* RCTPopoverViewManager.m */,
+				886C6A23257E7B0F00842001 /* RCTPopoverViewControlller.swift */,
+				886C6A24257E7B0F00842001 /* RCTPopoverViewManager.swift */,
+				886C6A25257E7B0F00842001 /* RCTPopoverTypes.swift */,
+				886C6A26257E7B0F00842001 /* RCTPopoverView.swift */,
 			);
 			path = RCTPopoverView;
+			sourceTree = "<group>";
+		};
+		886C6A27257E7B0F00842001 /* RCTPopoverViewModule */ = {
+			isa = PBXGroup;
+			children = (
+				886C6A28257E7B0F00842001 /* RCTPopoverViewModule.m */,
+				886C6A29257E7B0F00842001 /* RCTPopoverViewModule.swift */,
+			);
+			path = RCTPopoverViewModule;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,10 +174,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				880A28F6257902820013DE2C /* RCTPopoverViewManager.swift in Sources */,
-				880A28F7257902820013DE2C /* RCTPopoverView.swift in Sources */,
-				880A28F4257902820013DE2C /* RCTPopoverViewManager.m in Sources */,
-				880A28F5257902820013DE2C /* RCTPopoverViewControlller.swift in Sources */,
+				886C6A2D257E7B0F00842001 /* RCTPopoverViewManager.swift in Sources */,
+				886C6A2B257E7B0F00842001 /* RCTPopoverViewManager.m in Sources */,
+				886C6A31257E7B0F00842001 /* RCTPopoverViewModule.swift in Sources */,
+				886C6A2C257E7B0F00842001 /* RCTPopoverViewControlller.swift in Sources */,
+				886C6A2A257E7B0F00842001 /* UIPopoverArrowDirection+Helpers.swift in Sources */,
+				886C6A2F257E7B0F00842001 /* RCTPopoverView.swift in Sources */,
+				886C6A2E257E7B0F00842001 /* RCTPopoverTypes.swift in Sources */,
+				886C6A30257E7B0F00842001 /* RCTPopoverViewModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +292,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
+				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_NAME = IosPopover;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Src/IosPopover-Bridging-Header.h";

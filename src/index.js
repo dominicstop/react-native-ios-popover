@@ -1,14 +1,22 @@
 import React from 'react';
-import { StyleSheet, Platform, requireNativeComponent, UIManager, Text, View, TouchableOpacity, findNodeHandle, processColor } from 'react-native';
+import { NativeModules, UIManager, StyleSheet, requireNativeComponent, findNodeHandle, processColor, View } from 'react-native';
 import Proptypes from 'prop-types';
 
 import * as Helpers from './functions/helpers';
+
 
 const componentName   = "RCTPopoverView";
 const NativeCommands  = UIManager[componentName]?.Commands;
 const NativeComponent = requireNativeComponent(componentName);
 
-const NATIVE_COMMAND_KEYS = {
+const moduleName    = "PopoverModule";
+const PopoverModule = NativeModules[moduleName];
+
+const COMP_COMMAND_KEYS = {
+  'setVisibility': 'setVisibility',
+};
+
+const MODULE_COMMAND_KEYS = {
   'setVisibility': 'setVisibility',
 };
 
@@ -45,10 +53,9 @@ export class PopoverView extends React.PureComponent {
       await Helpers.setStateAsync(this, {mountPopover: true});
     };
 
-    UIManager.dispatchViewManagerCommand(
+    await PopoverModule[MODULE_COMMAND_KEYS.setVisibility](
       findNodeHandle(this.nativeRef),
-      NativeCommands?.[NATIVE_COMMAND_KEYS.setVisibility],
-      [visibility]
+      visibility
     );
   };
 
@@ -83,11 +90,11 @@ export class PopoverView extends React.PureComponent {
       permittedArrowDirections       : props.permittedArrowDirections,
       popoverCanOverlapSourceViewRect: props.canOverlapSourceViewRect,
       popoverBackgroundColor         : processColor(props.popoverBackgroundColor),
-      // Events -------------------------------------------
-      onPopoverWillShow  : this._handleOnPopoverWillShow  ,
-      onPopoverWillHide  : this._handleOnPopoverWillHide  ,
-      onPopoverDidShow   : this._handleOnPopoverDidShow   ,
-      onPopoverDidHide   : this._handleOnPopoverDidHide   ,
+      // Events ---------------------------------------
+      onPopoverWillShow: this._handleOnPopoverWillShow,
+      onPopoverWillHide: this._handleOnPopoverWillHide,
+      onPopoverDidShow : this._handleOnPopoverDidShow ,
+      onPopoverDidHide : this._handleOnPopoverDidHide ,
     };
 
     return(
