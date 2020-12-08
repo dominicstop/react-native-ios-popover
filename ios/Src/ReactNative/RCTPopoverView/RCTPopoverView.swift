@@ -156,7 +156,7 @@ class RCTPopoverView: UIView {
 };
 
 // -----------------------
-// Mark: Private Functions
+// MARK: Private Functions
 // -----------------------
 
 fileprivate extension RCTPopoverView {
@@ -170,7 +170,7 @@ fileprivate extension RCTPopoverView {
 };
 
 // ---------------------------------------
-// Mark: Functions for View Manager/Module
+// MARK: Functions for View Manager/Module
 // ---------------------------------------
 
 extension RCTPopoverView {
@@ -193,19 +193,14 @@ extension RCTPopoverView {
       };
       
     } else {
-      self.onPopoverWillHide?([:]);
-      
-      self.popoverController.dismiss(animated: true){
-        completion?();
-        // update popover visibility
-        self.isPopoverVisible = false;
-      };
+      // hide popover
+      self.popoverController.dismiss(animated: true, completion: completion);
     };
   };
 };
 
 // ---------------------------------------------
-// Mark: UIPopoverPresentationControllerDelegate
+// MARK: UIPopoverPresentationControllerDelegate
 // ---------------------------------------------
 
 extension RCTPopoverView: UIPopoverPresentationControllerDelegate {
@@ -215,8 +210,25 @@ extension RCTPopoverView: UIPopoverPresentationControllerDelegate {
     return .none;
   };
   
-  func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+  // popover will dismiss
+  func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+    #if DEBUG
+    print("RCTPopoverView, UIPopoverPresentationControllerDelegate - willDismiss");
+    #endif
+    
+    // send event to RN
+    self.onPopoverWillHide?([:]);
+  };
+  
+  // popover did dismiss
+  func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+    #if DEBUG
+    print("RCTPopoverView, UIPopoverPresentationControllerDelegate - didDismiss");
+    #endif
+    
+    // update popover visibility
     self.isPopoverVisible = false;
+    // send event to RN
     self.onPopoverDidHide?([:]);
   };
 };
