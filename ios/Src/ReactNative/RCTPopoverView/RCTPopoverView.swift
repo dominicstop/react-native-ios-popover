@@ -16,6 +16,7 @@ class RCTPopoverView: UIView {
   // ----------------
   
   weak var bridge: RCTBridge!;
+  var touchHandler: RCTTouchHandler!;
   
   /// the content to show in the popover
   var reactPopoverView: UIView?;
@@ -52,6 +53,10 @@ class RCTPopoverView: UIView {
       presentation.backgroundColor = self._popoverBackgroundColor;
       presentation.permittedArrowDirections = self._permittedArrowDirections;
       presentation.canOverlapSourceViewRect = self.popoverCanOverlapSourceViewRect;
+      
+      if let reactPopoverView = self.reactPopoverView {
+        presentation.passthroughViews = [reactPopoverView];
+      };
     };
     
     return popoverVC;
@@ -140,6 +145,8 @@ class RCTPopoverView: UIView {
     super.init(frame: CGRect());
     
     self.bridge = bridge;
+    self.touchHandler = RCTTouchHandler(bridge: bridge);
+    
     #if DEBUG
     NotificationCenter.default.addObserver(self,
       selector: #selector(self.onCTBridgeWillReload),
@@ -163,6 +170,17 @@ class RCTPopoverView: UIView {
     if atIndex == 0 {
       subview.removeFromSuperview();
       self.reactPopoverView = subview;
+      self.touchHandler.attach(to: subview);
+    };
+  };
+  
+  override func removeReactSubview(_ subview: UIView!) {
+    super.removeReactSubview(subview);
+    
+    if self.reactPopoverView == subview {
+      // popover contents has been unmounted
+      self.touchHandler.detach(from: subview);
+      self.reactPopoverView = nil;
     };
   };
 };
