@@ -140,6 +140,13 @@ class RCTPopoverView: UIView {
     super.init(frame: CGRect());
     
     self.bridge = bridge;
+    #if DEBUG
+    NotificationCenter.default.addObserver(self,
+      selector: #selector(self.onCTBridgeWillReload),
+      name: NSNotification.Name(rawValue: "RCTBridgeWillReloadNotification"),
+      object: nil
+    );
+    #endif
   };
   
   required init?(coder: NSCoder) {
@@ -172,6 +179,14 @@ fileprivate extension RCTPopoverView {
         
     bridge.uiManager.setSize(newBounds.size, for: reactView);
   };
+  
+  #if DEBUG
+  // called when the RN app is reloaded
+  @objc func onCTBridgeWillReload(){
+    // dismiss modal
+    self.setVisibility(false);
+  };
+  #endif
 };
 
 // ---------------------------------------
@@ -237,6 +252,7 @@ extension RCTPopoverView: UIPopoverPresentationControllerDelegate {
     self.onPopoverDidHide?([:]);
   };
   
+  // popover should dismiss
   func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
     #if DEBUG
     print("RCTPopoverView, UIPopoverPresentationControllerDelegate - shouldDismiss");

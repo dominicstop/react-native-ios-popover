@@ -51,6 +51,10 @@ export class PopoverView extends React.PureComponent {
     };
   };
 
+  componentWillUnmount(){
+    this.setVisibility(false);
+  };
+
   setVisibility = async (visibility) => {
     const { lazyPopover } = this.props;
 
