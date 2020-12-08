@@ -53,10 +53,6 @@ class RCTPopoverView: UIView {
       presentation.backgroundColor = self._popoverBackgroundColor;
       presentation.permittedArrowDirections = self._permittedArrowDirections;
       presentation.canOverlapSourceViewRect = self.popoverCanOverlapSourceViewRect;
-      
-      if let reactPopoverView = self.reactPopoverView {
-        presentation.passthroughViews = [reactPopoverView];
-      };
     };
     
     return popoverVC;
@@ -223,13 +219,16 @@ extension RCTPopoverView {
     else { return };
     
     if visibility {
+      // send event to RN
       self.onPopoverWillShow?([:]);
-      // update popover visibility
-      self.isPopoverVisible = true;
       
       // show popover
       parentVC.present(self.popoverController, animated: true){
         completion?();
+        
+        // update popover visibility
+        self.isPopoverVisible = true;
+        // send event to RN
         self.onPopoverDidShow?([:]);
       };
       
@@ -240,6 +239,7 @@ extension RCTPopoverView {
       // hide popover
       self.popoverController.dismiss(animated: true){
         completion?();
+        
         // update popover visibility
         self.isPopoverVisible = false;
         // send event to RN
