@@ -33,7 +33,9 @@ export default function PopoverViewExample03(props) {
           </View>
         )}
       >
-        <Button onPress={onPressButton}/>
+        <Button onPress={() => {
+          popoverRef.current.setVisibility(true);
+        }}/>
       </PopoverView>
     </ExampleItemPopoverView>
   );

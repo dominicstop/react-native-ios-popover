@@ -16,7 +16,7 @@ export default function PopoverViewExample04(props) {
   return (
     <ExampleItemPopoverView
       title={'PopoverViewExample04'}
-      subtitle={'Stretch'}
+      subtitle={'BG Color'}
       desc={'A example `PopoverView` with the `popoverBackgroundColor` prop set to "pink"'}
       {...props}
     >

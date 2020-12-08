@@ -9,9 +9,6 @@ import { ExampleItemPopoverView } from './ExampleItemPopoverView';
 
 export default function PopoverViewExample01(props) {
   const popoverRef = useRef();
-  const onPressButton = useCallback(() => {
-    popoverRef.current.setVisibility(true);
-  });
 
   return (
     <ExampleItemPopoverView
@@ -30,7 +27,9 @@ export default function PopoverViewExample01(props) {
           </View>
         )}
       >
-        <Button onPress={onPressButton}/>
+        <Button onPress={() => {
+          popoverRef.current.setVisibility(true);
+        }}/>
       </PopoverView>
     </ExampleItemPopoverView>
   );
