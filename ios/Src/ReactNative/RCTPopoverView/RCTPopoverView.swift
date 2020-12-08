@@ -72,6 +72,9 @@ class RCTPopoverView: UIView {
   @objc var onPopoverDidShow: RCTBubblingEventBlock?;
   @objc var onPopoverDidHide: RCTBubblingEventBlock?;
   
+  @objc var onPopoverWillHideViaTap: RCTBubblingEventBlock?;
+  @objc var onPopoverDidHideViaTap : RCTBubblingEventBlock?;
+  
   @objc var onPopoverDidAttemptToDismiss: RCTBubblingEventBlock?;
   
   // -----------------------
@@ -263,8 +266,9 @@ extension RCTPopoverView: UIPopoverPresentationControllerDelegate {
     print("RCTPopoverView, UIPopoverPresentationControllerDelegate - willDismiss");
     #endif
     
-    // send event to RN
+    // send events to RN
     self.onPopoverWillHide?([:]);
+    self.onPopoverWillHideViaTap?([:]);
   };
   
   // popover did dismiss via tap
@@ -275,8 +279,10 @@ extension RCTPopoverView: UIPopoverPresentationControllerDelegate {
     
     // update popover visibility
     self.isPopoverVisible = false;
-    // send event to RN
+    
+    // send events to RN
     self.onPopoverDidHide?([:]);
+    self.onPopoverDidHideViaTap?([:]);
   };
   
   // popover should dismiss via tap

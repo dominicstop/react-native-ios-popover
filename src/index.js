@@ -29,12 +29,13 @@ export class PopoverView extends React.PureComponent {
     lazyPopover: Proptypes.bool,
     popoverShouldDismiss: Proptypes.bool,
     popoverCanOverlapSourceViewRect: Proptypes.bool,
-    // events --------------------------
-    onPopoverWillShow  : Proptypes.func,
-    onPopoverWillHide  : Proptypes.func,
-    onPopoverDidShow   : Proptypes.func,
-    onPopoverDidHide   : Proptypes.func,
-    onPopoverWillCreate: Proptypes.func,
+    // events ------------------------------
+    onPopoverDidShow       : Proptypes.func,
+    onPopoverDidHide       : Proptypes.func,
+    onPopoverWillShow      : Proptypes.func,
+    onPopoverWillHide      : Proptypes.func,
+    onPopoverDidHideViaTap : Proptypes.func,
+    onPopoverWillHideViaTap: Proptypes.func,
     onPopoverDidAttemptToDismiss: Proptypes.func,
   };
 
@@ -53,7 +54,7 @@ export class PopoverView extends React.PureComponent {
 
   componentWillUnmount(){
     this.setVisibility(false);
-  };
+  };8
 
   setVisibility = async (visibility) => {
     const { lazyPopover } = this.props;
@@ -74,25 +75,9 @@ export class PopoverView extends React.PureComponent {
 
   //#region - Event Handlers
 
-  _handleOnPopoverWillShow = () => {
-    this.props.onPopoverWillShow?.();
-  };
-
-  _handleOnPopoverWillHide = () => {
-    this.props.onPopoverWillHide?.();
-  };
-
-  _handleOnPopoverDidShow = () => {
-    this.props.onPopoverDidShow?.();
-  };
-
   _handleOnPopoverDidHide = () => {
     this.props.onPopoverDidHide?.();
     Helpers.setStateAsync(this, {mountPopover: false});
-  };
-
-  _handleOnPopoverDidAttemptToDismiss = () => {
-    this.props.onPopoverDidAttemptToDismiss?.();
   };
 
   //#endregion
@@ -109,12 +94,14 @@ export class PopoverView extends React.PureComponent {
       // Flags ----------------------------------------
       popoverShouldDismiss: props.popoverShouldDismiss,
       popoverCanOverlapSourceViewRect: props.popoverCanOverlapSourceViewRect,
-      // Events ---------------------------------------
-      onPopoverWillShow: this._handleOnPopoverWillShow,
-      onPopoverWillHide: this._handleOnPopoverWillHide,
-      onPopoverDidShow : this._handleOnPopoverDidShow ,
-      onPopoverDidHide : this._handleOnPopoverDidHide ,
-      onPopoverDidAttemptToDismiss: this._handleOnPopoverDidAttemptToDismiss,
+      // Events --------------------------------------------
+      onPopoverDidHide       : this._handleOnPopoverDidHide,
+      onPopoverWillShow      : props.onPopoverWillShow,
+      onPopoverWillHide      : props.onPopoverWillHide,
+      onPopoverDidShow       : props.onPopoverDidShow ,
+      onPopoverDidHideViaTap : props.onPopoverDidHideViaTap,
+      onPopoverWillHideViaTap: props.onPopoverWillHideViaTap,
+      onPopoverDidAttemptToDismiss: props.onPopoverDidAttemptToDismiss,
     };
 
     return(

@@ -21,6 +21,9 @@ RCT_EXPORT_VIEW_PROPERTY(onPopoverWillHide, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onPopoverDidShow, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(onPopoverDidHide, RCTBubblingEventBlock);
 
+RCT_EXPORT_VIEW_PROPERTY(onPopoverWillHideViaTap, RCTBubblingEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onPopoverDidHideViaTap , RCTBubblingEventBlock);
+
 RCT_EXPORT_VIEW_PROPERTY(onPopoverDidAttemptToDismiss, RCTBubblingEventBlock);
 
 // ---------------------------
