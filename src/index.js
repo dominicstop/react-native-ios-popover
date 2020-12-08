@@ -46,38 +46,75 @@ export class PopoverView extends React.PureComponent {
   
   constructor(props){
     super(props);
+    
+    /** indicates whether the popover is visible */
+    this.isPopoverVisible = false;
+    /** indicates that the popover is being presented/dismissed */
+    this.isPopoverPresenting = false;
 
     this.state = {
+      /** controls whether the popover content is mounted */
       mountPopover: false,
     };
   };
 
   componentWillUnmount(){
     this.setVisibility(false);
-  };8
-
-  setVisibility = async (visibility) => {
-    const { lazyPopover } = this.props;
-
-    if(visibility){
-      await Promise.all([
-        Helpers.setStateAsync(this, {mountPopover: true}),
-        // temp bugfix: wait for popover to mount
-        lazyPopover && Helpers.timeout(50)
-      ]);
-    };
-
-    await PopoverModule[MODULE_COMMAND_KEYS.setVisibility](
-      findNodeHandle(this.nativeRef),
-      visibility
-    );
   };
 
+  //#region - Public Methods
+  /** show or hide the popover */
+  setVisibility = async (visibility) => {
+    // guard: defer if the popover is not done presenting
+    if(this.isPopoverPresenting) return;
+
+    // guard: defer if the popover is already hidden/visible
+    if(this.isPopoverVisible == visibility) return;
+
+    try {
+      const { lazyPopover } = this.props;
+      this.isPopoverPresenting = true;
+
+      if(visibility){
+        await Promise.all([
+          Helpers.setStateAsync(this, {mountPopover: true}),
+          // temp bugfix: wait for popover to mount
+          lazyPopover && Helpers.timeout(50)
+        ]);
+      };
+
+      await PopoverModule[MODULE_COMMAND_KEYS.setVisibility](
+        findNodeHandle(this.nativeRef),
+        visibility
+      );
+
+      this.isPopoverVisible = visibility;
+      this.isPopoverPresenting = false;
+
+    } catch(error){
+      if(__DEV__){
+        console.warn("PopoverView, setVisibility error", error);
+      };
+
+      this.isPopoverPresenting = false;
+      throw error;
+    };
+  };
+
+  /** toggle the popover visibility */
+  toggleVisibility = async () => {
+    await this.setVisibility(!this.isPopoverVisible);
+  };
+
+  //#endregion
   //#region - Event Handlers
 
   _handleOnPopoverDidHide = () => {
     this.props.onPopoverDidHide?.();
     Helpers.setStateAsync(this, {mountPopover: false});
+
+    this.isPopoverVisible    = false;
+    this.isPopoverPresenting = false;
   };
 
   //#endregion
