@@ -231,8 +231,17 @@ extension RCTPopoverView {
       };
       
     } else {
+      // send event to RN
+      self.onPopoverWillHide?([:]);
+      
       // hide popover
-      self.popoverController.dismiss(animated: true, completion: completion);
+      self.popoverController.dismiss(animated: true){
+        completion?();
+        // update popover visibility
+        self.isPopoverVisible = false;
+        // send event to RN
+        self.onPopoverDidHide?([:]);
+      };
     };
   };
 };
@@ -248,7 +257,7 @@ extension RCTPopoverView: UIPopoverPresentationControllerDelegate {
     return .none;
   };
   
-  // popover will dismiss
+  // popover will dismiss via tap
   func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
     #if DEBUG
     print("RCTPopoverView, UIPopoverPresentationControllerDelegate - willDismiss");
@@ -258,7 +267,7 @@ extension RCTPopoverView: UIPopoverPresentationControllerDelegate {
     self.onPopoverWillHide?([:]);
   };
   
-  // popover did dismiss
+  // popover did dismiss via tap
   func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
     #if DEBUG
     print("RCTPopoverView, UIPopoverPresentationControllerDelegate - didDismiss");
@@ -270,7 +279,7 @@ extension RCTPopoverView: UIPopoverPresentationControllerDelegate {
     self.onPopoverDidHide?([:]);
   };
   
-  // popover should dismiss
+  // popover should dismiss via tap
   func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
     #if DEBUG
     print("RCTPopoverView, UIPopoverPresentationControllerDelegate - shouldDismiss");
