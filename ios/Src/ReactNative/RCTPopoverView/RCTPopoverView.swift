@@ -126,6 +126,9 @@ class RCTPopoverView: UIView {
       };
     }
   };
+  
+  // controls whether the popover should dismiss when bg is tapped
+  @objc var popoverShouldDismiss: Bool = true;
 
   // ----------------
   // MARK: Initialize
@@ -230,5 +233,13 @@ extension RCTPopoverView: UIPopoverPresentationControllerDelegate {
     self.isPopoverVisible = false;
     // send event to RN
     self.onPopoverDidHide?([:]);
+  };
+  
+  func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+    #if DEBUG
+    print("RCTPopoverView, UIPopoverPresentationControllerDelegate - shouldDismiss");
+    #endif
+    
+    return self.popoverShouldDismiss;
   };
 };

@@ -27,6 +27,7 @@ export class PopoverView extends React.PureComponent {
     permittedArrowDirections: Proptypes.arrayOf(Proptypes.string),
     // flags -------------------
     lazyPopover: Proptypes.bool,
+    popoverShouldDismiss: Proptypes.bool,
     popoverCanOverlapSourceViewRect: Proptypes.bool,
     // events --------------------------
     onPopoverWillShow  : Proptypes.func,
@@ -38,6 +39,7 @@ export class PopoverView extends React.PureComponent {
 
   static defaultProps = {
     lazyPopover: true,
+    popoverShouldDismiss: true,
   };
   
   constructor(props){
@@ -91,11 +93,13 @@ export class PopoverView extends React.PureComponent {
     const { mountPopover } = this.state;
 
     const nativeProps = {
-      // Values ----------------------------------------
-      popoverSize                    : props.popoverSize,
-      permittedArrowDirections       : props.permittedArrowDirections,
+      // Values ----------------------------------
+      popoverSize             : props.popoverSize,
+      permittedArrowDirections: props.permittedArrowDirections,
+      popoverBackgroundColor  : processColor(props.popoverBackgroundColor),
+      // Flags ----------------------------------------
+      popoverShouldDismiss: props.popoverShouldDismiss,
       popoverCanOverlapSourceViewRect: props.popoverCanOverlapSourceViewRect,
-      popoverBackgroundColor         : processColor(props.popoverBackgroundColor),
       // Events ---------------------------------------
       onPopoverWillShow: this._handleOnPopoverWillShow,
       onPopoverWillHide: this._handleOnPopoverWillHide,
