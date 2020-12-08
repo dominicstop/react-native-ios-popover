@@ -39,7 +39,9 @@ class RCTPopoverViewModule: NSObject {
       
       popoverView.setVisibility(visibility) {
         resolve([:]);
-        print("setVisibility");
+        #if DEBUG
+        print("RCTPopoverViewModule, setVisibility: \(visibility)");
+        #endif
       };
     };
   };

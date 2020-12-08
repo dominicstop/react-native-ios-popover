@@ -35,6 +35,7 @@ export class PopoverView extends React.PureComponent {
     onPopoverDidShow   : Proptypes.func,
     onPopoverDidHide   : Proptypes.func,
     onPopoverWillCreate: Proptypes.func,
+    onPopoverDidAttemptToDismiss: Proptypes.func,
   };
 
   static defaultProps = {
@@ -86,6 +87,10 @@ export class PopoverView extends React.PureComponent {
     Helpers.setStateAsync(this, {mountPopover: false});
   };
 
+  _handleOnPopoverDidAttemptToDismiss = () => {
+    this.props.onPopoverDidAttemptToDismiss?.();
+  };
+
   //#endregion
 
   render(){
@@ -105,6 +110,7 @@ export class PopoverView extends React.PureComponent {
       onPopoverWillHide: this._handleOnPopoverWillHide,
       onPopoverDidShow : this._handleOnPopoverDidShow ,
       onPopoverDidHide : this._handleOnPopoverDidHide ,
+      onPopoverDidAttemptToDismiss: this._handleOnPopoverDidAttemptToDismiss,
     };
 
     return(

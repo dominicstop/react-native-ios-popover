@@ -67,6 +67,8 @@ class RCTPopoverView: UIView {
   @objc var onPopoverDidShow: RCTBubblingEventBlock?;
   @objc var onPopoverDidHide: RCTBubblingEventBlock?;
   
+  @objc var onPopoverDidAttemptToDismiss: RCTBubblingEventBlock?;
+  
   // -----------------------
   // MARK: RN Exported Props
   // -----------------------
@@ -239,6 +241,11 @@ extension RCTPopoverView: UIPopoverPresentationControllerDelegate {
     #if DEBUG
     print("RCTPopoverView, UIPopoverPresentationControllerDelegate - shouldDismiss");
     #endif
+    
+    if !self.popoverShouldDismiss {
+      // send event to RN
+      self.onPopoverDidAttemptToDismiss?([:]);
+    };
     
     return self.popoverShouldDismiss;
   };
