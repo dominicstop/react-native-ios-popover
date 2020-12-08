@@ -5,6 +5,7 @@ import PopoverViewExample01 from './components/PopoverViewExample01';
 import PopoverViewExample02 from './components/PopoverViewExample02';
 import PopoverViewExample03 from './components/PopoverViewExample03';
 import PopoverViewExample04 from './components/PopoverViewExample04';
+import PopoverViewExample05 from './components/PopoverViewExample05';
 
 
 const examples = [
@@ -12,6 +13,7 @@ const examples = [
   PopoverViewExample02,
   PopoverViewExample03,
   PopoverViewExample04,
+  PopoverViewExample05,
 ];
 
 export default function App() {
