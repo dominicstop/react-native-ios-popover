@@ -21,10 +21,7 @@ export default function PopoverViewExample05(props) {
     >
       <PopoverView
         ref={popoverRef}
-        popoverShouldDismiss={false}
-        onPopoverDidAttemptToDismiss={() => {
-          alert('onPopoverDidAttemptToDismiss');
-        }}
+        onPopoverDidHideViaTap={() => alert('onPopoverDidHideViaTap')}
         renderPopoverContent={() => (
           <View style={{padding: 20}}>
             <TouchableOpacity 

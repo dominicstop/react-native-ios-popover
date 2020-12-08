@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useCallback, useRef } from 'react';
+import { useRef } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 
 import { PopoverView } from 'react-native-ios-popover';
@@ -9,9 +9,6 @@ import { ExampleItemPopoverView } from './ExampleItemPopoverView';
 
 export default function PopoverViewExample03(props) {
   const popoverRef = useRef();
-  const onPressButton = useCallback(() => {
-    popoverRef.current.setVisibility(true);
-  });
 
   return (
     <ExampleItemPopoverView
