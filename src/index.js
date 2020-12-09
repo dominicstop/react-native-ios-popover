@@ -18,6 +18,7 @@ const COMP_COMMAND_KEYS = {
 
 const MODULE_COMMAND_KEYS = {
   'setVisibility': 'setVisibility',
+  'getVisibility': 'getVisibility',
 };
 
 export class PopoverView extends React.PureComponent {
@@ -98,6 +99,12 @@ export class PopoverView extends React.PureComponent {
   /** toggle the popover visibility */
   toggleVisibility = async () => {
     await this.setVisibility(!this.isPopoverVisible);
+  };
+
+  getVisibility = async () => {
+    return await PopoverModule[MODULE_COMMAND_KEYS.getVisibility](
+      findNodeHandle(this.nativeRef),
+    );
   };
 
   //#endregion
