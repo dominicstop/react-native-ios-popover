@@ -16,7 +16,7 @@ class RCTPopoverView: UIView {
   // ----------------
   
   weak var bridge: RCTBridge!;
-  var touchHandler: RCTTouchHandler!;
+  private var touchHandler: RCTTouchHandler!;
   
   /// the content to show in the popover
   var reactPopoverView: UIView?;
@@ -24,7 +24,7 @@ class RCTPopoverView: UIView {
   var isPopoverVisible = false;
   
   /// the view controller that holds/manages the popover content
-  var _popoverController: RCTPopoverViewControlller?;
+  private var _popoverController: RCTPopoverViewControlller?;
   /// returns the current popover vc instance (or init. it first if it's nil)
   var popoverController: RCTPopoverViewControlller {
     // get popover vc, or init it first if its nil
@@ -56,6 +56,11 @@ class RCTPopoverView: UIView {
     };
     
     return popoverVC;
+  };
+  
+  // shorthand to get the popover vc's presentation controller
+  var popoverPresentation: UIPopoverPresentationController? {
+    return  self._popoverController?.popoverPresentationController;
   };
   
   // -----------------------------
@@ -125,10 +130,8 @@ class RCTPopoverView: UIView {
   
   @objc var popoverCanOverlapSourceViewRect: Bool = true {
     willSet {
-      if let popoverVC         = self._popoverController,
-         let popoverController = popoverVC.popoverPresentationController {
-        
-        popoverController.canOverlapSourceViewRect = newValue;
+      if let presentation = self.popoverPresentation {
+        presentation.canOverlapSourceViewRect = newValue;
       };
     }
   };
@@ -184,9 +187,9 @@ class RCTPopoverView: UIView {
   };
 };
 
-// -----------------------
-// MARK: Private Functions
-// -----------------------
+// ------------------------
+// MARK:- Private Functions
+// ------------------------
 
 fileprivate extension RCTPopoverView {
   func popoverViewNotifyForBoundsChange(_ newBounds: CGRect){
@@ -206,16 +209,16 @@ fileprivate extension RCTPopoverView {
   #endif
 };
 
-// ---------------------------------------
-// MARK: Functions for View Manager/Module
-// ---------------------------------------
+// ----------------------------------------
+// MARK:- Functions for View Manager/Module
+// ----------------------------------------
 
 extension RCTPopoverView {
   /// show or hide the popover
   func setVisibility(_ visibility: Bool, completion: Completion? = nil) {
     guard self.isPopoverVisible != visibility,
           // get the closest view controller
-          let parentVC  = self.reactViewController()
+          let parentVC = self.reactViewController()
     else { return };
     
     if visibility {
@@ -249,9 +252,9 @@ extension RCTPopoverView {
   };
 };
 
-// ---------------------------------------------
-// MARK: UIPopoverPresentationControllerDelegate
-// ---------------------------------------------
+// ----------------------------------------------
+// MARK:- UIPopoverPresentationControllerDelegate
+// ----------------------------------------------
 
 extension RCTPopoverView: UIPopoverPresentationControllerDelegate {
   
