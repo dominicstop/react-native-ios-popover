@@ -80,6 +80,10 @@ class RCTPopoverViewModule: NSObject {
         return;
       };
       
+      #if DEBUG
+      print("RCTPopoverViewModule, getVisibility: \(popoverView.isPopoverVisible)");
+      #endif
+      
       resolve(popoverView.isPopoverVisible);
     };
   };

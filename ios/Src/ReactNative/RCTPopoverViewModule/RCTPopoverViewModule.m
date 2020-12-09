@@ -12,9 +12,11 @@
 RCT_EXTERN_METHOD(setVisibility: (nonnull NSNumber *)node
                   visibility   : (nonnull BOOL     *)visibility
                   resolve: (RCTPromiseResolveBlock)resolve
-                  reject : (RCTPromiseRejectBlock )reject)
+                  reject : (RCTPromiseRejectBlock )reject);
+
 
 RCT_EXTERN_METHOD(getVisibility: (nonnull NSNumber *)node
                   resolve: (RCTPromiseResolveBlock)resolve
-                  reject : (RCTPromiseRejectBlock )reject)
+                  reject : (RCTPromiseRejectBlock )reject);
+
 @end

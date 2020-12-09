@@ -62,7 +62,7 @@ export class PopoverView extends React.PureComponent {
   /** show or hide the popover */
   setVisibility = async (visibility) => {
     const { lazyPopover } = this.props;
-    
+
     try {
       if(visibility){
         await Promise.all([
@@ -88,12 +88,13 @@ export class PopoverView extends React.PureComponent {
 
   /** toggle the popover visibility */
   toggleVisibility = async () => {
-    await this.setVisibility(!this.isPopoverVisible);
+    const visibility = await this.getVisibility();
+    await this.setVisibility(!visibility);
   };
 
   getVisibility = async () => {
     return await PopoverModule[MODULE_COMMAND_KEYS.getVisibility](
-      findNodeHandle(this.nativeRef),
+      findNodeHandle(this.nativeRef)
     );
   };
 
