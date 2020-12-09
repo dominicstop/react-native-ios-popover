@@ -48,11 +48,6 @@ export class PopoverView extends React.PureComponent {
   constructor(props){
     super(props);
     
-    /** indicates whether the popover is visible */
-    this.isPopoverVisible = false;
-    /** indicates that the popover is being presented/dismissed */
-    this.isPopoverPresenting = false;
-
     this.state = {
       /** controls whether the popover content is mounted */
       mountPopover: false,
@@ -66,10 +61,9 @@ export class PopoverView extends React.PureComponent {
   //#region - Public Methods
   /** show or hide the popover */
   setVisibility = async (visibility) => {
+    const { lazyPopover } = this.props;
+    
     try {
-      const { lazyPopover } = this.props;
-      this.isPopoverPresenting = true;
-
       if(visibility){
         await Promise.all([
           Helpers.setStateAsync(this, {mountPopover: true}),
@@ -83,15 +77,11 @@ export class PopoverView extends React.PureComponent {
         visibility
       );
 
-      this.isPopoverVisible = visibility;
-      this.isPopoverPresenting = false;
-
     } catch(error){
       if(__DEV__){
         console.warn("PopoverView, setVisibility", error);
       };
 
-      this.isPopoverPresenting = false;
       throw error;
     };
   };
@@ -113,9 +103,6 @@ export class PopoverView extends React.PureComponent {
   _handleOnPopoverDidHide = () => {
     this.props.onPopoverDidHide?.();
     Helpers.setStateAsync(this, {mountPopover: false});
-
-    this.isPopoverVisible    = false;
-    this.isPopoverPresenting = false;
   };
 
   //#endregion
