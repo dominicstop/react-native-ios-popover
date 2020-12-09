@@ -71,6 +71,10 @@ class RCTPopoverViewControlller: UIViewController {
       case .STRETCH:
         self.preferredContentSize = CGSize(width: 0, height: 0);
         self.boundsDidChangeBlock?(self.view.bounds);
+        
+      case .CUSTOM(let width, let height):
+        self.preferredContentSize = CGSize(width: width, height: height);
+        self.boundsDidChangeBlock?(self.view.bounds);
     };
   };
 };

@@ -17,3 +17,7 @@ export function timeout(ms) {
     }, ms)
   });
 };
+
+export function isObject(value){
+  return (typeof value === 'object' && value !== null);
+};

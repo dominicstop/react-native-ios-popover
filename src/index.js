@@ -23,7 +23,10 @@ const MODULE_COMMAND_KEYS = {
 
 export class PopoverView extends React.PureComponent {
   static proptypes = {
-    popoverSize             : Proptypes.string,
+    popoverSize: Proptypes.oneOf([
+      Proptypes.object,
+      Proptypes.string,
+    ]),
     popoverBackgroundColor  : Proptypes.string,
     permittedArrowDirections: Proptypes.arrayOf(Proptypes.string),
     // flags -------------------
@@ -112,11 +115,19 @@ export class PopoverView extends React.PureComponent {
     const props = this.props;
     const { mountPopover } = this.state;
 
+
+
     const nativeProps = {
-      // Values ----------------------------------
-      popoverSize             : props.popoverSize,
-      permittedArrowDirections: props.permittedArrowDirections,
+      // Values -----------------------------------------------------------
       popoverBackgroundColor  : processColor(props.popoverBackgroundColor),
+      permittedArrowDirections: props.permittedArrowDirections,
+      // handle `popoverSize` prop...
+      ...(Helpers.isObject(props.popoverSize)
+        // `props.popoverSize` is width/height obj
+        ? { popoverSize: 'CUSTOM', customPopoverSize: props.popoverSize }
+        // `props.popoverSize` is string i.e. PopoverSize enum value
+        : { popoverSize: props.popoverSize }
+      ),
       // Flags ----------------------------------------
       popoverShouldDismiss: props.popoverShouldDismiss,
       popoverCanOverlapSourceViewRect: props.popoverCanOverlapSourceViewRect,

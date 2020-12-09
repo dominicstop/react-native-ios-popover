@@ -7,7 +7,20 @@
 
 import Foundation
 
-enum RCTPopoverSize: String {
+enum RCTPopoverSize {
   case INHERIT;
   case STRETCH;
-}
+  case CUSTOM(width: CGFloat, height: CGFloat);
+  
+  static let stringMap: [String: RCTPopoverSize] = [
+    "INHERIT": .INHERIT,
+    "STRETCH": .STRETCH,
+  ];
+  
+  init?(string: String){
+    guard let match = Self.stringMap[string.uppercased()]
+    else { return nil };
+    
+    self = match;
+  };
+};

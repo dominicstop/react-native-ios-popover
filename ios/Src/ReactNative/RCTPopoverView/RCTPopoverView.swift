@@ -89,11 +89,27 @@ class RCTPopoverView: UIView {
   // MARK: RN Exported Props
   // -----------------------
   
+  // private/internal prop
+  private var _customPopoverSize: RCTPopoverSize = .CUSTOM(width: 0, height: 0);
+  @objc var customPopoverSize: NSDictionary? {
+    didSet {
+      guard let dictionary = self.customPopoverSize
+      else { return };
+      
+      self._customPopoverSize = .CUSTOM(
+        width : dictionary["width" ] as? CGFloat ?? 0,
+        height: dictionary["height"] as? CGFloat ?? 0
+      );
+    }
+  };
+  
   private var _popoverSize: RCTPopoverSize = .INHERIT;
   @objc var popoverSize: NSString? {
     didSet {
-      guard let string      = self.popoverSize as String?,
-            let popoverSize = RCTPopoverSize(rawValue: string)
+      guard let string = self.popoverSize as String?,
+            let popoverSize = (string == "CUSTOM")
+              ? self._customPopoverSize
+              : RCTPopoverSize(string: string)
       else { return };
       
       self._popoverSize = popoverSize;
