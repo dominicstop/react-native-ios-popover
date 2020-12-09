@@ -8,6 +8,7 @@ import PopoverViewExample04 from './components/PopoverViewExample04';
 import PopoverViewExample05 from './components/PopoverViewExample05';
 import PopoverViewExample06 from './components/PopoverViewExample06';
 import PopoverViewExample07 from './components/PopoverViewExample07';
+import PopoverViewExample08 from './components/PopoverViewExample08';
 
 
 const examples = [
@@ -18,6 +19,7 @@ const examples = [
   PopoverViewExample05,
   PopoverViewExample06,
   PopoverViewExample07,
+  PopoverViewExample08,
 ];
 
 export default function App() {
