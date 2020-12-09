@@ -7,7 +7,7 @@
 
 import UIKit;
 
-typealias Completion = (() -> ());
+typealias Completion = ((_ success: Bool, _ message: String?) -> ());
 
 class RCTPopoverView: UIView {
   
@@ -20,8 +20,6 @@ class RCTPopoverView: UIView {
   
   /// the content to show in the popover
   var reactPopoverView: UIView?;
-  /// flag that indicates whether the popover is presented or not
-  var isPopoverVisible = false;
   
   /// the view controller that holds/manages the popover content
   private var _popoverController: RCTPopoverViewControlller?;
@@ -61,6 +59,15 @@ class RCTPopoverView: UIView {
   // shorthand to get the popover vc's presentation controller
   var popoverPresentation: UIPopoverPresentationController? {
     return  self._popoverController?.popoverPresentationController;
+  };
+  
+  /// flag that indicates whether the popover is presented or not
+  var isPopoverVisible: Bool {
+    guard let popoverVC = self._popoverController
+    else { return false };
+    
+    // the view's window property is non-nil if a view is currently visible
+    return popoverVC.viewIfLoaded?.window != nil;
   };
   
   // -----------------------------
@@ -219,7 +226,11 @@ extension RCTPopoverView {
     guard self.isPopoverVisible != visibility,
           // get the closest view controller
           let parentVC = self.reactViewController()
-    else { return };
+    else {
+      // `setVisibility` failed...
+      completion?(false, "Popover already \(visibility ? "visible" : "hidden")");
+      return;
+    };
     
     if visibility {
       // send event to RN
@@ -227,10 +238,9 @@ extension RCTPopoverView {
       
       // show popover
       parentVC.present(self.popoverController, animated: true){
-        completion?();
+        // `setVisibility` success...
+        completion?(true, nil);
         
-        // update popover visibility
-        self.isPopoverVisible = true;
         // send event to RN
         self.onPopoverDidShow?([:]);
       };
@@ -241,10 +251,9 @@ extension RCTPopoverView {
       
       // hide popover
       self.popoverController.dismiss(animated: true){
-        completion?();
+        // `setVisibility` success...
+        completion?(true, nil);
         
-        // update popover visibility
-        self.isPopoverVisible = false;
         // send event to RN
         self.onPopoverDidHide?([:]);
       };
@@ -279,9 +288,6 @@ extension RCTPopoverView: UIPopoverPresentationControllerDelegate {
     #if DEBUG
     print("RCTPopoverView, UIPopoverPresentationControllerDelegate - didDismiss");
     #endif
-    
-    // update popover visibility
-    self.isPopoverVisible = false;
     
     // send events to RN
     self.onPopoverDidHide?([:]);

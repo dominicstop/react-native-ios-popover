@@ -65,12 +65,6 @@ export class PopoverView extends React.PureComponent {
   //#region - Public Methods
   /** show or hide the popover */
   setVisibility = async (visibility) => {
-    // guard: defer if the popover is not done presenting
-    if(this.isPopoverPresenting) return;
-
-    // guard: defer if the popover is already hidden/visible
-    if(this.isPopoverVisible == visibility) return;
-
     try {
       const { lazyPopover } = this.props;
       this.isPopoverPresenting = true;
@@ -93,7 +87,7 @@ export class PopoverView extends React.PureComponent {
 
     } catch(error){
       if(__DEV__){
-        console.warn("PopoverView, setVisibility error", error);
+        console.warn("PopoverView, setVisibility", error);
       };
 
       this.isPopoverPresenting = false;
