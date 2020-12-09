@@ -151,7 +151,7 @@ class RCTPopoverView: UIView {
     }
   };
   
-  @objc var popoverCanOverlapSourceViewRect: Bool = true {
+  @objc var popoverCanOverlapSourceViewRect: Bool = false {
     willSet {
       if let presentation = self.popoverPresentation {
         presentation.canOverlapSourceViewRect = newValue;

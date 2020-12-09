@@ -33,11 +33,12 @@ export class PopoverView extends React.PureComponent {
     lazyPopover: Proptypes.bool,
     popoverShouldDismiss: Proptypes.bool,
     popoverCanOverlapSourceViewRect: Proptypes.bool,
-    // events ------------------------------
+    // functions/events --------------------
     onPopoverDidShow       : Proptypes.func,
     onPopoverDidHide       : Proptypes.func,
     onPopoverWillShow      : Proptypes.func,
     onPopoverWillHide      : Proptypes.func,
+    renderPopoverContent   : Proptypes.func,
     onPopoverDidHideViaTap : Proptypes.func,
     onPopoverWillHideViaTap: Proptypes.func,
     onPopoverDidAttemptToDismiss: Proptypes.func,
@@ -114,8 +115,6 @@ export class PopoverView extends React.PureComponent {
   render(){
     const props = this.props;
     const { mountPopover } = this.state;
-
-
 
     const nativeProps = {
       // Values -----------------------------------------------------------
