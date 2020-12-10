@@ -10,6 +10,9 @@ npm install react-native-ios-popover
 
 # or install via yarn
 yarn add react-native-ios-popover
+
+# then run pod install (uses auto-linking)
+cd ios && pod install
 ```
 
 <br>
@@ -97,7 +100,7 @@ Here is an overview of all the documentation and examples for the `PopoverView` 
 | `renderPopoverContent`            | **Required**: `Function` -> `Element`                        | The elements to show in the popover. This prop ccepts a function that returns a react element. The element returned from this function will be shown in the popover. |
 | `popoverSize`                     | **Optional**: `String` or  `Object: {width: number, height: number}` <br>**Default**: `INHERIT` | Controls the size the of the popover.<br><br>This prop accepts either  a `String` value ( i.e. a  `PopoverSize` enum item e.g. `INHERIT`, `STRETCH` sring) or a "size" object (i.e. an object with a `height` and/or `width` property).<br/><br/>If you provide a size object (e.g. `{width: 100, height: 100}`) then that object will be used for setting the size of the popover. |
 | `popoverBackgroundColor`          | **Optional**: `String`<br>**Default**: `transparent`         | Sets the background color of the popover.                    |
-| `permittedArrowDirections`        | **Optional**: `[String]`<br/>**Default**: `["any"]`          | Sets the arrow directions that you allow for the popover. <br><br>Accept an array of 1 or more string values, i.e. an array of `ArrowDirections` enum items (e.g. `up`, `down`, etc.) |
+| `permittedArrowDirections`        | **Optional**: `[String]`<br/>**Default**: `["any"]`          | Sets the arrow directions that you allow for the popover. <br><br>Accept an array of 0 or more string values, i.e. an array of `ArrowDirections` enum items (e.g. `up`, `down`, etc.)<br/><br/>Note If you pass in an empty array, then there will be no arrow shown. |
 | `lazyPopover`                     | **Optional**: `Bool`<br/>**Default**: `true`                 | Controls whether or not the popover content is always mounted. If set to `true` the popover content will only be mounted while the popover is visible.<br/><br/>Set this to `false` to prevent the popover from closing. |
 | `popoverShouldDismiss`            | **Optional**: `Bool`<br/>**Default**: `true`                 | Controls whether or not a tap outside the popover will dismiss it. |
 | `popoverCanOverlapSourceViewRect` | **Optional**: `Bool`<br/>**Default**: `false`                | Controls whether the popover can overlap its source view. If set to `false` the popover will avoid covering up the source view. |
@@ -129,17 +132,39 @@ Here is an overview of all the documentation and examples for the `PopoverView` 
 ### 3.2 Enum Values
 #### 3.2.1 `PopoverSize` Enum
 
-| Value | Description |
-|-------|-------------|
-|       |             |
+This enum is used to for the `PopoverView`'s `popoverSize` prop. Use this enum to control the size of the popover.
+
+- Import the enum like this: `import { PopoverSize } from "react-native-ios-popover";`
+
+- And use it like this: `{ popoverSize: PopoverSize.STRETCH }`
+
+- Or you can directly pass a string like this: `{ popoverSize: 'STRETCH' }`
+
+  
+
+| Value     | Description                                                  |
+| --------- | ------------------------------------------------------------ |
+| `INHERIT` | The default value. Specifies that the popover's size should match the view you return from `PopoverView.renderPopoverContent` prop. It will automatically resize/scale the popover to fit the screen. |
+| `STRETCH` | Specifies that we want the popover to be as big as possible, i.e. the popover should to stretch and fill up the screen. |
 
 <br>
 
 #### 3.2.2 `ArrowDirections` Enum
 
-| Value | Description |
-|-------|-------------|
-|       |             |
+This enum is used to for the `PopoverView`'s `permittedArrowDirections` prop. This enum corresponds to the `UIPopoverArrowDirection` swift struct, check out the [apple docs](https://developer.apple.com/documentation/uikit/uipopoverarrowdirection) for more info.
+
+- Import the enum like this: `import { ArrowDirections  } from "react-native-ios-popover";`
+- And use it like this: `{ permittedArrowDirections: [ArrowDirections.up] }`
+- Or you can directly pass a string like this: `{ permittedArrowDirections: ['up'] }`
+
+| Value     | Description                                                  |
+| --------- | ------------------------------------------------------------ |
+| `up`      | An arrow that points upward. The popover will appear at the bottom with the arrow pointing up. |
+| `down`    | An arrow that points downward. The popover will appear at the top with the arrow pointing down. |
+| `left`    | An arrow that points toward the left. The popover will appear at the right with the arrow pointing left. |
+| `right`   | An arrow that points toward the right. The popover will appear at the left with the arrow pointing right. |
+| `any`     | An arrow that points in any direction.                       |
+| `unknown` | The status of the arrow is currently unknown.                |
 <br>
 
 ## 4 Examples
