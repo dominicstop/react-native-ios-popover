@@ -94,38 +94,36 @@ Here is an overview of all the documentation and examples for the `PopoverView` 
 
 | Prop Name                         | Type                                                         | Description                                                  |
 | --------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `renderPopoverContent`            | **Required**: `Function` -> `Element`                        | The elements to show in the popover. Accepts a function that returns a valid react element. |
-| `popoverSize`                     | **Optional**: `String` or  `Object: {width: number, height: number}` <br>**Default**: `INHERIT` | Controls the size the of the popover.<br><br>Can either be a `String` value ( i.e. a  `PopoverSize` enum item e.g. `INHERIT`, `STRETCH`) or a `Size` object (i.e. an object with a `height` and/or `width` property). |
-| `popoverBackgroundColor`          | **Optional**: `String`                                       | Sets the background color of the popover.                    |
+| `renderPopoverContent`            | **Required**: `Function` -> `Element`                        | The elements to show in the popover. This prop ccepts a function that returns a react element. The element returned from this function will be shown in the popover. |
+| `popoverSize`                     | **Optional**: `String` or  `Object: {width: number, height: number}` <br>**Default**: `INHERIT` | Controls the size the of the popover.<br><br>This prop accepts either  a `String` value ( i.e. a  `PopoverSize` enum item e.g. `INHERIT`, `STRETCH` sring) or a "size" object (i.e. an object with a `height` and/or `width` property).<br/><br/>If you provide a size object (e.g. `{width: 100, height: 100}`) then that object will be used for setting the size of the popover. |
+| `popoverBackgroundColor`          | **Optional**: `String`<br>**Default**: `transparent`         | Sets the background color of the popover.                    |
 | `permittedArrowDirections`        | **Optional**: `[String]`<br/>**Default**: `["any"]`          | Sets the arrow directions that you allow for the popover. <br><br>Accept an array of 1 or more string values, i.e. an array of `ArrowDirections` enum items (e.g. `up`, `down`, etc.) |
-| `lazyPopover`                     | **Optional**: `Bool`<br/>**Default**: `true`                 | Controls whether or not the popover content is always mounted. |
+| `lazyPopover`                     | **Optional**: `Bool`<br/>**Default**: `true`                 | Controls whether or not the popover content is always mounted. If set to `true` the popover content will only be mounted while the popover is visible.<br/><br/>Set this to `false` to prevent the popover from closing. |
 | `popoverShouldDismiss`            | **Optional**: `Bool`<br/>**Default**: `true`                 | Controls whether or not a tap outside the popover will dismiss it. |
-| `popoverCanOverlapSourceViewRect` | **Optional**: `Bool`<br/>**Default**: `false`                | Controls  whether the popover can overlap its source view.   |
+| `popoverCanOverlapSourceViewRect` | **Optional**: `Bool`<br/>**Default**: `false`                | Controls whether the popover can overlap its source view. If set to `false` the popover will avoid covering up the source view. |
 <br>
 
 ##### `PopoverView` Events
 
-| Event Name                     | Description |
-|--------------------------------|-------------|
-| `onPopoverDidShow`             |             |
-| `onPopoverDidHide`             |             |
-| `onPopoverWillShow`            |             |
-| `onPopoverWillHide`            |             |
-| `onPopoverDidHideViaTap`       |             |
-| `onPopoverWillHideViaTap`      |             |
-| `onPopoverDidAttemptToDismiss` |             |
+| Event Name                     | Description                                                  |
+| ------------------------------ | ------------------------------------------------------------ |
+| `onPopoverDidShow`             | Event that gets called **after** the popover is shown, i.e. this event is invoked after the popover entrance animation is finished. |
+| `onPopoverDidHide`             | Event that gets called **after** the popover is hidden, i.e. this event is invoked after the popover exit animation is finished. |
+| `onPopoverWillShow`            | Event that gets called **before** the popover is shown, i.e. this event is immediently invoked when the popover is about to become visible. |
+| `onPopoverWillHide`            | Event that gets called **before** the popover is hidden, i.e. this event is immediently invoked when the popover is about to become hidden. |
+| `onPopoverDidHideViaTap`       | Event that gets called **before** the popover is hidden due to a tap outside the popover's content, i.e. this event is immediently invoked when the popover is about to become hidden. |
+| `onPopoverWillHideViaTap`      | Event that gets called **after** the popover is hidden due to a tap outside the popover's content, i.e. this event is invoked after the popover exit animation is finished. |
+| `onPopoverDidAttemptToDismiss` | This event is invoked when the `popoverShouldDismiss` prop is set to `false`, and a tap outside the popover's content is initiated to dismiss the popover. |
 
 <br>
 
 ##### `PopoverView` Functions
 
-<br>
-
-| Function Name                         | Description |
-|---------------------------------------|-------------|
-| **async** `setVisibility(boolean)`    |             |
-| **async** `toggleVisibility()`        |             |
-| **async** `getVisibility()` -> `Bool` |             |
+| Function Name                         | Description                                                  |
+| ------------------------------------- | ------------------------------------------------------------ |
+| **async** `setVisibility(boolean)`    | A function that you can call to set whether or not the popover is shown or hidden.<br>This function returns a promise that gets resolved when the popover is successfully shown or hidden. This function throws an error if the popover is already hidden or shown. |
+| **async** `toggleVisibility()`        | A function that you can call to toggle the popover's visibility.<br/>This function returns a promise that gets resolved when the popover is successfully shown or hidden. |
+| **async** `getVisibility()` -> `Bool` | A function to query whether or not the popover is visible. Returrns a promise that resolves to a boolean value. |
 <br>
 
 ### 3.2 Enum Values
