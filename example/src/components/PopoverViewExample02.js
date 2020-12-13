@@ -19,11 +19,11 @@ export default function PopoverViewExample02(props) {
     >
       <PopoverView
         ref={popoverRef}
-        permittedArrowDirections={["left"]}
+        permittedArrowDirections={[]}
         renderPopoverContent={() => (
           <View style={{padding: 20}}>
             <Text style={styles.popoverText}>
-              {'Popover Content'}
+              {'`null` or `[]` Arrow'}
             </Text>
           </View>
         )}

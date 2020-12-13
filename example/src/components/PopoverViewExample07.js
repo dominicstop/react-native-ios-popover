@@ -16,7 +16,7 @@ export default function PopoverViewExample07(props) {
     <ExampleItemPopoverView
       title={'PopoverViewExample07'}
       subtitle={'onPopoverDidAttemptToDismiss'}
-      desc={'A example `PopoverView` that has a switch that toggles the `onPopoverDidAttemptToDismiss` prop'}
+      desc={'A example `PopoverView` that has a switch that toggles the `popoverShouldDismiss` prop'}
       {...props}
     >
       <PopoverView
