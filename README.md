@@ -97,7 +97,7 @@ Here is an overview of all the documentation and examples for the `PopoverView` 
 
 | Prop Name                         | Type                                                         | Description                                                  |
 | --------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `renderPopoverContent`            | **Required**: `Function` -> `Element`                        | The elements to show in the popover. This prop ccepts a function that returns a react element. The element returned from this function will be shown in the popover. |
+| `renderPopoverContent`            | **Required**: `Function` -> `Element`                        | The elements to show in the popover. This prop accepts a function that returns an element. The element returned from this function will be shown in the popover. |
 | `popoverSize`                     | **Optional**: `String` or  `Object: {width: number, height: number}` <br>**Default**: `INHERIT` | Controls the size the of the popover.<br><br>This prop accepts either  a `String` value ( i.e. a  `PopoverSize` enum item e.g. `INHERIT`, `STRETCH` sring) or a "size" object (i.e. an object with a `height` and/or `width` property).<br/><br/>If you provide a size object (e.g. `{width: 100, height: 100}`) then that object will be used for setting the size of the popover. |
 | `popoverBackgroundColor`          | **Optional**: `String`<br>**Default**: `transparent`         | Sets the background color of the popover.                    |
 | `permittedArrowDirections`        | **Optional**: `[String]`<br/>**Default**: `["any"]`          | Sets the arrow directions that you allow for the popover. <br><br>Accept an array of 0 or more string values, i.e. an array of `ArrowDirections` enum items (e.g. `up`, `down`, etc.)<br/><br/>Note If you pass in an empty array, then there will be no arrow shown. |
@@ -171,80 +171,335 @@ This enum is used to for the `PopoverView`'s `permittedArrowDirections` prop. Th
 ### 4.1 `PopoverView` Examples
 #### 4.1.1 `PopoverView` Example #1
 
+A bare minimum example showing how to present a popover via the `setVisibility` function.
+
 <br>
 
 ```jsx
+function PopoverViewExample01() {
+  const popoverRef = useRef();
 
+  return (
+    <PopoverView
+      // get/store a ref to the popover component
+      ref={popoverRef}
+      // a function that returns the content to show
+      // inside the popover
+      renderPopoverContent={() => (
+        <View style={{padding: 20}}>
+          <Text>
+            {'Popover Content'}
+          </Text>
+        </View>
+      )}
+    >
+      <TouchableOpacity onPress={() => {
+        // show the popover when the button is pressed
+        // alt. you can call `toggleVisibility` to show/hide the popover
+        popoverRef.current.setVisibility(true);
+      }}>
+        <Text>
+          {'Show Popover'}
+        </Text>
+      </TouchableOpacity>
+    </PopoverView>
+  );
+};
 ```
 
 <br><br>
 
 #### 4.1.2 `PopoverView` Example #2
 
+A example `PopoverView` for the `permittedArrowDirections` prop. 
+
+* This prop accepts an array of `ArrowDirections` string values (e.g: 'up', 'down', etc). You can also pass in an empty array or null to specify that the popover should not have an arrow.
+* The popover position and sizing will automatically adapt based on the `permittedArrowDirections`.
+
 <br>
 
 ```jsx
-
+function PopoverViewExample02() {
+  const popoverRef = useRef();
+  
+  return(
+    <PopoverView
+      ref={popoverRef}
+      // the allowed direction of the popover arrow.
+      // accepts an array of `ArrowDirections` values,
+      // e.g. "up", "down", etc.
+      permittedArrowDirections={["left"]}
+      renderPopoverContent={() => (
+        <View style={{padding: 20}}>
+          <Text>
+            {'Left Arrow'}
+          </Text>
+        </View>
+      )}
+      >
+      <TouchableOpacity onPress={() => {
+        popoverRef.current.setVisibility(true);
+      }}>
+        <Text>
+          {'Show Popover'}
+        </Text>
+      </TouchableOpacity>
+    </PopoverView>
+  );
+};
 ```
 
 <br><br>
 
 #### 4.1.3 `PopoverView` Example #3
 
+A example `PopoverView` with the `popoverSize` prop set to "STRETCH". 
+
+* By default, the `popoverSize` prop is set to `INHERIT` which means the size of the popover is determined by the size of the popover content.
+* However, if you set the prop  to `STRETCH`, the popover will be sized to be as big as possible based on the `permittedArrowDirections` prop, its position on screen, etc. 
+
 <br>
 
 ```jsx
+function PopoverViewExample03() {
+  const popoverRef = useRef();
 
+  return(
+    <PopoverView
+      ref={popoverRef}
+      // set the `popoverSize` prop to `STRETCH` to make the
+      // popover as big as possible.
+      popoverSize={'STRETCH'}
+      // You also have to set `popoverCanOverlapSourceViewRect`
+      // prop to false to prevent the popover from covering up
+      // the popover source view.
+      popoverCanOverlapSourceViewRect={false}
+      permittedArrowDirections={["up", "down"]}
+      // the style of the root popover content view must be set
+      // to `{flex: 1}` so that it'll stretch to the size of the
+      // popover.
+      renderPopoverContent={() => (
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <Text>
+            {'Popover Content'}
+          </Text>
+        </View>
+      )}
+    >
+      <TouchableOpacity onPress={() => {
+        popoverRef.current.setVisibility(true);
+      }}>
+        <Text>
+          {'Show Popover'}
+        </Text>
+      </TouchableOpacity>
+    </PopoverView>
+  );
+};
 ```
 
 <br><br>
 
 #### 4.1.4 `PopoverView` Example #4
 
+A example `PopoverView` with the `popoverBackgroundColor` prop set to "pink". By default, the `PopoverView` has a transparent background with a blur effect.
+
 <br>
 
 ```jsx
+function PopoverViewExample04(props) {
+  const popoverRef = useRef();
 
+  return (
+    <PopoverView
+      ref={popoverRef}
+      // pass in a valid color value
+      popoverBackgroundColor={'pink'}
+      renderPopoverContent={() => (
+        <View style={{padding: 20}}>
+          <Text>
+            {'Popover Content'}
+          </Text>
+        </View>
+      )}
+    >
+      <TouchableOpacity onPress={() => {
+        popoverRef.current.setVisibility(true);
+      }}>
+        <Text>
+          {'Show Popover'}
+        </Text>
+      </TouchableOpacity>
+    </PopoverView>
+  );
+};
 ```
 
 <br><br>
 
 #### 4.1.5 `PopoverView` Example #5
 
+A example `PopoverView` for programmatically hiding the popover via the `setVisibility` function.
+
+* The `setVisibility(bool)` function will throw an error if it's already visible or hidden.
+
 <br>
 
 ```jsx
+function PopoverViewExample05(props) {
+  const popoverRef = useRef();
 
+  return (
+    <PopoverView
+      ref={popoverRef}
+      onPopoverDidHideViaTap={() => alert('onPopoverDidHideViaTap')}
+      renderPopoverContent={() => (
+        <View style={{padding: 20}}>
+          <TouchableOpacity onPress={() => {
+            // hide the popover
+            popoverRef.current.setVisibility(false);
+          }}>
+            <Text>
+              {'Dismiss Popover'}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )}
+    >
+      <TouchableOpacity onPress={() => {
+        // toggle popover visibility
+        popoverRef.current.toggleVisibility();
+      }}>
+        <Text>
+          {'Toggle Popover'}
+        </Text>
+      </TouchableOpacity>
+    </PopoverView>
+  );
+};
 ```
 
 <br><br>
 
 #### 4.1.6 `PopoverView` Example #6
 
+A simple `PopoverView` example for the popover did show/hide events.
+
 <br>
 
 ```jsx
+function PopoverViewExample06(props) {
+  const popoverRef = useRef();
 
+  return(
+    <PopoverView
+      ref={popoverRef}
+      // popover events
+      onPopoverDidHide={() => alert('onPopoverDidHide')}
+      onPopoverDidShow={() => alert('onPopoverDidShow')}
+      renderPopoverContent={() => (
+        <View style={{padding: 20}}>
+          <Text style={styles.popoverText}>
+            {'Popover Content'}
+          </Text>
+        </View>
+      )}
+    >
+      <TouchableOpacity onPress={() => {
+        popoverRef.current.setVisibility();
+      }}>
+        <Text>
+          {'Toggle Popover'}
+        </Text>
+      </TouchableOpacity>
+    </PopoverView>
+  );
+};
 ```
 
 <br><br>
 
 #### 4.1.7 `PopoverView` Example #7
 
+A example `PopoverView` that has a switch that toggles the `popoverShouldDismiss` prop.
+
+* The `onPopoverDidAttemptToDismiss` prop is set to `true` by default. This prop controls whether or not the popover should dismiss when there's a tap gesture outside the popover.
+* So setting the `onPopoverDidAttemptToDismiss` to `false` will prevent the popover from dismissing via a tap outside the popover.
+
 <br>
 
 ```jsx
+function PopoverViewExample07(props) {
+  const popoverRef = useRef();
+  
+  const [isEnabled, setIsEnabled] = useState(false);
+  // toggle `popoverShouldDismiss`
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
+  return(
+    <PopoverView
+      ref={popoverRef}
+      popoverShouldDismiss={isEnabled}
+      onPopoverDidAttemptToDismiss={() => alert('onPopoverDidAttemptToDismiss')}
+      renderPopoverContent={() => (
+        <View>
+          <Text>
+            {'popoverShouldDismiss'}
+          </Text>
+          <Switch
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+          />
+        </View>
+      )}
+    >
+      <TouchableOpacity onPress={() => {
+        popoverRef.current.setVisibility(true);
+      }}>
+        <Text>
+          {'Show Popover'}
+        </Text>
+      </TouchableOpacity>
+    </PopoverView>
+  );
+};
 ```
 
 <br><br>
 
 #### 4.1.8 `PopoverView` Example #8
 
+A example `PopoverView` for the `toggleVisibility` function.
+
 <br>
 
 ```jsx
+function PopoverViewExample08(props) {
+  const popoverRef = useRef();
 
+  return(
+    <PopoverView
+      ref={popoverRef}
+      popoverShouldDismiss={false}
+      renderPopoverContent={() => (
+        <View style={{padding: 20}}>
+          <Text>
+            {'Popover Content'}
+          </Text>
+        </View>
+      )}
+    >
+      <TouchableOpacity onPress={() => {
+        // toggle the popover visibility
+        popoverRef.current.toggleVisibility();
+      }}>
+        <Text>
+          {'Toggle Popover'}
+        </Text>
+      </TouchableOpacity>
+    </PopoverView>
+  );
+};
 ```
 
 <br><br>
