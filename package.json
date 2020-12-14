@@ -1,7 +1,7 @@
 {
   "name": "react-native-ios-popover",
   "version": "0.1.0",
-  "description": "placeholder",
+  "description": "💬 A react native wrapper component to use the native iOS popover.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "react-native": "src/index",
@@ -29,7 +29,12 @@
   },
   "keywords": [
     "react-native",
-    "ios"
+    "ios",
+    "UIPopover",
+    "react-native-popover",
+    "react-native-popover-view",
+    "react native popover",
+    "react native component"
   ],
   "repository": "https://github.com/dominicstop/react-native-ios-popover",
   "author": "Dominic Go <dominicstop@gmail.com> (https://github.com/dominicstop)",
