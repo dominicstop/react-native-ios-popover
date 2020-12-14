@@ -1,6 +1,6 @@
 {
   "name": "react-native-ios-popover",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "placeholder",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -87,7 +87,10 @@
       ]
     }
   },
-  "eslintIgnore": ["node_modules/", "lib/"],
+  "eslintIgnore": [
+    "node_modules/",
+    "lib/"
+  ],
   "prettier": {
     "quoteProps": "consistent",
     "singleQuote": true,
@@ -98,6 +101,9 @@
   "@react-native-community/bob": {
     "source": "src",
     "output": "lib",
-    "targets": ["commonjs", "module"]
+    "targets": [
+      "commonjs",
+      "module"
+    ]
   }
 }
