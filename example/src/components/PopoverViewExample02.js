@@ -10,6 +10,17 @@ import { ExampleItemPopoverView } from './ExampleItemPopoverView';
 export default function PopoverViewExample02(props) {
   const popoverRef = useRef();
 
+  const [index, setIndex] = React.useState(0);
+
+  const [label, arrowDirection] = [
+    ["up"       , ['up'   ]],
+    ["left"     , ['left' ]],
+    ["down"     , ['down' ]],
+    ["right"    , ['right']],
+    ["any"      , ['any'  ]],
+    ["[] or nil", [       ]]
+  ][index % 6];
+
   return (
     <ExampleItemPopoverView
       title={'PopoverViewExample02'}
@@ -19,11 +30,14 @@ export default function PopoverViewExample02(props) {
     >
       <PopoverView
         ref={popoverRef}
-        permittedArrowDirections={[]}
+        permittedArrowDirections={arrowDirection}
+        onPopoverDidHide={() => {
+          setIndex(index => index + 1);
+        }}
         renderPopoverContent={() => (
           <View style={{padding: 20}}>
             <Text style={styles.popoverText}>
-              {'`null` or `[]` Arrow'}
+              {`${label} Arrow`}
             </Text>
           </View>
         )}
