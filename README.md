@@ -2,6 +2,23 @@
 
 A react native wrapper component to use the native iOS popover by wrapping a react native view inside a `UIViewController` and presenting it.
 
+<details open>
+  <summary>Show/Hide Gifs</summary>
+
+`PopoverView` **Left**: [Example 1](#411-popoverview-example-1), [Example 2](#412-popoverview-example-2), and **Right**: [Example 3](413-popoverview-example-3), [Example 4](#414-popoverview-example-4)
+![Popover View Example 1, 2, 3 and 4](./assets/popover-view-gifs/PopoverView-Example-1-2-3-4.gif)
+
+`PopoverView` **Left**: [Example 5](#415-popoverview-example-5), [Example 6](#416-popoverview-example-6), and **Right**: [Example 7](#417-popoverview-example-7), [Example 8](#418-popoverview-example-8)
+![Popover View Example 1, 2, 3 and 4](./assets/popover-view-gifs/PopoverView-Example-5-6-7-8.gif)
+
+  </details>
+
+------
+
+### 🚧⚠️ Documentation WIP 🚧⚠️
+
+<br>
+
 ## 1. Installation
 
 ```sh
