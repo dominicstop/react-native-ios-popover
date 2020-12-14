@@ -16,6 +16,7 @@ A react native wrapper component to use the native iOS popover by wrapping a rea
 ------
 
 ### 🚧⚠️ Documentation WIP 🚧⚠️
+(Check [TODO](https://github.com/dominicstop/react-native-ios-popover/blob/master/docs/TODO.md) for progress) 
 
 <br>
 
