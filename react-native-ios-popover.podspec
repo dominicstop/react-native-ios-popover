@@ -14,6 +14,6 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/dominicstop/react-native-ios-popover.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm,swift}"
-  
-  s.dependency 'React-Core'
+
+  s.dependency "React-Core"
 end
