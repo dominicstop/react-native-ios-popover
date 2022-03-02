@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, findNodeHandle, processColor, View, Platform } from 'react-native';
+import { StyleSheet, findNodeHandle, View, processColor } from 'react-native';
 
 import { RNIPopoverView } from '../../native_components/RNIPopoverView';
 import { RNIPopoverViewModule } from '../../native_modules/PopoverViewModule';
@@ -8,7 +8,8 @@ import type { PopoverViewProps, PopoverViewState } from './PopoverViewTypes';
 import type { OnPopoverDidHideEvent } from '../../types/PopoverViewEvents';
 
 import * as Helpers from '../../functions/helpers';
-import { IS_PLATFORM_IOS } from 'src/constants/LibEnv';
+
+import { IS_PLATFORM_IOS } from '../../constants/LibEnv';
 
 
 export class PopoverView extends 
@@ -79,6 +80,7 @@ export class PopoverView extends
   /** show or hide the popover */
   setVisibility = async (visibility: boolean) => {
     const { lazyPopover } = this.getProps();
+    if(!IS_PLATFORM_IOS) return;
 
     try {
       if(visibility){
@@ -105,11 +107,15 @@ export class PopoverView extends
 
   /** toggle the popover visibility */
   toggleVisibility = async () => {
+    if(!IS_PLATFORM_IOS) return;
+
     const visibility = await this.getVisibility();
     await this.setVisibility(!visibility);
   };
 
   getVisibility = async () => {
+    if(!IS_PLATFORM_IOS) return;
+
     return await RNIPopoverViewModule.getVisibility(
       findNodeHandle(this.nativeRef)!
     );
@@ -136,7 +142,9 @@ export class PopoverView extends
         ref={r => { this.nativeRef = r! }}
         {...props.viewProps}
         // props
-        popoverBackgroundColor={props.popoverBackgroundColor}
+        popoverBackgroundColor={
+          processColor(props.popoverBackgroundColor)
+        }
         permittedArrowDirections={props.permittedArrowDirections}
         popoverSize={props.popoverSize}
         popoverShouldDismiss={props.popoverShouldDismiss}

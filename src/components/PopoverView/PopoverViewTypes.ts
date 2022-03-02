@@ -3,7 +3,6 @@ import type { RNIPopoverViewProps } from "../../native_components/RNIPopoverView
 
 
 export type PopoverViewProps = ViewProps & Partial<Pick<RNIPopoverViewProps,
-  | 'popoverBackgroundColor'
   | 'permittedArrowDirections'
   | 'popoverSize'
   | 'popoverShouldDismiss'
@@ -18,6 +17,7 @@ export type PopoverViewProps = ViewProps & Partial<Pick<RNIPopoverViewProps,
   | 'onPopoverDidAttemptToDismiss'
 
 >> & {
+  popoverBackgroundColor?: string;
   lazyPopover?: boolean;
   renderPopoverContent: () => React.ReactElement;
 };
