@@ -1,0 +1,27 @@
+import type { ViewProps } from "react-native";
+import type { RNIPopoverViewProps } from "../../native_components/RNIPopoverView";
+
+
+export type PopoverViewProps = ViewProps & Partial<Pick<RNIPopoverViewProps,
+  | 'popoverBackgroundColor'
+  | 'permittedArrowDirections'
+  | 'popoverSize'
+  | 'popoverShouldDismiss'
+  | 'popoverCanOverlapSourceViewRect'
+  // events
+  | 'onPopoverDidHide'
+  | 'onPopoverWillShow'
+  | 'onPopoverWillHide'
+  | 'onPopoverDidShow'
+  | 'onPopoverDidHideViaTap'
+  | 'onPopoverWillHideViaTap'
+  | 'onPopoverDidAttemptToDismiss'
+
+>> & {
+  lazyPopover?: boolean;
+  renderPopoverContent: () => React.ReactElement;
+};
+
+export type PopoverViewState = {
+  mountPopover: boolean;
+};

@@ -23,6 +23,7 @@ class RCTPopoverView: UIView {
   
   /// the view controller that holds/manages the popover content
   private var _popoverController: RCTPopoverViewControlller?;
+  
   /// returns the current popover vc instance (or init. it first if it's nil)
   var popoverController: RCTPopoverViewControlller {
     // get popover vc, or init it first if its nil
