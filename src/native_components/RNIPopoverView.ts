@@ -6,7 +6,7 @@ import type { OnPopoverDidHideEvent, OnPopoverWillShowEvent, OnPopoverWillHideEv
 // TODO: Add type annotation - Remove `any` type usage
 export type RNIPopoverViewProps = ViewProps & {
   popoverBackgroundColor?: number;
-  permittedArrowDirections?: PopoverArrowDirections;
+  permittedArrowDirections?: Array<PopoverArrowDirections>;
   popoverSize?: PopoverSizeConfig;
 
   popoverShouldDismiss?: boolean;

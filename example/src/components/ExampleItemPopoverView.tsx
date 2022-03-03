@@ -1,18 +1,22 @@
 import * as React from 'react';
 import { useCallback, useRef } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ViewProps } from 'react-native';
 
 import * as Colors from '../constants/Colors';
 
-import Proptypes from 'prop-types';
 
-export class ExampleItemPopoverView extends React.Component {
-  static proptypes = {
-    title   : Proptypes.string,
-    subtitle: Proptypes.string,
-    desc    : Proptypes.string,
-    index   : Proptypes.number,
-  };
+export type ExampleItemPopoverViewBaseProps = {
+  title?: string;
+  subtitle?: string;
+  desc?: string;
+  index?: number;
+};
+
+export type ExampleItemPopoverViewProps = 
+  ViewProps & ExampleItemPopoverViewBaseProps; 
+
+export class ExampleItemPopoverView 
+  extends React.Component<ExampleItemPopoverViewProps> {
 
   render(){
     const { children, ...props } = this.props;

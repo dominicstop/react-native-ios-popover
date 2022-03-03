@@ -1,25 +1,26 @@
 import * as React from 'react';
 import { useRef } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, ViewProps } from 'react-native';
 
-import { PopoverView } from 'react-native-ios-popover';
+import { PopoverArrowDirections, PopoverView } from 'react-native-ios-popover';
 import { Button } from './Button';
 import { ExampleItemPopoverView } from './ExampleItemPopoverView';
 
 
-export default function PopoverViewExample02(props) {
-  const popoverRef = useRef();
+const DIRECTIONS_MAP: [string, PopoverArrowDirections[]][] = [
+  ["up"       , ['up'   ]],
+  ["left"     , ['left' ]],
+  ["down"     , ['down' ]],
+  ["right"    , ['right']],
+  ["any"      , ['any'  ]],
+  ["[] or nil", [       ]]
+];
+
+export default function PopoverViewExample02(props: ViewProps) {
+  const popoverRef = useRef<PopoverView>(null);
 
   const [index, setIndex] = React.useState(0);
-
-  const [label, arrowDirection] = [
-    ["up"       , ['up'   ]],
-    ["left"     , ['left' ]],
-    ["down"     , ['down' ]],
-    ["right"    , ['right']],
-    ["any"      , ['any'  ]],
-    ["[] or nil", [       ]]
-  ][index % 6];
+  const [label, arrowDirection] = DIRECTIONS_MAP[index % 6];
 
   return (
     <ExampleItemPopoverView
@@ -32,10 +33,10 @@ export default function PopoverViewExample02(props) {
         ref={popoverRef}
         permittedArrowDirections={arrowDirection}
         onPopoverDidHide={() => {
-          setIndex(index => index + 1);
+          setIndex(i => i + 1);
         }}
         renderPopoverContent={() => (
-          <View style={{padding: 20}}>
+          <View style={styles.popoverContentContainer}>
             <Text style={styles.popoverText}>
               {`${label} Arrow`}
             </Text>
@@ -43,7 +44,7 @@ export default function PopoverViewExample02(props) {
         )}
       >
         <Button onPress={() => {
-          popoverRef.current.setVisibility(true);
+          popoverRef.current?.setVisibility(true);
         }}/>
       </PopoverView>
     </ExampleItemPopoverView>
@@ -51,6 +52,9 @@ export default function PopoverViewExample02(props) {
 };
 
 const styles = StyleSheet.create({
+  popoverContentContainer: {
+    padding: 20
+  },
   popoverText: {
     fontSize: 16,
     fontWeight: 'bold',

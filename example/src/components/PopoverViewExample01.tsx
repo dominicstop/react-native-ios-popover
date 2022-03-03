@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { useRef } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, ViewProps } from 'react-native';
 
 import { PopoverView } from 'react-native-ios-popover';
 import { Button } from './Button';
 import { ExampleItemPopoverView } from './ExampleItemPopoverView';
 
 
-export default function PopoverViewExample01(props) {
-  const popoverRef = useRef();
+export default function PopoverViewExample01(props: ViewProps) {
+  const popoverRef = useRef<PopoverView>(null);
 
   return (
     <ExampleItemPopoverView
@@ -20,7 +20,7 @@ export default function PopoverViewExample01(props) {
       <PopoverView
         ref={popoverRef}
         renderPopoverContent={() => (
-          <View style={{padding: 20}}>
+          <View style={styles.popoverContentContainer}>
             <Text style={styles.popoverText}>
               {'Popover Content'}
             </Text>
@@ -28,7 +28,7 @@ export default function PopoverViewExample01(props) {
         )}
       >
         <Button onPress={() => {
-          popoverRef.current.setVisibility(true);
+          popoverRef.current?.setVisibility(true);
         }}/>
       </PopoverView>
     </ExampleItemPopoverView>
@@ -36,6 +36,9 @@ export default function PopoverViewExample01(props) {
 };
 
 const styles = StyleSheet.create({
+  popoverContentContainer: {
+    padding: 20
+  },
   popoverText: {
     fontSize: 16,
     fontWeight: 'bold',

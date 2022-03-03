@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { useCallback, useRef } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { useRef } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, ViewProps, Alert } from 'react-native';
 
 import { PopoverView } from 'react-native-ios-popover';
 
@@ -9,8 +9,9 @@ import { ExampleItemPopoverView } from './ExampleItemPopoverView';
 
 import * as Colors from '../constants/Colors';
 
-export default function PopoverViewExample05(props) {
-  const popoverRef = useRef();
+
+export default function PopoverViewExample05(props: ViewProps) {
+  const popoverRef = useRef<PopoverView>(null);
 
   return (
     <ExampleItemPopoverView
@@ -21,14 +22,16 @@ export default function PopoverViewExample05(props) {
     >
       <PopoverView
         ref={popoverRef}
-        onPopoverDidHideViaTap={() => alert('onPopoverDidHideViaTap')}
+        onPopoverDidHideViaTap={() => {
+          Alert.alert('onPopoverDidHideViaTap');
+        }}
         renderPopoverContent={() => (
-          <View style={{padding: 20}}>
+          <View style={styles.popoverContentContainer}>
             <TouchableOpacity 
               style={styles.buttonContainer}
               activeOpacity={0.85}
               onPress={() => {
-                popoverRef.current.setVisibility(false);
+                popoverRef.current?.setVisibility(false);
               }}
             >
               <Text style={styles.popoverText}>
@@ -41,7 +44,7 @@ export default function PopoverViewExample05(props) {
         <Button
           buttonText={'⭐️ Toggle Popover'}
           onPress={() => {
-            popoverRef.current.toggleVisibility()
+            popoverRef.current?.toggleVisibility()
           }}
         />
       </PopoverView>
@@ -50,6 +53,9 @@ export default function PopoverViewExample05(props) {
 };
 
 const styles = StyleSheet.create({
+  popoverContentContainer: {
+    padding: 20
+  },
   popoverText: {
     fontSize: 16,
     fontWeight: 'bold',

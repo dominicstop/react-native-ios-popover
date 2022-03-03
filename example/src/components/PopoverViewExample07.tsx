@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { useState, useRef } from 'react';
-import { StyleSheet, View, Text, Switch } from 'react-native';
+import { StyleSheet, View, Text, Switch, ViewProps } from 'react-native';
 
 import { PopoverView } from 'react-native-ios-popover';
 import { Button } from './Button';
 import { ExampleItemPopoverView } from './ExampleItemPopoverView';
 
 
-export default function PopoverViewExample07(props) {
-  const popoverRef = useRef();
+export default function PopoverViewExample07(props: ViewProps) {
+  const popoverRef = useRef<PopoverView>(null);
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
@@ -36,7 +36,7 @@ export default function PopoverViewExample07(props) {
         )}
       >
         <Button onPress={() => {
-          popoverRef.current.setVisibility(true);
+          popoverRef.current?.setVisibility(true);
         }}/>
       </PopoverView>
     </ExampleItemPopoverView>
