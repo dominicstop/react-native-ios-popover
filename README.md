@@ -142,33 +142,27 @@ function PopoverViewExample() {
 | 🔤  `toggleVisibility`<br><br/>⚛️ `Promise<void>` | A function that you can call to toggle the popover's visibility.<br/>This function returns a promise that gets resolved when the popover is successfully shown or hidden.<br><br> |
 | 🔤  `getVisibility`<br/><br/>⚛️ `Promise<boolean>` | A function to query whether or not the popover is visible. Returrns a promise that resolves to a boolean value. |
 
-### 3.2 Enum Values
-#### 3.2.1 `PopoverSize` Enum
+### 3.2 Objects and Types
 
-This enum is used to for the `PopoverView`'s `popoverSize` prop. Use this enum to control the size of the popover.
+#### 📄 `PopoverRelatedTypes.ts`
 
-- Import the enum like this: `import { PopoverSize } from "react-native-ios-popover";`
+* 📌 **Declaration**: [`PopoverRelatedTypes.ts`](src/types/PopoverRelatedTypes.ts)
 
-- And use it like this: `{ popoverSize: PopoverSize.STRETCH }`
+##### String Union: `PopoverSize`
 
-- Or you can directly pass a string like this: `{ popoverSize: 'STRETCH' }`
-
-  
+This type is used in the `PopoverView` component's `popoverSize` prop. Use this type to control the size of the popover.
 
 | Value     | Description                                                  |
 | --------- | ------------------------------------------------------------ |
 | `INHERIT` | The default value. Specifies that the popover's size should match the view you return from `PopoverView.renderPopoverContent` prop. It will automatically resize/scale the popover to fit the screen. |
 | `STRETCH` | Specifies that we want the popover to be as big as possible, i.e. the popover should to stretch and fill up the screen. |
+| `CUSTOM`  | Specifies that a custom size is to be use for popover via the `popoverSize` object. |
 
 <br>
 
-#### 3.2.2 `ArrowDirections` Enum
+##### String Union:  `ArrowDirections`
 
-This enum is used to for the `PopoverView`'s `permittedArrowDirections` prop. This enum corresponds to the `UIPopoverArrowDirection` swift struct, check out the [apple docs](https://developer.apple.com/documentation/uikit/uipopoverarrowdirection) for more info.
-
-- Import the enum like this: `import { ArrowDirections  } from "react-native-ios-popover";`
-- And use it like this: `{ permittedArrowDirections: [ArrowDirections.up] }`
-- Or you can directly pass a string like this: `{ permittedArrowDirections: ['up'] }`
+This type is used to for the `PopoverView` component's `permittedArrowDirections` prop. This type corresponds to the `UIPopoverArrowDirection` swift struct, check out the [apple docs](https://developer.apple.com/documentation/uikit/uipopoverarrowdirection) for more info.
 
 | Value     | Description                                                  |
 | --------- | ------------------------------------------------------------ |
@@ -178,20 +172,24 @@ This enum is used to for the `PopoverView`'s `permittedArrowDirections` prop. Th
 | `right`   | An arrow that points toward the right. The popover will appear at the left with the arrow pointing right. |
 | `any`     | An arrow that points in any direction.                       |
 | `unknown` | The status of the arrow is currently unknown.                |
-<br>
+
+<br><br>
 
 ## 4 Examples
+
 Check out the [examples directory](https://github.com/dominicstop/react-native-ios-popover/tree/master/example). The example app contains a bunch of demos that showcases the different `PopoverView` configurations, props and events you can use. The [assets directory](https://github.com/dominicstop/react-native-ios-popover/tree/master/assets) contains gifs and screenshots for every example/test shown in the example app.
 * Note: the section title on each example contains a link to the corresponding example code.
 1. Clone the repository: `git clone https://github.com/dominicstop/react-native-ios-popover.git`
 2. `cd react-native-ios-popover && yarn bootstrap`
 3. Go to the `react-native-ios-context-popover/example` directory and run `yarn ios` to build/launch the example app in the iOS simulator.
 ### 4.1 `PopoverView` Examples
-#### 4.1.1 `PopoverView` [Example #1](https://github.com/dominicstop/react-native-ios-popover/blob/master/example/src/components/PopoverViewExample01.js)
+#### `PopoverView` Example 01
 
 A bare minimum example showing how to present a popover via the `setVisibility` function.
 
 <br>
+
+[🔗 Full Example](example/src/components/PopoverViewExample01.tsx)
 
 ```jsx
 function PopoverViewExample01() {
@@ -229,7 +227,7 @@ function PopoverViewExample01() {
 
 <br><br>
 
-#### 4.1.2 `PopoverView` [Example #2](https://github.com/dominicstop/react-native-ios-popover/blob/master/example/src/components/PopoverViewExample02.js)
+####  `PopoverView` Example 02
 
 A example `PopoverView` for the `permittedArrowDirections` prop. 
 
@@ -237,6 +235,8 @@ A example `PopoverView` for the `permittedArrowDirections` prop.
 * The popover position and sizing will automatically adapt based on the `permittedArrowDirections`.
 
 <br>
+
+[🔗 Full Example](example/src/components/PopoverViewExample02.tsx)
 
 ```jsx
 function PopoverViewExample02() {
@@ -273,7 +273,7 @@ function PopoverViewExample02() {
 
 <br><br>
 
-#### 4.1.3 `PopoverView` [Example #3](https://github.com/dominicstop/react-native-ios-popover/blob/master/example/src/components/PopoverViewExample03.js)
+####  `PopoverView` Example 03
 
 A example `PopoverView` with the `popoverSize` prop set to "STRETCH". 
 
@@ -281,6 +281,8 @@ A example `PopoverView` with the `popoverSize` prop set to "STRETCH".
 * However, if you set the prop  to `STRETCH`, the popover will be sized to be as big as possible based on the `permittedArrowDirections` prop, its position on screen, etc. 
 
 <br>
+
+[🔗 Full Example](example/src/components/PopoverViewExample03.tsx)
 
 ```jsx
 function PopoverViewExample03() {
@@ -324,11 +326,13 @@ function PopoverViewExample03() {
 
 <br><br>
 
-#### 4.1.4 `PopoverView` [Example #4](https://github.com/dominicstop/react-native-ios-popover/blob/master/example/src/components/PopoverViewExample04.js)
+####  `PopoverView` Example 04
 
 A example `PopoverView` with the `popoverBackgroundColor` prop set to "pink". By default, the `PopoverView` has a transparent background with a blur effect.
 
 <br>
+
+[🔗 Full Example](example/src/components/PopoverViewExample04.tsx)
 
 ```jsx
 function PopoverViewExample04(props) {
@@ -363,13 +367,15 @@ function PopoverViewExample04(props) {
 
 <br><br>
 
-#### 4.1.5 `PopoverView` [Example #5](https://github.com/dominicstop/react-native-ios-popover/blob/master/example/src/components/PopoverViewExample05.js)
+#### `PopoverView` Example 05
 
 A example `PopoverView` for programmatically hiding the popover via the `setVisibility` function.
 
 * The `setVisibility(bool)` function will throw an error if it's already visible or hidden.
 
 <br>
+
+[🔗 Full Example](example/src/components/PopoverViewExample05.tsx)
 
 ```jsx
 function PopoverViewExample05(props) {
@@ -409,11 +415,13 @@ function PopoverViewExample05(props) {
 
 <br><br>
 
-#### 4.1.6 `PopoverView` [Example #6](https://github.com/dominicstop/react-native-ios-popover/blob/master/example/src/components/PopoverViewExample06.js)
+####  `PopoverView` Example 06
 
 A simple `PopoverView` example for the popover did show/hide events.
 
 <br>
+
+[🔗 Full Example](example/src/components/PopoverViewExample06.tsx)
 
 ```jsx
 function PopoverViewExample06(props) {
@@ -449,7 +457,7 @@ function PopoverViewExample06(props) {
 
 <br><br>
 
-#### 4.1.7 `PopoverView` [Example #7](https://github.com/dominicstop/react-native-ios-popover/blob/master/example/src/components/PopoverViewExample07.js)
+#### 4.1.7 `PopoverView` Example 07
 
 A example `PopoverView` that has a switch that toggles the `popoverShouldDismiss` prop.
 
@@ -457,6 +465,8 @@ A example `PopoverView` that has a switch that toggles the `popoverShouldDismiss
 * So setting the `onPopoverDidAttemptToDismiss` to `false` will prevent the popover from dismissing via a tap outside the popover.
 
 <br>
+
+[🔗 Full Example](example/src/components/PopoverViewExample07.tsx)
 
 ```jsx
 function PopoverViewExample07(props) {
@@ -500,11 +510,13 @@ function PopoverViewExample07(props) {
 
 <br><br>
 
-#### 4.1.8 `PopoverView` [Example #8](https://github.com/dominicstop/react-native-ios-popover/blob/master/example/src/components/PopoverViewExample08.js)
+#### `PopoverView` Example 08
 
 A example `PopoverView` for the `toggleVisibility` function.
 
 <br>
+
+[🔗 Full Example](example/src/components/PopoverViewExample08.tsx)
 
 ```jsx
 function PopoverViewExample08(props) {
