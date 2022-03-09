@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useRef } from 'react';
-import { StyleSheet, View, Text, ViewProps } from 'react-native';
+import { StyleSheet, View, Text, ViewProps, Alert } from 'react-native';
 
 import { PopoverView } from 'react-native-ios-popover';
 import { Button } from './Button';
@@ -19,8 +19,8 @@ export default function PopoverViewExample06(props: ViewProps) {
     >
       <PopoverView
         ref={popoverRef}
-        onPopoverDidHide={() => alert('onPopoverDidHide')}
-        onPopoverDidShow={() => alert('onPopoverDidShow')}
+        onPopoverDidHide={() => Alert.alert('event', 'onPopoverDidHide')}
+        onPopoverDidShow={() => Alert.alert('event', 'onPopoverDidShow')}
         renderPopoverContent={() => (
           <View style={styles.popoverContentContainer}>
             <Text style={styles.popoverText}>

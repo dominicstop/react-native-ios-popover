@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { useCallback, useRef } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ViewProps } from 'react-native';
+import { StyleSheet, View, Text, ViewProps } from 'react-native';
 
 import * as Colors from '../constants/Colors';
 

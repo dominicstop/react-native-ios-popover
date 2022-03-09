@@ -37,6 +37,9 @@ export default function PopoverViewExample04(props: ViewProps) {
 };
 
 const styles = StyleSheet.create({
+  popoverContentContainer: {
+    padding: 20
+  },
   popoverText: {
     fontSize: 16,
     fontWeight: 'bold',

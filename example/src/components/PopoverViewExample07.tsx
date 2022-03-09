@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useRef } from 'react';
-import { StyleSheet, View, Text, Switch, ViewProps } from 'react-native';
+import { StyleSheet, View, Text, Switch, ViewProps, Alert } from 'react-native';
 
 import { PopoverView } from 'react-native-ios-popover';
 import { Button } from './Button';
@@ -22,7 +22,9 @@ export default function PopoverViewExample07(props: ViewProps) {
       <PopoverView
         ref={popoverRef}
         popoverShouldDismiss={isEnabled}
-        onPopoverDidAttemptToDismiss={() => alert('onPopoverDidAttemptToDismiss')}
+        onPopoverDidAttemptToDismiss={() => 
+          Alert.alert('event', 'onPopoverDidAttemptToDismiss')
+        }
         renderPopoverContent={() => (
           <View style={styles.popoverContainer}>
             <Text style={styles.popoverText}>
