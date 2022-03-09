@@ -2,16 +2,13 @@
 
 A react native wrapper component to use the native iOS popover by wrapping a react native view inside a `UIViewController` and presenting it.
 
-<details open>
-  <summary>Show/Hide Gifs</summary>
-
-`PopoverView` **Left**: [Example 1](#411-popoverview-example-1), [Example 2](#412-popoverview-example-2), and **Right**: [Example 3](413-popoverview-example-3), [Example 4](#414-popoverview-example-4)
+`PopoverView` **Left**: [Example 1](#popoverview-example-01), [Example 2](#popoverview-example-02), and **Right**: [Example 3](#popoverview-example-03), [Example 4](#popoverview-example-04)
 ![Popover View Example 1, 2, 3 and 4](./assets/popover-view-gifs/PopoverView-Example-1-2-3-4.gif)
 
-`PopoverView` **Left**: [Example 5](#415-popoverview-example-5), [Example 6](#416-popoverview-example-6), and **Right**: [Example 7](#417-popoverview-example-7), [Example 8](#418-popoverview-example-8)
+`PopoverView` **Left**: [Example 5](#popoverview-example-05), [Example 6](#popoverview-example-06), and **Right**: [Example 7](#popoverview-example-07), [Example 8](#popoverview-example-08)
 ![Popover View Example 1, 2, 3 and 4](./assets/popover-view-gifs/PopoverView-Example-5-6-7-8.gif)
 
-  </details>
+<br><br>
 
 ------
 
@@ -211,6 +208,8 @@ function PopoverViewExample01() {
     >
       <TouchableOpacity onPress={() => {
         // show the popover when the button is pressed
+        // (note: `setVisibility` will throw an error if attempting to 
+        // show a popover that's already visible)
         // alt. you can call `toggleVisibility` to show/hide the popover
         popoverRef.current.setVisibility(true);
       }}>
@@ -275,7 +274,7 @@ function PopoverViewExample02() {
 
 ####  `PopoverView` Example 03
 
-A example `PopoverView` with the `popoverSize` prop set to "STRETCH". 
+A example `PopoverView` with the `popoverSize` prop set to `STRETCH`. 
 
 * By default, the `popoverSize` prop is set to `INHERIT` which means the size of the popover is determined by the size of the popover content.
 * However, if you set the prop  to `STRETCH`, the popover will be sized to be as big as possible based on the `permittedArrowDirections` prop, its position on screen, etc. 
@@ -293,7 +292,7 @@ function PopoverViewExample03() {
       ref={popoverRef}
       // set the `popoverSize` prop to `STRETCH` to make the
       // popover as big as possible.
-      popoverSize={'STRETCH'}
+      popoverSize={{type: 'STRETCH'}}
       // You also have to set `popoverCanOverlapSourceViewRect`
       // prop to false to prevent the popover from covering up
       // the popover source view.
