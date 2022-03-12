@@ -30,10 +30,10 @@
     "example": "yarn --cwd example",
     "pods": "cd example && pod-install --quiet",
     "bootstrap": "yarn example && yarn && yarn pods",
-    "build": "yarn run typescript && yarn run bob build && cd example/ios && pod install && xcodebuild -workspace IosPopoverExample.xcworkspace -scheme IosPopoverExample",
+    "build": "yarn run typescript && yarn run bob build && cd example/ios && pod install && xcodebuild -workspace IosPopoverExample.xcworkspace -configuration Debug -scheme IosPopoverExample",
     "run-release": "cd example && npx react-native run-ios --simulator \"iPhone 8\" --configuration Release",
     "run-debug": "cd example && npx react-native run-ios --simulator \"iPhone 8\" --configuration Debug",
-    "build-and-run": "yarn run lint && yarn typescript && yarn build && yarn run-debug && yarn run-release"
+    "build-and-run": "yarn run lint && yarn build && yarn run-debug && yarn run-release"
   },
   "keywords": [
     "react-native",
