@@ -7,14 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		88561FB227B94E89003F248D /* UIPopoverArrowDirection+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88561FA627B94E89003F248D /* UIPopoverArrowDirection+Helpers.swift */; };
-		88561FB327B94E89003F248D /* RCTPopoverViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 88561FAA27B94E89003F248D /* RCTPopoverViewManager.m */; };
-		88561FB427B94E89003F248D /* RCTPopoverViewControlller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88561FAB27B94E89003F248D /* RCTPopoverViewControlller.swift */; };
-		88561FB527B94E89003F248D /* RCTPopoverViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88561FAC27B94E89003F248D /* RCTPopoverViewManager.swift */; };
-		88561FB627B94E89003F248D /* RCTPopoverTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88561FAD27B94E89003F248D /* RCTPopoverTypes.swift */; };
-		88561FB727B94E89003F248D /* RCTPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88561FAE27B94E89003F248D /* RCTPopoverView.swift */; };
-		88561FB827B94E89003F248D /* RCTPopoverViewModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 88561FB027B94E89003F248D /* RCTPopoverViewModule.m */; };
-		88561FB927B94E89003F248D /* RCTPopoverViewModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88561FB127B94E89003F248D /* RCTPopoverViewModule.swift */; };
+		8811424C27DD2B81003B5A75 /* UIPopoverArrowDirection+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811423827DD2B81003B5A75 /* UIPopoverArrowDirection+Helpers.swift */; };
+		8811424D27DD2B81003B5A75 /* RNIPopoverTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811423C27DD2B81003B5A75 /* RNIPopoverTypes.swift */; };
+		8811424E27DD2B81003B5A75 /* RNIPopoverViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811423D27DD2B81003B5A75 /* RNIPopoverViewManager.swift */; };
+		8811424F27DD2B81003B5A75 /* RNIPopoverViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8811423E27DD2B81003B5A75 /* RNIPopoverViewManager.m */; };
+		8811425027DD2B81003B5A75 /* RNIPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811423F27DD2B81003B5A75 /* RNIPopoverViewController.swift */; };
+		8811425127DD2B81003B5A75 /* RNIPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811424027DD2B81003B5A75 /* RNIPopoverView.swift */; };
+		8811425227DD2B81003B5A75 /* RNIPopoverError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811424227DD2B81003B5A75 /* RNIPopoverError.swift */; };
+		8811425327DD2B81003B5A75 /* RNIPopoverViewModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811424427DD2B81003B5A75 /* RNIPopoverViewModule.swift */; };
+		8811425427DD2B81003B5A75 /* RNIPopoverViewModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 8811424527DD2B81003B5A75 /* RNIPopoverViewModule.m */; };
+		8811425527DD2B81003B5A75 /* RNIUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811424727DD2B81003B5A75 /* RNIUtilities.swift */; };
+		8811425627DD2B81003B5A75 /* RNIContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811424827DD2B81003B5A75 /* RNIContainerViewController.swift */; };
+		8811425727DD2B81003B5A75 /* RNICleanable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811424927DD2B81003B5A75 /* RNICleanable.swift */; };
+		8811425827DD2B81003B5A75 /* RNIContainerViewControllerEventsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811424A27DD2B81003B5A75 /* RNIContainerViewControllerEventsDelegate.swift */; };
+		8811425927DD2B81003B5A75 /* RNIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811424B27DD2B81003B5A75 /* RNIError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,15 +37,21 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libIosPopover.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libIosPopover.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		88561FA627B94E89003F248D /* UIPopoverArrowDirection+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPopoverArrowDirection+Helpers.swift"; sourceTree = "<group>"; };
-		88561FA727B94E89003F248D /* IosPopover-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IosPopover-Bridging-Header.h"; sourceTree = "<group>"; };
-		88561FAA27B94E89003F248D /* RCTPopoverViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTPopoverViewManager.m; sourceTree = "<group>"; };
-		88561FAB27B94E89003F248D /* RCTPopoverViewControlller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCTPopoverViewControlller.swift; sourceTree = "<group>"; };
-		88561FAC27B94E89003F248D /* RCTPopoverViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCTPopoverViewManager.swift; sourceTree = "<group>"; };
-		88561FAD27B94E89003F248D /* RCTPopoverTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCTPopoverTypes.swift; sourceTree = "<group>"; };
-		88561FAE27B94E89003F248D /* RCTPopoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCTPopoverView.swift; sourceTree = "<group>"; };
-		88561FB027B94E89003F248D /* RCTPopoverViewModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTPopoverViewModule.m; sourceTree = "<group>"; };
-		88561FB127B94E89003F248D /* RCTPopoverViewModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RCTPopoverViewModule.swift; sourceTree = "<group>"; };
+		8811423827DD2B81003B5A75 /* UIPopoverArrowDirection+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIPopoverArrowDirection+Helpers.swift"; sourceTree = "<group>"; };
+		8811423927DD2B81003B5A75 /* IosPopover-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IosPopover-Bridging-Header.h"; sourceTree = "<group>"; };
+		8811423C27DD2B81003B5A75 /* RNIPopoverTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNIPopoverTypes.swift; sourceTree = "<group>"; };
+		8811423D27DD2B81003B5A75 /* RNIPopoverViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNIPopoverViewManager.swift; sourceTree = "<group>"; };
+		8811423E27DD2B81003B5A75 /* RNIPopoverViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNIPopoverViewManager.m; sourceTree = "<group>"; };
+		8811423F27DD2B81003B5A75 /* RNIPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNIPopoverViewController.swift; sourceTree = "<group>"; };
+		8811424027DD2B81003B5A75 /* RNIPopoverView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNIPopoverView.swift; sourceTree = "<group>"; };
+		8811424227DD2B81003B5A75 /* RNIPopoverError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNIPopoverError.swift; sourceTree = "<group>"; };
+		8811424427DD2B81003B5A75 /* RNIPopoverViewModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNIPopoverViewModule.swift; sourceTree = "<group>"; };
+		8811424527DD2B81003B5A75 /* RNIPopoverViewModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNIPopoverViewModule.m; sourceTree = "<group>"; };
+		8811424727DD2B81003B5A75 /* RNIUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNIUtilities.swift; sourceTree = "<group>"; };
+		8811424827DD2B81003B5A75 /* RNIContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNIContainerViewController.swift; sourceTree = "<group>"; };
+		8811424927DD2B81003B5A75 /* RNICleanable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNICleanable.swift; sourceTree = "<group>"; };
+		8811424A27DD2B81003B5A75 /* RNIContainerViewControllerEventsDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNIContainerViewControllerEventsDelegate.swift; sourceTree = "<group>"; };
+		8811424B27DD2B81003B5A75 /* RNIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNIError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,57 +76,79 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				88561FA427B94E89003F248D /* Src */,
+				8811423627DD2B81003B5A75 /* Src */,
 				134814211AA4EA7D00B7C361 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		88561FA427B94E89003F248D /* Src */ = {
+		8811423627DD2B81003B5A75 /* Src */ = {
 			isa = PBXGroup;
 			children = (
-				88561FA527B94E89003F248D /* Extensions */,
-				88561FA727B94E89003F248D /* IosPopover-Bridging-Header.h */,
-				88561FA827B94E89003F248D /* ReactNative */,
+				8811423727DD2B81003B5A75 /* Extensions */,
+				8811423927DD2B81003B5A75 /* IosPopover-Bridging-Header.h */,
+				8811423A27DD2B81003B5A75 /* ReactNative */,
 			);
 			path = Src;
 			sourceTree = "<group>";
 		};
-		88561FA527B94E89003F248D /* Extensions */ = {
+		8811423727DD2B81003B5A75 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				88561FA627B94E89003F248D /* UIPopoverArrowDirection+Helpers.swift */,
+				8811423827DD2B81003B5A75 /* UIPopoverArrowDirection+Helpers.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		88561FA827B94E89003F248D /* ReactNative */ = {
+		8811423A27DD2B81003B5A75 /* ReactNative */ = {
 			isa = PBXGroup;
 			children = (
-				88561FA927B94E89003F248D /* RCTPopoverView */,
-				88561FAF27B94E89003F248D /* RCTPopoverViewModule */,
+				8811423B27DD2B81003B5A75 /* RNIPopoverView */,
+				8811424127DD2B81003B5A75 /* RNIPopover */,
+				8811424327DD2B81003B5A75 /* RNIPopoverViewModule */,
+				8811424627DD2B81003B5A75 /* RNIHelpers */,
 			);
 			path = ReactNative;
 			sourceTree = "<group>";
 		};
-		88561FA927B94E89003F248D /* RCTPopoverView */ = {
+		8811423B27DD2B81003B5A75 /* RNIPopoverView */ = {
 			isa = PBXGroup;
 			children = (
-				88561FAA27B94E89003F248D /* RCTPopoverViewManager.m */,
-				88561FAB27B94E89003F248D /* RCTPopoverViewControlller.swift */,
-				88561FAC27B94E89003F248D /* RCTPopoverViewManager.swift */,
-				88561FAD27B94E89003F248D /* RCTPopoverTypes.swift */,
-				88561FAE27B94E89003F248D /* RCTPopoverView.swift */,
+				8811423C27DD2B81003B5A75 /* RNIPopoverTypes.swift */,
+				8811423D27DD2B81003B5A75 /* RNIPopoverViewManager.swift */,
+				8811423E27DD2B81003B5A75 /* RNIPopoverViewManager.m */,
+				8811423F27DD2B81003B5A75 /* RNIPopoverViewController.swift */,
+				8811424027DD2B81003B5A75 /* RNIPopoverView.swift */,
 			);
-			path = RCTPopoverView;
+			path = RNIPopoverView;
 			sourceTree = "<group>";
 		};
-		88561FAF27B94E89003F248D /* RCTPopoverViewModule */ = {
+		8811424127DD2B81003B5A75 /* RNIPopover */ = {
 			isa = PBXGroup;
 			children = (
-				88561FB027B94E89003F248D /* RCTPopoverViewModule.m */,
-				88561FB127B94E89003F248D /* RCTPopoverViewModule.swift */,
+				8811424227DD2B81003B5A75 /* RNIPopoverError.swift */,
 			);
-			path = RCTPopoverViewModule;
+			path = RNIPopover;
+			sourceTree = "<group>";
+		};
+		8811424327DD2B81003B5A75 /* RNIPopoverViewModule */ = {
+			isa = PBXGroup;
+			children = (
+				8811424427DD2B81003B5A75 /* RNIPopoverViewModule.swift */,
+				8811424527DD2B81003B5A75 /* RNIPopoverViewModule.m */,
+			);
+			path = RNIPopoverViewModule;
+			sourceTree = "<group>";
+		};
+		8811424627DD2B81003B5A75 /* RNIHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				8811424727DD2B81003B5A75 /* RNIUtilities.swift */,
+				8811424827DD2B81003B5A75 /* RNIContainerViewController.swift */,
+				8811424927DD2B81003B5A75 /* RNICleanable.swift */,
+				8811424A27DD2B81003B5A75 /* RNIContainerViewControllerEventsDelegate.swift */,
+				8811424B27DD2B81003B5A75 /* RNIError.swift */,
+			);
+			path = RNIHelpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,14 +208,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88561FB527B94E89003F248D /* RCTPopoverViewManager.swift in Sources */,
-				88561FB327B94E89003F248D /* RCTPopoverViewManager.m in Sources */,
-				88561FB927B94E89003F248D /* RCTPopoverViewModule.swift in Sources */,
-				88561FB427B94E89003F248D /* RCTPopoverViewControlller.swift in Sources */,
-				88561FB227B94E89003F248D /* UIPopoverArrowDirection+Helpers.swift in Sources */,
-				88561FB727B94E89003F248D /* RCTPopoverView.swift in Sources */,
-				88561FB627B94E89003F248D /* RCTPopoverTypes.swift in Sources */,
-				88561FB827B94E89003F248D /* RCTPopoverViewModule.m in Sources */,
+				8811425527DD2B81003B5A75 /* RNIUtilities.swift in Sources */,
+				8811425027DD2B81003B5A75 /* RNIPopoverViewController.swift in Sources */,
+				8811425427DD2B81003B5A75 /* RNIPopoverViewModule.m in Sources */,
+				8811424F27DD2B81003B5A75 /* RNIPopoverViewManager.m in Sources */,
+				8811425827DD2B81003B5A75 /* RNIContainerViewControllerEventsDelegate.swift in Sources */,
+				8811425327DD2B81003B5A75 /* RNIPopoverViewModule.swift in Sources */,
+				8811425727DD2B81003B5A75 /* RNICleanable.swift in Sources */,
+				8811424C27DD2B81003B5A75 /* UIPopoverArrowDirection+Helpers.swift in Sources */,
+				8811425927DD2B81003B5A75 /* RNIError.swift in Sources */,
+				8811425627DD2B81003B5A75 /* RNIContainerViewController.swift in Sources */,
+				8811424D27DD2B81003B5A75 /* RNIPopoverTypes.swift in Sources */,
+				8811425127DD2B81003B5A75 /* RNIPopoverView.swift in Sources */,
+				8811424E27DD2B81003B5A75 /* RNIPopoverViewManager.swift in Sources */,
+				8811425227DD2B81003B5A75 /* RNIPopoverError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
