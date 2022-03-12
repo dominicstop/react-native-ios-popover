@@ -21,7 +21,7 @@ export type RNIPopoverViewProps = ViewProps & {
   onPopoverDidAttemptToDismiss?: OnPopoverDidAttemptToDismissEvent;
 };
 
-const viewName = 'RCTPopoverView';
+const viewName = 'RNIPopoverView';
 
 /**
  * Do not use `RNIContextMenuView` if platform is not iOS.

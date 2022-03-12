@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, findNodeHandle, View, processColor } from 'react-native';
 
 import { RNIPopoverView } from '../../native_components/RNIPopoverView';
-import { RNIPopoverViewModule } from '../../native_modules/PopoverViewModule';
+import { RNIPopoverViewModule } from '../../native_modules/RNIPopoverViewModule';
 
 import type { PopoverViewProps, PopoverViewState } from './PopoverViewTypes';
 import type { OnPopoverDidHideEvent } from '../../types/PopoverViewEvents';

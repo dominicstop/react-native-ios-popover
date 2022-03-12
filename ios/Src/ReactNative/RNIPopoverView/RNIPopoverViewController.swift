@@ -7,14 +7,15 @@
 
 import UIKit;
 
-class RCTPopoverViewControlller: UIViewController {
+class RNIPopoverViewController: UIViewController {
   
   /// the  content to show in the popover
   var reactPopoverView: UIView?;
+  
   /// called whenever the popover view's bound changes
   var boundsDidChangeBlock: ((CGRect) -> Void)?;
   
-  var popoverSize: RCTPopoverSize = .INHERIT {
+  var popoverSize: RNIPopoverSize = .INHERIT {
     didSet {
       self.setPopoverSize();
     }

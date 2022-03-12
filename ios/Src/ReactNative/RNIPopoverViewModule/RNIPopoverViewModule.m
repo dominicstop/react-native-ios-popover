@@ -7,7 +7,7 @@
 
 #import "React/RCTBridgeModule.h"
 
-@interface RCT_EXTERN_REMAP_MODULE(PopoverModule, RCTPopoverViewModule, NSObject)
+@interface RCT_EXTERN_MODULE(RNIPopoverViewModule, NSObject)
 
 RCT_EXTERN_METHOD(setVisibility: (nonnull NSNumber *)node
                   visibility   : (nonnull BOOL     *)visibility

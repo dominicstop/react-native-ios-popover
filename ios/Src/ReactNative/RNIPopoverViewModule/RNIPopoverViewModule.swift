@@ -7,8 +7,8 @@
 
 import Foundation
 
-@objc(RCTPopoverViewModule)
-class RCTPopoverViewModule: NSObject {
+@objc(RNIPopoverViewModule)
+class RNIPopoverViewModule: NSObject {
   
   @objc static func requiresMainQueueSetup() -> Bool {
     return false;
@@ -22,12 +22,12 @@ class RCTPopoverViewModule: NSObject {
   ) {
     
     DispatchQueue.main.async {
-      guard let bridge = RCTPopoverViewManager.sharedBridge,
+      guard let bridge = RNIPopoverViewManager.sharedBridge,
             let view   = bridge.uiManager?.view(forReactTag: node),
-            let popoverView = view as? RCTPopoverView
+            let popoverView = view as? RNIPopoverView
       else {
         let errorMessage = (
-            "RCTPopoverViewModule: setVisibility(\(visibility))"
+            "RNIPopoverViewModule: setVisibility(\(visibility))"
           + " - guard check failed"
           + " - could not get `popoverView` instance"
         );
@@ -39,7 +39,7 @@ class RCTPopoverViewModule: NSObject {
       
       popoverView.setVisibility(visibility) { success, message in
         #if DEBUG
-        print("RCTPopoverViewModule, setVisibility: \(visibility)");
+        print("RNIPopoverViewModule, setVisibility: \(visibility)");
         #endif
         
         if success {
@@ -47,7 +47,7 @@ class RCTPopoverViewModule: NSObject {
           
         } else {
           let errorMessage = (
-            "RCTPopoverViewModule: setVisibility(\(visibility))"
+            "RNIPopoverViewModule: setVisibility(\(visibility))"
             + " - failed: \(message ?? "N/A")"
           );
           
@@ -65,12 +65,12 @@ class RCTPopoverViewModule: NSObject {
   ) {
     
     DispatchQueue.main.async {
-      guard let bridge = RCTPopoverViewManager.sharedBridge,
+      guard let bridge = RNIPopoverViewManager.sharedBridge,
             let view   = bridge.uiManager?.view(forReactTag: node),
-            let popoverView = view as? RCTPopoverView
+            let popoverView = view as? RNIPopoverView
       else {
         let errorMessage = (
-            "RCTPopoverViewModule: getVisibility()"
+            "RNIPopoverViewModule: getVisibility()"
           + " - guard check failed"
           + " - could not get `popoverView` instance"
         );
@@ -81,7 +81,7 @@ class RCTPopoverViewModule: NSObject {
       };
       
       #if DEBUG
-      print("RCTPopoverViewModule, getVisibility: \(popoverView.isPopoverVisible)");
+      print("RNIPopoverViewModule, getVisibility: \(popoverView.isPopoverVisible)");
       #endif
       
       resolve(popoverView.isPopoverVisible);

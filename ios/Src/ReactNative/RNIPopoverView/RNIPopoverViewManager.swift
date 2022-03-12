@@ -8,14 +8,14 @@
 
 import Foundation
 
-@objc(RCTPopoverViewManager)
-class RCTPopoverViewManager: RCTViewManager {
+@objc(RNIPopoverViewManager)
+class RNIPopoverViewManager: RCTViewManager {
   
   static var sharedBridge: RCTBridge? {
     didSet {
       #if DEBUG
       print("RCTPopoverView, sharedBridge: didSet");
-      NotificationCenter.default.addObserver(RCTPopoverViewManager.self,
+      NotificationCenter.default.addObserver(RNIPopoverViewManager.self,
         selector: #selector(Self.resetSharedBridge),
         name: NSNotification.Name(rawValue: "RCTBridgeWillReloadNotification"),
         object: nil
@@ -41,13 +41,13 @@ class RCTPopoverViewManager: RCTViewManager {
       Self.sharedBridge = self.bridge;
     };
     
-    return RCTPopoverView(bridge: self.bridge);
+    return RNIPopoverView(bridge: self.bridge);
   };
   
   @objc func setVisibility(_ node: NSNumber, visibility: Bool){
     DispatchQueue.main.async {
       guard let view = self.bridge.uiManager.view(forReactTag: node),
-            let popoverView = view as? RCTPopoverView
+            let popoverView = view as? RNIPopoverView
       else { return };
       
       popoverView.setVisibility(visibility);

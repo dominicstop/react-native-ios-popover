@@ -9,7 +9,7 @@ import UIKit;
 
 typealias Completion = ((_ success: Bool, _ message: String?) -> ());
 
-class RCTPopoverView: UIView {
+class RNIPopoverView: UIView {
   
   // ----------------
   // MARK: Properties
@@ -22,13 +22,13 @@ class RCTPopoverView: UIView {
   var reactPopoverView: UIView?;
   
   /// the view controller that holds/manages the popover content
-  private var _popoverController: RCTPopoverViewControlller?;
+  private var _popoverController: RNIPopoverViewController?;
   
   /// returns the current popover vc instance (or init. it first if it's nil)
-  var popoverController: RCTPopoverViewControlller {
+  var popoverController: RNIPopoverViewController {
     // get popover vc, or init it first if its nil
     let popoverVC = self._popoverController ?? {
-      let vc = RCTPopoverViewControlller();
+      let vc = RNIPopoverViewController();
       
       // setup popover vc
       vc.reactPopoverView = self.reactPopoverView;
@@ -90,7 +90,7 @@ class RCTPopoverView: UIView {
   // MARK: RN Exported Props
   // -----------------------
   
-  private var _popoverSize: RCTPopoverSize = .INHERIT;
+  private var _popoverSize: RNIPopoverSize = .INHERIT;
   @objc var popoverSize: NSDictionary? {
     didSet {
       guard let dictionary = self.popoverSize,
@@ -204,7 +204,7 @@ class RCTPopoverView: UIView {
 // MARK:- Private Functions
 // ------------------------
 
-fileprivate extension RCTPopoverView {
+fileprivate extension RNIPopoverView {
   func popoverViewNotifyForBoundsChange(_ newBounds: CGRect){
     guard let bridge    = self.bridge,
           let reactView = self.reactPopoverView
@@ -226,7 +226,7 @@ fileprivate extension RCTPopoverView {
 // MARK:- Functions for View Manager/Module
 // ----------------------------------------
 
-extension RCTPopoverView {
+extension RNIPopoverView {
   /// show or hide the popover
   func setVisibility(_ visibility: Bool, completion: Completion? = nil) {
     guard self.isPopoverVisible != visibility,
@@ -271,7 +271,7 @@ extension RCTPopoverView {
 // MARK:- UIPopoverPresentationControllerDelegate
 // ----------------------------------------------
 
-extension RCTPopoverView: UIPopoverPresentationControllerDelegate {
+extension RNIPopoverView: UIPopoverPresentationControllerDelegate {
   
   func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
     // force to use popover on iPhone

@@ -7,12 +7,12 @@
 
 import Foundation
 
-enum RCTPopoverSize {
+enum RNIPopoverSize {
   case INHERIT;
   case STRETCH;
   case CUSTOM(width: CGFloat, height: CGFloat);
   
-  static let stringMap: [String: RCTPopoverSize] = [
+  static let stringMap: [String: RNIPopoverSize] = [
     "INHERIT": .INHERIT,
     "STRETCH": .STRETCH,
   ];

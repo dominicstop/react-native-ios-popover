@@ -9,7 +9,7 @@
 #import <React/RCTViewManager.h>
  
 
-@interface RCT_EXTERN_MODULE(RCTPopoverViewManager, RCTViewManager)
+@interface RCT_EXTERN_MODULE(RNIPopoverViewManager, RCTViewManager)
 
 // ---------------------------
 // MARK: Export Props - Events
