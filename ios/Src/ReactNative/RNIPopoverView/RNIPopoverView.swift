@@ -18,8 +18,12 @@ class RNIPopoverView: UIView {
   weak var bridge: RCTBridge!;
   private var touchHandler: RCTTouchHandler!;
   
+  var didTriggerCleanup = false;
+  
   /// the content to show in the popover
   var reactPopoverView: UIView?;
+  
+  var containerVC: RNIContainerViewController?;
   
   /// the view controller that holds/manages the popover content
   private var _popoverController: RNIPopoverViewController?;
@@ -183,6 +187,9 @@ class RNIPopoverView: UIView {
     super.insertSubview(subview, at: atIndex);
     
     if atIndex == 0 {
+      // remove previous popover
+      self.removeOldPopover();
+      
       subview.removeFromSuperview();
       self.reactPopoverView = subview;
       self.touchHandler.attach(to: subview);
@@ -205,6 +212,29 @@ class RNIPopoverView: UIView {
 // ------------------------
 
 fileprivate extension RNIPopoverView {
+  func setupAttachToParentVC(){
+    let containerVC = RNIContainerViewController(view: self);
+    self.containerVC = containerVC;
+    
+    try? containerVC.attachToParentVC();
+    containerVC.eventsDelegate = self;
+  };
+  
+  func removeOldPopover(){
+    if let prevPopoverView = self.reactPopoverView {
+      RNIUtilities.recursivelyRemoveFromViewRegistry(
+        bridge: self.bridge,
+        reactView: prevPopoverView
+      );
+      
+      self.touchHandler.detach(from: prevPopoverView);
+      self.reactPopoverView = nil;
+    };
+    
+    // remove preview popover vc
+    self._popoverController = nil;
+  };
+  
   func popoverViewNotifyForBoundsChange(_ newBounds: CGRect){
     guard let bridge    = self.bridge,
           let reactView = self.reactPopoverView
@@ -312,5 +342,47 @@ extension RNIPopoverView: UIPopoverPresentationControllerDelegate {
     };
     
     return self.popoverShouldDismiss;
+  };
+};
+
+// -----------------------------------------------
+// MARK:- RNIContainerViewControllerEventsDelegate
+// -----------------------------------------------
+
+extension RNIPopoverView: RNIContainerViewControllerEventsDelegate {
+  
+  func onViewControllerDidDisappear(
+    sender: RNIContainerViewController,
+    parentVC: UIViewController?,
+    isBeingPopped: Bool
+  ) {
+    if isBeingPopped {
+      self.cleanup();
+    };
+  };
+};
+
+// -----------------------------------------------
+// MARK:- RNIContainerViewControllerEventsDelegate
+// -----------------------------------------------
+
+extension RNIPopoverView: RNICleanable {
+  
+  func cleanup(){
+    guard !self.didTriggerCleanup else { return };
+    self.didTriggerCleanup = true;
+    
+    if self.isPopoverVisible {
+      self.setVisibility(false, completion: nil);
+    };
+    
+    self._popoverController = nil;
+    
+    if let popoverView = self.reactPopoverView {
+      RNIUtilities.recursivelyRemoveFromViewRegistry(
+        bridge   : self.bridge,
+        reactView: popoverView
+      );
+    };
   };
 };
