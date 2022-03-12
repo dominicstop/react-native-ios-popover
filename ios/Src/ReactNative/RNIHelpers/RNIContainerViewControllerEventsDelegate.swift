@@ -8,38 +8,18 @@
 import Foundation
 
 
-protocol RNIContainerViewControllerEventsDelegate: AnyObject {
+@objc protocol RNIContainerViewControllerEventsDelegate {
 
-  func onViewControllerWillDisappear(
-    sender: RNIContainerViewController,
-    parentVC: UIViewController,
-    isBeingPopped: Bool
-  );
-  
-  func onViewControllerDidDisappear(
-    sender: RNIContainerViewController,
-    parentVC: UIViewController,
-    isBeingPopped: Bool
-  );
-};
-
-// make protocol conformance optional by adding a default impl. that is empty
-// w/o using `@objc`'s `optional` keyword.
-extension RNIContainerViewControllerEventsDelegate {
-  
-  func onViewControllerWillDisappear(
+  @objc optional func onViewControllerWillDisappear(
     sender: RNIContainerViewController,
     parentVC: UIViewController?,
     isBeingPopped: Bool
-  ) {
-    /** no-op */
-  };
+  );
   
-  func onViewControllerDidDisappear(
+  @objc optional func onViewControllerDidDisappear(
     sender: RNIContainerViewController,
     parentVC: UIViewController?,
     isBeingPopped: Bool
-  ) {
-    /** no-op */
-  };
+  );
+  
 };

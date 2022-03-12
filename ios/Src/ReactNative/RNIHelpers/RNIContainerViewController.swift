@@ -47,7 +47,7 @@ class RNIContainerViewController: UIViewController {
       return true;
     }();
     
-    self.eventsDelegate?.onViewControllerWillDisappear(
+    self.eventsDelegate?.onViewControllerWillDisappear?(
       sender: self,
       parentVC: parentVC,
       isBeingPopped: self.isBeingPopped
@@ -55,7 +55,7 @@ class RNIContainerViewController: UIViewController {
   };
   
   override func viewDidDisappear(_ animated: Bool) {
-    self.eventsDelegate?.onViewControllerWillDisappear(
+    self.eventsDelegate?.onViewControllerWillDisappear?(
       sender: self,
       parentVC: parentVC,
       isBeingPopped: self.isBeingPopped
@@ -68,7 +68,7 @@ class RNIContainerViewController: UIViewController {
   // MARK: - Public Methods
   // ----------------------
   
-  func attachToParentVC() throws -> UIViewController {
+  func attachToParentVC() throws {
     guard !self.isAttachedToParentVC else {
       throw RNIPopoverGenericError(
         code: .runtimeError,
@@ -91,8 +91,6 @@ class RNIContainerViewController: UIViewController {
   
     parentVC.addChild(self);
     self.didMove(toParent: parentVC);
-    
-    return parentVC;
   };
   
   func detachFromParentVC(){
