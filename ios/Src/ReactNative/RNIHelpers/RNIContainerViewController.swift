@@ -9,7 +9,7 @@ import UIKit;
 
 
 // TODO: move to sep. library (e.g. `react-native-ios-utilities`)
-class RNIContextMenuViewController: UIViewController {
+class RNIContainerViewController: UIViewController {
   
   weak var parentVC: UIViewController?;
   weak var eventsDelegate: RNIContainerViewControllerEventsDelegate?;

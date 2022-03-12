@@ -11,13 +11,13 @@ import Foundation
 protocol RNIContainerViewControllerEventsDelegate: AnyObject {
 
   func onViewControllerWillDisappear(
-    sender: RNIContextMenuViewController,
+    sender: RNIContainerViewController,
     parentVC: UIViewController,
     isBeingPopped: Bool
   );
   
   func onViewControllerDidDisappear(
-    sender: RNIContextMenuViewController,
+    sender: RNIContainerViewController,
     parentVC: UIViewController,
     isBeingPopped: Bool
   );
@@ -28,7 +28,7 @@ protocol RNIContainerViewControllerEventsDelegate: AnyObject {
 extension RNIContainerViewControllerEventsDelegate {
   
   func onViewControllerWillDisappear(
-    sender: RNIContextMenuViewController,
+    sender: RNIContainerViewController,
     parentVC: UIViewController?,
     isBeingPopped: Bool
   ) {
@@ -36,7 +36,7 @@ extension RNIContainerViewControllerEventsDelegate {
   };
   
   func onViewControllerDidDisappear(
-    sender: RNIContextMenuViewController,
+    sender: RNIContainerViewController,
     parentVC: UIViewController?,
     isBeingPopped: Bool
   ) {
