@@ -11,10 +11,11 @@ import UIKit;
 // TODO: move to sep. library (e.g. `react-native-ios-utilities`)
 class RNIContextMenuViewController: UIViewController {
   
-  var didAttachToParentVC = false;
-  
   weak var parentVC: UIViewController?;
   weak var eventsDelegate: RNIContainerViewControllerEventsDelegate?;
+  
+  var isAttachedToParentVC = false;
+  var isBeingPopped = false;
   
   // MARK: - Init
   // ------------
@@ -35,38 +36,75 @@ class RNIContextMenuViewController: UIViewController {
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated);
     
-    guard let navVC = self.navigationController,
-          let parentVC = self.parentVC
-    else { return };
+    self.isBeingPopped = {
+      guard let navVC = self.navigationController,
+            let parentVC = self.parentVC,
+            
+            // if parent VC still exist in the stack, then it hasn't been popped yet
+            navVC.viewControllers.contains(parentVC)
+      else { return false };
+      
+      return true;
+    }();
     
-    // if parent VC still exist in the stack, then it hasn't been popped yet
-    let isPopping = !navVC.viewControllers.contains(parentVC);
+    self.eventsDelegate?.onViewControllerWillDisappear(
+      sender: self,
+      parentVC: parentVC,
+      isBeingPopped: self.isBeingPopped
+    );
+  };
+  
+  override func viewDidDisappear(_ animated: Bool) {
+    self.eventsDelegate?.onViewControllerWillDisappear(
+      sender: self,
+      parentVC: parentVC,
+      isBeingPopped: self.isBeingPopped
+    );
     
-    if isPopping {
-        
-    };
-  }
+    // reset
+    self.isBeingPopped = false;
+  };
 
   // MARK: - Public Methods
   // ----------------------
-
-  func attachToParentVC() throws {
-    guard !self.didAttachToParentVC,
-          // find the nearest parent view controller
-          let parentVC = RNIUtilities
-            .getParent(responder: self, type: UIViewController.self)
-    else {
-      throw RNIPopoverGenericError(code: .nilError, message: <#T##String?#>, debug: <#T##String?#>)
+  
+  func attachToParentVC() throws -> UIViewController {
+    guard !self.isAttachedToParentVC else {
+      throw RNIPopoverGenericError(
+        code: .runtimeError,
+        message: "view controller already has a parent view controller"
+      );
     };
     
-    self.didAttachToParentVC = true;
+    // find the nearest parent view controller
+    guard let parentVC = RNIUtilities
+      .getParent(responder: self, type: UIViewController.self)
+    else {
+      throw RNIPopoverGenericError(
+        code: .nilValue,
+        message: "Could not find any view controllers to attach to"
+      );
+    };
     
-    let childVC = RNIContextMenuViewController(contextMenuView: self);
-    childVC.parentVC = parentVC;
+    self.parentVC = parentVC;
+    self.isAttachedToParentVC = true;
+  
+    parentVC.addChild(self);
+    self.didMove(toParent: parentVC);
     
-    self.contextMenuViewController = childVC;
-
-    parentVC.addChild(childVC);
-    childVC.didMove(toParent: parentVC);
+    return parentVC;
+  };
+  
+  func detachFromParentVC(){
+    guard self.parentVC != nil,
+          !self.isAttachedToParentVC
+    else { return };
+    
+    // reset
+    self.parentVC = nil;
+    self.isAttachedToParentVC = false;
+  
+    self.willMove(toParent: nil);
+    self.removeFromParent();
   };
 };
