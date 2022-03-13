@@ -1,6 +1,6 @@
 {
   "name": "react-native-ios-popover",
-  "version": "1.0.0-2",
+  "version": "1.0.0-3",
   "description": "💬 A react native wrapper component to use the native iOS popover.",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
