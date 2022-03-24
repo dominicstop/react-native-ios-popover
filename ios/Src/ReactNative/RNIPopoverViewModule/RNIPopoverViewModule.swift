@@ -10,6 +10,8 @@ import Foundation
 @objc(RNIPopoverViewModule)
 class RNIPopoverViewModule: NSObject {
   
+  @objc var bridge: RCTBridge!;
+  
   @objc static func requiresMainQueueSetup() -> Bool {
     return false;
   };
@@ -22,7 +24,7 @@ class RNIPopoverViewModule: NSObject {
   ) {
     
     DispatchQueue.main.async {
-      guard let bridge = RNIPopoverViewManager.sharedBridge,
+      guard let bridge = self.bridge,
             let view   = bridge.uiManager?.view(forReactTag: node),
             let popoverView = view as? RNIPopoverView
       else {
@@ -65,7 +67,7 @@ class RNIPopoverViewModule: NSObject {
   ) {
     
     DispatchQueue.main.async {
-      guard let bridge = RNIPopoverViewManager.sharedBridge,
+      guard let bridge = self.bridge,
             let view   = bridge.uiManager?.view(forReactTag: node),
             let popoverView = view as? RNIPopoverView
       else {
