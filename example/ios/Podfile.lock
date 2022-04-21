@@ -185,7 +185,10 @@ PODS:
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
   - React-jsinspector (0.63.4)
-  - react-native-ios-popover (1.0.0-3):
+  - react-native-ios-popover (1.0.0):
+    - React-Core
+    - react-native-ios-utilities
+  - react-native-ios-utilities (0.0.3):
     - React-Core
   - react-native-safe-area-context (3.4.1):
     - React-Core
@@ -273,6 +276,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-ios-popover (from `../..`)
+  - react-native-ios-utilities (from `../node_modules/react-native-ios-utilities`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -324,6 +328,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-ios-popover:
     :path: "../.."
+  react-native-ios-utilities:
+    :path: "../node_modules/react-native-ios-utilities"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   React-RCTActionSheet:
@@ -368,7 +374,8 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-ios-popover: eaa5532f5345fdcfb7fb4b64c03ca2e19236965f
+  react-native-ios-popover: 6729720286f018371755e1f6ee35209d67114e0a
+  react-native-ios-utilities: 36d53c628f542f0a831498801775c58f73e60a5f
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
