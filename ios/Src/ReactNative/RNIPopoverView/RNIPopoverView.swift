@@ -6,6 +6,8 @@
 //
 
 import UIKit;
+import react_native_ios_utilities;
+
 
 typealias Completion = ((_ success: Bool, _ message: String?) -> ());
 

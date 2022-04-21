@@ -5,7 +5,8 @@
 //  Created by Dominic Go on 3/11/22.
 //
 
-import Foundation
+import Foundation;
+import react_native_ios_utilities;
 
 
 class RNIPopoverGenericError: RNIBaseError<RNIGenericErrorCodes> {
