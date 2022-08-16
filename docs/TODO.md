@@ -9,3 +9,9 @@
 
 
 - [x] Test on RN `0.63.4`
+
+
+
+- [ ] Refactor: Example - Extract `Homescreen` to its own file.
+- [ ] Implement: Example - Add debug controls
+- [ ] Implement: Example - Add env. constant to toggle navigation usage.
