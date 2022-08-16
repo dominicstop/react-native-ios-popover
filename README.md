@@ -20,22 +20,54 @@ Re-write in progress (see [TODO](https://github.com/dominicstop/react-native-ios
 ## 1. Installation
 
 ```sh
-# install via npm
+# 1 install via npm...
 npm install react-native-ios-popover
 
-# or install via yarn
+# 1.2 ...or install via yarn 
 yarn add react-native-ios-popover
 
-# then run pod install (uses auto-linking)
+# 2.1 install dependency via npm...
+npm install react-native-ios-utilities
+
+# 2.2 ...or install dependency via yarn
+# Note: See "Installation: Dependencies" section for more details
+yarn install react-native-ios-utilities
+
+# 3. then run pod install (uses auto-linking)
 cd ios && pod install
 ```
 
-<br>
+<br><br>
 
 ### 1.1 Installation Notes
-If you encounter any errors/bugs while using this library, or want a particular feature implemented, please create an issue!
+If you encounter any errors/bugs while using this library, or want a particular feature implemented, please see the [troubleshooting section](#12-troubleshooting), or create an issue!
 
-#### 1.1.1 Xcode Build Error (Swift)
+<br>
+
+### Installation: Dependencies
+
+This library depends on [`react-native-ios-utilities`](PLACEHOLDER) for some of the native functionality (i.e. it uses it as a peer dependency).
+
+If you want to install and use a specific version of this library, please see the [Installation: Versions and Compatibility](#installation-versions-and-compatibility) section for more details.  
+
+If you are using any other library that uses `react-native-ios-utilities` (e.g. `react-native-ios-context-menu`, etc)., then please refer to the [version compatibility guide](PLACEHOLDER).
+
+<br><br>
+
+### Installation: Versions and Compatibility
+
+If you wish to use a specific version of this library, then please install the corresponding version of `react-native-ios-utilities`.
+
+| Library Version              | `react-native-ios-utilities` Version |
+| ---------------------------- | ------------------------------------ |
+| `0.XX.XX` to `1.XX.XX`       | `N/A` (No External Dependencies)     |
+| `2.XX.XX` to Current Version | `1.XX.XX`                            |
+
+<br><br>
+
+### 1.2 Troubleshooting
+
+#### Troubleshooting: Xcode Build Error (Swift)
 This library is written in Swift. If you are having trouble building your app after installing this library, try adding an empty swift file:
 1. Open up your `ios/project.xcworkspace` project
 2. On the project navigator panel (located on the right side of Xcode), right click on your project group (or another folder/group i.e the blue or yellow icons) and select the "*New File...*" option
@@ -43,9 +75,9 @@ This library is written in Swift. If you are having trouble building your app af
 4. A "*Save As*" popup sheet should appear and then click "*Create*" (you can rename the file first if you want to)
 5. If Xcode asks you to create a "*Objective-C Bridging Header*" choose *"Create Objective-C Bridging Header"*
 
-<br>
+<br><br>
 
-#### 1.1.2 Cocoapods Static Libraries Error
+#### Troubleshooting: Cocoapods Static Libraries Error
 If you encounter the following error when running `pod install`:
 
 ```
@@ -62,7 +94,7 @@ Then try following these steps:
 3. It should now look something similar to this: `pod 'React-Core', :path => '../node_modules/react-native/', :modular_headers => true`
 4. Try running `pod install` again.
 
-<br>
+<br><br>
 
 ## 2. Usage
 
