@@ -1,5 +1,18 @@
 # TODO (react-native-ios-popover)
 
+
+
+- [ ] Implement `react-native-ios-utilites`
+	* Move shared code to a seperate library, and make it a peer dependency.
+
+
+
+
+
+
+
+## Old/Abandoned
+
 - [ ] `UIPopoverPresentationController` — Impl. `passThroughViews` prop 
 - [ ] `UIPopoverPresentationController` — Impl. `popoverLayoutMargins` prop 
 - [ ] `UIPopoverPresentationController` — Impl. `getArrowDirection` function 
