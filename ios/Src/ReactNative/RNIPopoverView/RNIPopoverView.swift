@@ -30,6 +30,10 @@ class RNIPopoverView: UIView {
   /// the view controller that holds/manages the popover content
   private var _popoverController: RNIPopoverViewController?;
   
+  // --------------------------------------
+  // MARK: Properties - Computed Properties
+  // --------------------------------------
+  
   /// returns the current popover vc instance (or init. it first if it's nil)
   var popoverController: RNIPopoverViewController {
     // get popover vc, or init it first if its nil
@@ -65,7 +69,7 @@ class RNIPopoverView: UIView {
   
   // shorthand to get the popover vc's presentation controller
   var popoverPresentation: UIPopoverPresentationController? {
-    return  self._popoverController?.popoverPresentationController;
+    return self._popoverController?.popoverPresentationController;
   };
   
   /// flag that indicates whether the popover is presented or not
