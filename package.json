@@ -127,7 +127,5 @@
       ]
     ]
   },
-  "dependencies": {
-    "react-native-ios-utilities": "1.0.0-0"
-  }
+  "dependencies": {}
 }
