@@ -24,16 +24,32 @@
   "scripts": {
     "typescript": "tsc --noEmit --project tsconfig.build.json",
     "typescript-example": "cd example && tsc --noEmit --project tsconfig.json",
+
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "prepare": "bob build",
     "release": "release-it --only-version && gh workflow run 'Build Example'",
     "example": "yarn --cwd example",
     "pods": "cd example && pod-install --quiet",
     "bootstrap": "yarn example && yarn && yarn pods",
+
     "build": "yarn run typescript && yarn run bob build && cd example/ios && pod install && xcodebuild -workspace IosPopoverExample.xcworkspace -configuration Debug -scheme IosPopoverExample",
+    "build-and-run": "yarn run lint && yarn build && yarn run-debug && yarn run-release",
+
     "run-release": "cd example && npx react-native run-ios --simulator \"iPhone 8\" --configuration Release",
     "run-debug": "cd example && npx react-native run-ios --simulator \"iPhone 8\" --configuration Debug",
-    "build-and-run": "yarn run lint && yarn build && yarn run-debug && yarn run-release"
+
+    "example-open-xcode": "echo 'Opening example xcworkspace...' ; open ./example/ios/IosPopoverExample.xcworkspace",
+    "example-delete-xcworkspace": "echo 'Begin deleting example ios workspace project...' ; cd example/ios && echo 'Deleting 1 of 3...' ; rm -rf ./IosPopoverExample.xcworkspace &>/dev/null ; echo 'Deleting 2 of 3...' ; rm -rf ./Pods &>/dev/null ; echo 'Deleting 3 of 3...' ; rm -f Podfile.lock ; echo 'Example ios workspace project deleted.\n'",
+    "example-install-pods": "echo 'Begin installing example pods...' ; cd example/ios && pod install --silent &>/dev/null ; echo 'Example pods installed.\n'",
+    "example-remove-library-dependencies": "echo 'Removing example library dependencies...' ; cd example/ios && remove react-native-ios-utilities &>/dev/null ; echo 'Example library dependencies removed.\n'",
+    "example-nuke-workspace": "echo 'Deleting example workspace...' && yarn example-remove-library-dependencies ; yarn example-delete-xcworkspace ; echo 'Example workspace deleted.'",
+    
+    "example-install-locally-react-native-ios-utilities": "cd example/ios && echo 'Example - Local Install: react-native-ios-utilities' && echo \"DIR: $REACT_NATIVE_IOS_UTILITIES_DIR\" && echo 'Installing...' && yarn add $REACT_NATIVE_IOS_UTILITIES_DIR &>/dev/null ; echo 'react-native-ios-utilities local install complete.\n'",
+
+    "example-use-dependencies-local": "echo 'Installing example local dependencies w/o resetting...' && yarn example-install-locally-react-native-ios-utilities ; yarn example-install-pods ",
+    "example-use-dependencies-local-reset": "echo 'Resetting example project and installing example local dependencies...' && yarn run example-nuke-workspace ; yarn run example-use-dependencies-local ; yarn example-open-xcode ",
+
+    "example-use-dependencies-production": "yarn run example-nuke-workspace ; cd example ; yarn add react-native-ios-utilities ; cd .. && yarn example-install-pods && yarn example-open-xcode"
   },
   "keywords": [
     "react-native",
@@ -68,8 +84,7 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*",
-    "react-native-ios-utilities": "*"
+    "react-native": "*"
   },
   "release-it": {
     "git": {
