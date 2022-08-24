@@ -15,8 +15,7 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		4C39C56BAD484C67AA576FFA /* libPods-IosPopoverExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA3E69C5B9553B26FBA2DF04 /* libPods-IosPopoverExample.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		8811425E27DD5373003B5A75 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8811425A27DD3167003B5A75 /* File.swift */; };
-		8811425F27DD5398003B5A75 /* IosPopoverExample-Bridging-Header.h in Resources */ = {isa = PBXBuildFile; fileRef = 88561FBA27B95851003F248D /* IosPopoverExample-Bridging-Header.h */; };
+		88C7C12D28AE3E8400BDD0DC /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C7C12C28AE3E8400BDD0DC /* File.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,8 +48,8 @@
 		2D02E4901E0B4A5D006451C7 /* IosPopoverExample-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IosPopoverExample-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		47F7ED3B7971BE374F7B8635 /* Pods-IosPopoverExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IosPopoverExample.debug.xcconfig"; path = "Target Support Files/Pods-IosPopoverExample/Pods-IosPopoverExample.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = IosPopoverExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8811425A27DD3167003B5A75 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
-		88561FBA27B95851003F248D /* IosPopoverExample-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = "IosPopoverExample-Bridging-Header.h"; sourceTree = "<group>"; };
+		88C7C12B28AE3E8300BDD0DC /* IosPopoverExample-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "IosPopoverExample-Bridging-Header.h"; sourceTree = "<group>"; };
+		88C7C12C28AE3E8400BDD0DC /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		CA3E69C5B9553B26FBA2DF04 /* libPods-IosPopoverExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IosPopoverExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E00ACF0FDA8BF921659E2F9A /* Pods-IosPopoverExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IosPopoverExample.release.xcconfig"; path = "Target Support Files/Pods-IosPopoverExample/Pods-IosPopoverExample.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -100,8 +99,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				88561FBA27B95851003F248D /* IosPopoverExample-Bridging-Header.h */,
-				8811425A27DD3167003B5A75 /* File.swift */,
+				88C7C12C28AE3E8400BDD0DC /* File.swift */,
+				88C7C12B28AE3E8300BDD0DC /* IosPopoverExample-Bridging-Header.h */,
 			);
 			name = IosPopoverExample;
 			sourceTree = "<group>";
@@ -298,7 +297,6 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				8811425F27DD5398003B5A75 /* IosPopoverExample-Bridging-Header.h in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,7 +439,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				8811425E27DD5373003B5A75 /* File.swift in Sources */,
+				88C7C12D28AE3E8400BDD0DC /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
