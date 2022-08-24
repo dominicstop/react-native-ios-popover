@@ -11,6 +11,10 @@ import Foundation
 @objc(RNIPopoverViewManager)
 class RNIPopoverViewManager: RCTViewManager {
   
+  override static func requiresMainQueueSetup() -> Bool {
+    return true;
+  };
+  
   override func view() -> UIView! {
     return RNIPopoverView(bridge: self.bridge);
   };
