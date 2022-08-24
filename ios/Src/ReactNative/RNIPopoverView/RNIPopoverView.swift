@@ -17,59 +17,49 @@ class RNIPopoverView: UIView {
   // MARK: Properties
   // ----------------
   
-  weak var bridge: RCTBridge!;
-  private var touchHandler: RCTTouchHandler!;
+  private(set) weak var bridge: RCTBridge!;
+  private(set) var touchHandler: RCTTouchHandler!;
   
-  var didTriggerCleanup = false;
+  /// The view controller that corresponds to this view...
+  /// This vs is used to listen for navigation-related events
+  private(set) weak var viewController: RNINavigationEventsReportingViewController?;
   
   /// the content to show in the popover
-  var reactPopoverView: UIView?;
-  
-  var containerVC: RNIContainerViewController?;
+  private(set) var reactPopoverView: UIView?;
   
   /// the view controller that holds/manages the popover content
-  private var _popoverController: RNIPopoverViewController?;
+  private(set) var _popoverController: RNIPopoverViewController?;
+  
+  // ------------------------
+  // MARK: Properties - Flags
+  // ------------------------
+  
+  /// Whether or not the current view was successfully added as child VC
+  private(set) var didAttachToParentVC = false;
+  
+  /// Whether or not `cleanup` method was called
+  private(set) var didTriggerCleanup = false;
   
   // --------------------------------------
   // MARK: Properties - Computed Properties
   // --------------------------------------
   
+  var didInitializePopoverVC: Bool {
+    self._popoverController != nil
+  };
+  
   /// returns the current popover vc instance (or init. it first if it's nil)
   var popoverController: RNIPopoverViewController {
-    // get popover vc, or init it first if its nil
-    let popoverVC = self._popoverController ?? {
-      let vc = RNIPopoverViewController();
-      
-      // setup popover vc
-      vc.reactPopoverView = self.reactPopoverView;
-      vc.popoverSize = self._popoverSize;
-      vc.modalPresentationStyle = .popover;
-      
-      vc.boundsDidChangeBlock = { [weak self] (newBounds: CGRect) in
-        self?.popoverViewNotifyForBoundsChange(newBounds);
-      };
-      
-      self._popoverController = vc;
-      return vc;
-    }();
-    
-    // setup popover presentation controller
-    if let presentation = popoverVC.popoverPresentationController {
-      presentation.delegate   = self;
-      presentation.sourceView = self;
-      presentation.sourceRect = self.bounds;
-      
-      presentation.backgroundColor = self._popoverBackgroundColor;
-      presentation.permittedArrowDirections = self._permittedArrowDirections;
-      presentation.canOverlapSourceViewRect = self.popoverCanOverlapSourceViewRect;
+    if !self.didInitializePopoverVC {
+      self.setupInitializePopoverController();
     };
     
-    return popoverVC;
+    return self._popoverController!;
   };
   
   // shorthand to get the popover vc's presentation controller
   var popoverPresentation: UIPopoverPresentationController? {
-    return self._popoverController?.popoverPresentationController;
+    return self.popoverController.popoverPresentationController;
   };
   
   /// flag that indicates whether the popover is presented or not
@@ -100,6 +90,7 @@ class RNIPopoverView: UIView {
   // MARK: RN Exported Props
   // -----------------------
   
+  // TODO: Refactor: Re-write - Move Init
   private var _popoverSize: RNIPopoverSize = .INHERIT;
   @objc var popoverSize: NSDictionary? {
     didSet {
@@ -167,7 +158,7 @@ class RNIPopoverView: UIView {
     }
   };
   
-  // controls whether the popover should dismiss when bg is tapped
+  // controls whether the popover should dismiss when the bg is tapped
   @objc var popoverShouldDismiss: Bool = true;
 
   // ----------------
@@ -202,7 +193,7 @@ class RNIPopoverView: UIView {
     
     if atIndex == 0 {
       // remove previous popover
-      self.removeOldPopover();
+      self.removeOldPopoverIfAny();
       
       subview.removeFromSuperview();
       self.reactPopoverView = subview;
@@ -226,29 +217,75 @@ class RNIPopoverView: UIView {
 // ------------------------
 
 fileprivate extension RNIPopoverView {
-  func setupAttachToParentVC(){
-    let containerVC = RNIContainerViewController(view: self);
-    self.containerVC = containerVC;
+  func setupAttachToParentVCIfAny(){
+    guard !self.didAttachToParentVC,
+          
+          // find the nearest parent view controller
+          let parentVC = RNIUtilities
+            .getParent(responder: self, type: UIViewController.self)
+    else { return };
     
-    try? containerVC.attachToParentVC();
-    containerVC.eventsDelegate = self;
+    self.didAttachToParentVC = true;
+    
+    let childVC = RNINavigationEventsReportingViewController();
+    childVC.view = self;
+    childVC.delegate = self;
+    childVC.parentVC = parentVC;
+    
+    self.viewController = childVC;
+    
+    parentVC.addChild(childVC);
+    childVC.didMove(toParent: parentVC);
   };
   
-  func removeOldPopover(){
-    if let prevPopoverView = self.reactPopoverView {
-      RNIUtilities.recursivelyRemoveFromViewRegistry(
-        bridge: self.bridge,
-        reactView: prevPopoverView
-      );
-      
-      self.touchHandler.detach(from: prevPopoverView);
-      self.reactPopoverView = nil;
+  func setupInitializePopoverController(){
+    let popoverVC = RNIPopoverViewController();
+    
+    // setup popover vc
+    popoverVC.reactPopoverView = self.reactPopoverView;
+    popoverVC.popoverSize = self._popoverSize;
+    popoverVC.modalPresentationStyle = .popover;
+    
+    // TODO - Refactor: Rewrite
+    popoverVC.boundsDidChangeBlock = { [weak self] (newBounds: CGRect) in
+      self?.popoverViewNotifyForBoundsChange(newBounds);
     };
+    
+    self._popoverController = popoverVC;
+  };
+  
+  func configurePopoverController(){
+    guard let presentation = self.popoverController.popoverPresentationController
+    else { return };
+    
+    // setup popover presentation controller
+    presentation.delegate   = self;
+    presentation.sourceView = self;
+    presentation.sourceRect = self.bounds;
+    
+    presentation.backgroundColor = self._popoverBackgroundColor;
+    presentation.permittedArrowDirections = self._permittedArrowDirections;
+    presentation.canOverlapSourceViewRect = self.popoverCanOverlapSourceViewRect;
+  };
+  
+  // TODO: Refactor: Remove/Move
+  func removeOldPopoverIfAny(){
+    guard let prevPopoverView = self.reactPopoverView
+    else { return };
+    
+    RNIUtilities.recursivelyRemoveFromViewRegistry(
+      bridge: self.bridge,
+      reactView: prevPopoverView
+    );
+    
+    self.touchHandler.detach(from: prevPopoverView);
+    self.reactPopoverView = nil;
     
     // remove preview popover vc
     self._popoverController = nil;
   };
   
+  // TODO: Refactor: Remove/Move
   func popoverViewNotifyForBoundsChange(_ newBounds: CGRect){
     guard let bridge    = self.bridge,
           let reactView = self.reactPopoverView
@@ -258,6 +295,7 @@ fileprivate extension RNIPopoverView {
   };
   
   #if DEBUG
+  // TODO: Refactor: Move/Relocate
   // called when the RN app is reloaded
   @objc func onCTBridgeWillReload(){
     // dismiss modal
@@ -273,14 +311,23 @@ fileprivate extension RNIPopoverView {
 extension RNIPopoverView {
   /// show or hide the popover
   func setVisibility(_ visibility: Bool, completion: Completion? = nil) {
-    guard self.isPopoverVisible != visibility,
-          // get the closest view controller
-          let parentVC = self.reactViewController()
-    else {
+    let didChangeVisibility = self.isPopoverVisible != visibility;
+    
+    if !didChangeVisibility {
       // `setVisibility` failed...
       completion?(false, "Popover already \(visibility ? "visible" : "hidden")");
       return;
     };
+    
+    // get the closest view controller
+    guard let parentVC = self.reactViewController() else {
+      // `setVisibility` failed...
+      completion?(false, "Could not find a view controller to attach to");
+      return;
+    };
+    
+    // update popover presentation config based on props
+    self.configurePopoverController();
     
     if visibility {
       // send event to RN
@@ -359,24 +406,17 @@ extension RNIPopoverView: UIPopoverPresentationControllerDelegate {
   };
 };
 
-// -----------------------------------------------
-// MARK:- RNIContainerViewControllerEventsDelegate
-// -----------------------------------------------
+// -------------------------------------
+// MARK:- RNINavigationEventsNotifiable
+// -------------------------------------
 
-extension RNIPopoverView: RNIContainerViewControllerEventsDelegate {
-  
-  func onViewControllerDidDisappear(
-    sender: RNIContainerViewController,
-    parentVC: UIViewController?,
-    isBeingPopped: Bool
-  ) {
-    if isBeingPopped {
-      self.cleanup();
-    };
+extension RNIPopoverView: RNINavigationEventsNotifiable {
+  func notifyViewControllerDidPop(sender: RNINavigationEventsReportingViewController) {
+    self.cleanup();
   };
 };
 
-// -----------------------------------------------
+// -----------------------------------q------------
 // MARK:- RNIContainerViewControllerEventsDelegate
 // -----------------------------------------------
 
