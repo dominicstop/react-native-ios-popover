@@ -3,7 +3,21 @@
 
 
 - [ ] Implement `react-native-ios-utilites`
-	* Move shared code to a seperate library, and make it a peer dependency.
+	* Move shared code to a separate library, and make it a peer dependency.
+
+<br>
+
+- [ ] Refactor: Example - Extract `Homescreen` to its own file.
+- [ ] Implement: Example - Add debug controls
+- [ ] Implement: Example - Add env. constant to toggle navigation usage.
+- [ ] Refactor: Replace `RNIContainerViewController` usage with `RNINavigationEventsReporting`.
+
+
+
+
+
+* `react-native-utilities@1.0.0` doesn't trigger the build error. `react-native-ios-utilities@1.0.0-1 ` and above causes a build error.
+* Might be related to making the classes/protocols public?
 
 
 
@@ -22,9 +36,3 @@
 
 
 - [x] Test on RN `0.63.4`
-
-
-
-- [ ] Refactor: Example - Extract `Homescreen` to its own file.
-- [ ] Implement: Example - Add debug controls
-- [ ] Implement: Example - Add env. constant to toggle navigation usage.
