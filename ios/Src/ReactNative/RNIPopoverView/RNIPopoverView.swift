@@ -164,6 +164,36 @@ class RNIPopoverView: UIView {
     fatalError("init(coder:) has not been implemented");
   };
   
+  // ----------------------
+  // MARK: - View Lifecycle
+  // ----------------------
+  
+  public override func didMoveToWindow() {
+      
+    let isMovingToNilWindow = self.window == nil;
+    
+    let isBeingRemoved = !self.didAttachToParentVC &&  isMovingToNilWindow;
+    let isMovingToVC   = !self.didAttachToParentVC && !isMovingToNilWindow;
+    
+    if isBeingRemoved {
+      // A. moving to nil window, and not attached to parent vc,
+      // possible end of lifecycle for this view...
+      //
+      // trigger manual cleanup
+      self.cleanup();
+      
+    } else if isMovingToVC {
+      // B. Moving to a non-nil window, and is not attached to a parent yet...
+      //
+      // The VC paired to this view (or it's predecessor view) is possibly
+      // being attached as a child VC to another view controller e.g.
+      // `UINavigationController`...
+      //
+      // begin setup - attach this view as a child vc to the nearest vc
+      self.setupAttachToParentVCIfAny();
+    };
+  };
+  
   // ------------------
   // MARK: RN Lifecycle
   // ------------------
@@ -178,6 +208,8 @@ class RNIPopoverView: UIView {
       subview.removeFromSuperview();
       self.reactPopoverView = subview;
       self.touchHandler.attach(to: subview);
+      
+      self.setupInitializePopoverController();
     };
   };
   
@@ -418,11 +450,21 @@ extension RNIPopoverView: RNICleanable {
     
     self.popoverController = nil;
     
+    if let popoverVC = self.popoverController {
+      popoverVC.willMove(toParent: nil)
+      popoverVC.removeFromParent();
+      
+      popoverVC.view = nil;
+      self.popoverController = nil;
+    };
+    
     if let popoverView = self.reactPopoverView {
       RNIUtilities.recursivelyRemoveFromViewRegistry(
         bridge   : self.bridge,
         reactView: popoverView
       );
     };
+    
+    self.removeFromSuperview();
   };
 };
