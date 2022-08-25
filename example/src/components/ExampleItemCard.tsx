@@ -14,7 +14,7 @@ export type ExampleItemPopoverViewBaseProps = {
 export type ExampleItemPopoverViewProps = 
   ViewProps & ExampleItemPopoverViewBaseProps; 
 
-export class ExampleItemPopoverView 
+export class ExampleItemCard 
   extends React.Component<ExampleItemPopoverViewProps> {
 
   render(){

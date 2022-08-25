@@ -5,14 +5,14 @@ import { StyleSheet, View, Text, ViewProps } from 'react-native';
 import { PopoverView } from 'react-native-ios-popover';
 
 import { Button } from '../components/Button';
-import { ExampleItemPopoverView } from '../components/ExampleItemPopoverView';
+import { ExampleItemCard } from '../components/ExampleItemCard';
 
 
 export default function PopoverViewExample01(props: ViewProps) {
   const popoverRef = useRef<PopoverView>(null);
 
   return (
-    <ExampleItemPopoverView
+    <ExampleItemCard
       title={'PopoverViewExample01'}
       subtitle={'Min. Example'}
       desc={'A bare min. `PopoverView` example usage'}
@@ -32,7 +32,7 @@ export default function PopoverViewExample01(props: ViewProps) {
           popoverRef.current?.setVisibility(true);
         }}/>
       </PopoverView>
-    </ExampleItemPopoverView>
+    </ExampleItemCard>
   );
 };
 

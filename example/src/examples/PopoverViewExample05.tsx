@@ -5,7 +5,7 @@ import { StyleSheet, View, Text, TouchableOpacity, ViewProps, Alert } from 'reac
 import { PopoverView } from 'react-native-ios-popover';
 
 import { Button } from './../components/Button';
-import { ExampleItemPopoverView } from './../components/ExampleItemPopoverView';
+import { ExampleItemCard } from '../components/ExampleItemCard';
 
 import * as Colors from '../constants/Colors';
 
@@ -14,7 +14,7 @@ export default function PopoverViewExample05(props: ViewProps) {
   const popoverRef = useRef<PopoverView>(null);
 
   return (
-    <ExampleItemPopoverView
+    <ExampleItemCard
       title={'PopoverViewExample05'}
       subtitle={'setVisibility'}
       desc={'A example `PopoverView` for programmatically hiding the popover via the `setVisibility` function.'}
@@ -48,7 +48,7 @@ export default function PopoverViewExample05(props: ViewProps) {
           }}
         />
       </PopoverView>
-    </ExampleItemPopoverView>
+    </ExampleItemCard>
   );
 };
 

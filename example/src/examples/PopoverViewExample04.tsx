@@ -4,14 +4,14 @@ import { StyleSheet, View, Text, ViewProps } from 'react-native';
 
 import { PopoverView } from 'react-native-ios-popover';
 import { Button } from './../components/Button';
-import { ExampleItemPopoverView } from './../components/ExampleItemPopoverView';
+import { ExampleItemCard } from '../components/ExampleItemCard';
 
 
 export default function PopoverViewExample04(props: ViewProps) {
   const popoverRef = useRef<PopoverView>(null);
 
   return (
-    <ExampleItemPopoverView
+    <ExampleItemCard
       title={'PopoverViewExample04'}
       subtitle={'BG Color'}
       desc={'A example `PopoverView` with the `popoverBackgroundColor` prop set to "pink"'}
@@ -32,7 +32,7 @@ export default function PopoverViewExample04(props: ViewProps) {
           popoverRef.current?.setVisibility(true);
         }}/>
       </PopoverView>
-    </ExampleItemPopoverView>
+    </ExampleItemCard>
   );
 };
 

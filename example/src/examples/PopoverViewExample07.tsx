@@ -5,7 +5,7 @@ import { StyleSheet, View, Text, Switch, ViewProps, Alert } from 'react-native';
 import { PopoverView } from 'react-native-ios-popover';
 
 import { Button } from './../components/Button';
-import { ExampleItemPopoverView } from './../components/ExampleItemPopoverView';
+import { ExampleItemCard } from '../components/ExampleItemCard';
 
 
 export default function PopoverViewExample07(props: ViewProps) {
@@ -14,7 +14,7 @@ export default function PopoverViewExample07(props: ViewProps) {
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   return (
-    <ExampleItemPopoverView
+    <ExampleItemCard
       title={'PopoverViewExample07'}
       subtitle={'onPopoverDidAttemptToDismiss'}
       desc={'A example `PopoverView` that has a switch that toggles the `popoverShouldDismiss` prop'}
@@ -42,7 +42,7 @@ export default function PopoverViewExample07(props: ViewProps) {
           popoverRef.current?.setVisibility(true);
         }}/>
       </PopoverView>
-    </ExampleItemPopoverView>
+    </ExampleItemCard>
   );
 };
 
