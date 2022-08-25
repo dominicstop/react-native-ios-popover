@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, Switch, Alert } from 'react-native';
 
 import { PopoverView } from 'react-native-ios-popover';
 
-import { CardButton } from '../components/CardButton';
+import { CardButton } from '../components/Card/CardButton';
 import { ExampleItemCard } from '../components/ExampleItemCard';
 
 import type { SharedExampleProps } from './SharedExampleTypes';
