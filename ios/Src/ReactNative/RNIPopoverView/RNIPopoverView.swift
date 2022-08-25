@@ -201,6 +201,14 @@ class RNIPopoverView: UIView {
       self.reactPopoverView = nil;
     };
   };
+  
+  #if DEBUG
+  // called when the RN app is reloaded
+  @objc func onCTBridgeWillReload(){
+    // dismiss modal
+    self.setVisibility(false);
+  };
+  #endif
 };
 
 // ------------------------
@@ -284,15 +292,6 @@ fileprivate extension RNIPopoverView {
         
     bridge.uiManager.setSize(newBounds.size, for: reactView);
   };
-  
-  #if DEBUG
-  // TODO: Refactor: Move/Relocate
-  // called when the RN app is reloaded
-  @objc func onCTBridgeWillReload(){
-    // dismiss modal
-    self.setVisibility(false);
-  };
-  #endif
 };
 
 // ----------------------------------------
