@@ -3,14 +3,14 @@ import { StyleSheet, SafeAreaView, FlatList, ListRenderItem } from 'react-native
 
 import type { SharedExampleProps } from '../examples/SharedExampleTypes';
 
-import PopoverViewExample01 from '../examples/PopoverViewExample01';
-import PopoverViewExample02 from '../examples/PopoverViewExample02';
-import PopoverViewExample03 from '../examples/PopoverViewExample03';
-import PopoverViewExample04 from '../examples/PopoverViewExample04';
-import PopoverViewExample05 from '../examples/PopoverViewExample05';
-import PopoverViewExample06 from '../examples/PopoverViewExample06';
-import PopoverViewExample07 from '../examples/PopoverViewExample07';
-import PopoverViewExample08 from '../examples/PopoverViewExample08';
+import { PopoverViewExample01 } from '../examples/PopoverViewExample01';
+import { PopoverViewExample02 } from '../examples/PopoverViewExample02';
+import { PopoverViewExample03 } from '../examples/PopoverViewExample03';
+import { PopoverViewExample04 } from '../examples/PopoverViewExample04';
+import { PopoverViewExample05 } from '../examples/PopoverViewExample05';
+import { PopoverViewExample06 } from '../examples/PopoverViewExample06';
+import { PopoverViewExample07 } from '../examples/PopoverViewExample07';
+import { PopoverViewExample08 } from '../examples/PopoverViewExample08';
 
 import { DebugControls } from '../examples/DebugControls';
 import { SHARED_ENV } from '../constants/SharedEnv';

@@ -13,7 +13,7 @@ import type { SharedExampleProps } from './SharedExampleTypes';
 import * as Colors from '../constants/Colors';
 
 
-export default function PopoverViewExample05(props: SharedExampleProps) {
+export function PopoverViewExample05(props: SharedExampleProps) {
   const popoverRef = useRef<PopoverView>(null);
 
   return (

@@ -10,7 +10,7 @@ import { ExampleItemCard } from '../components/ExampleItemCard';
 import type { SharedExampleProps } from './SharedExampleTypes';
 
 
-export default function PopoverViewExample07(props: SharedExampleProps) {
+export function PopoverViewExample07(props: SharedExampleProps) {
   const popoverRef = useRef<PopoverView>(null);
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);

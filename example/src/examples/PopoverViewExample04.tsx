@@ -10,7 +10,7 @@ import { ExampleItemCard } from '../components/ExampleItemCard';
 import type { SharedExampleProps } from './SharedExampleTypes';
 
 
-export default function PopoverViewExample04(props: SharedExampleProps) {
+export function PopoverViewExample04(props: SharedExampleProps) {
   const popoverRef = useRef<PopoverView>(null);
 
   return (

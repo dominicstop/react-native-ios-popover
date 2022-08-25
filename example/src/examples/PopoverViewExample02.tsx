@@ -19,7 +19,7 @@ const DIRECTIONS_MAP: [string, PopoverArrowDirections[]][] = [
   ["[] or nil", [       ]]
 ];
 
-export default function PopoverViewExample02(props: SharedExampleProps) {
+export function PopoverViewExample02(props: SharedExampleProps) {
   const popoverRef = useRef<PopoverView>(null);
 
   const [index, setIndex] = React.useState(0);
