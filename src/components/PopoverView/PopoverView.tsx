@@ -26,10 +26,6 @@ export class PopoverView extends
     };
   };
 
-  componentWillUnmount(){
-    this.setVisibility(false);
-  };
-
   private getProps = () => {
     const {
       popoverBackgroundColor,
