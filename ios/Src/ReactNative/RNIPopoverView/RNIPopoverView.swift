@@ -194,8 +194,7 @@ class RNIPopoverView: UIView {
   #if DEBUG
   // called when the RN app is reloaded
   @objc func onCTBridgeWillReload(){
-    // dismiss modal
-    self.setVisibility(false);
+    self.cleanup();
   };
   #endif
 };
