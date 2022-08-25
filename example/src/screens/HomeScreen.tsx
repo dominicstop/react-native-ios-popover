@@ -32,10 +32,14 @@ const EXAMPLE_COMPONENTS = [
   PopoverViewExample08,
 ];
 
-const EXAMPLE_ITEMS: ExampleListItem[] = EXAMPLE_COMPONENTS.map((item, index) => ({
-  id: index + 1,
-  component: item
-}));
+// @ts-ignore
+const EXAMPLE_ITEMS: ExampleListItem[] = (EXAMPLE_COMPONENTS
+  .filter(item => !!item)
+  .map((item, index) => ({
+    id: index + 1,
+    component: item
+  }))
+);
 
 export function HomeScreen() {
   const renderItem: ListRenderItem<ExampleListItem>  = ({ item })  => (
