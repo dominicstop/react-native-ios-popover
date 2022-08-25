@@ -112,11 +112,11 @@ class RNIPopoverView: UIView {
       self._popoverBackgroundColor = color;
       
       if self.isPopoverVisible,
-         let popoverPresentationController =
+         let presentationController =
             self._popoverController?.popoverPresentationController {
         
         // popover is visible, update background color
-        popoverPresentationController.backgroundColor = color;
+        presentationController.backgroundColor = color;
       };
     }
   };
