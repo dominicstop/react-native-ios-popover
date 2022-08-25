@@ -1,39 +1,65 @@
 import * as React from 'react';
-import { StyleSheet, Text, TouchableOpacity, TouchableOpacityProps } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, GestureResponderEvent } from 'react-native';
 
 import * as Colors from '../../constants/Colors';
 
 
-export function CardButton(props: TouchableOpacityProps & {
-  buttonText?: string;
+/**
+ * ```
+ * ┌─────────────────────────────┐
+ * │ Title                       │
+ * │ Subtitle                    │
+ * └─────────────────────────────┘
+ * ```
+ */         
+export function CardButton(props: {
+  title: string;
+  subtitle?: string;
+  onPress: (event: GestureResponderEvent) => void;
 }){
+  const isTitleOnly = props.subtitle == null;
+
   return(
-    <TouchableOpacity
-      style={styles.buttonContainer}
-      activeOpacity={0.85}
-      {...props}
+    <TouchableOpacity 
+      style={[
+        styles.cardButtonContainer,
+        isTitleOnly && styles.cardButtonContainerTitleOnly,
+      ]}
+      onPress={props.onPress}
     >
-      <Text style={styles.buttonText}>
-        {props.buttonText ?? "⭐️ Show Popover"}
-      </Text>
+      <React.Fragment>
+        <Text style={styles.cardButtonTitleText}>
+          {props.title}
+        </Text>
+        {props.subtitle && (
+          <Text style={styles.cardButtonSubtitleText}>
+            {props.subtitle}
+          </Text>
+        )}
+      </React.Fragment>
     </TouchableOpacity>
   );
 };
 
-
 const styles = StyleSheet.create({
-  buttonContainer: {
-    margin: 10,
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    backgroundColor: Colors.BLUE.A400,
-    borderRadius: 10,
+  cardButtonContainerTitleOnly: {
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingVertical: 10,
   },
-  buttonText: {
+  cardButtonContainer: {
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    backgroundColor: Colors.PURPLE.A200,
+    borderRadius: 10,
+    marginTop: 12,
+  },
+  cardButtonTitleText: {
     color: 'white',
-    fontWeight: '800',
-    fontSize: 14,
+    fontSize: 15,
+    fontWeight: '700'
+  },
+  cardButtonSubtitleText: {
+    color: 'white',
+    fontWeight: '400'
   },
 });

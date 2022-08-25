@@ -34,7 +34,7 @@ export default function PopoverViewExample08(props: SharedExampleProps) {
         )}
       >
         <CardButton
-          buttonText={'⭐️ Toggle Popover'}
+          title={'⭐️ Toggle Popover'}
           onPress={() => {
             popoverRef.current?.toggleVisibility();
           }}
