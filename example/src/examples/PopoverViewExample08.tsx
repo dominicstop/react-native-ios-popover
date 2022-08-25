@@ -1,26 +1,26 @@
 import * as React from 'react';
 import { useRef } from 'react';
-import { StyleSheet, View, Text, ViewProps, Alert } from 'react-native';
+import { StyleSheet, View, Text, ViewProps } from 'react-native';
 
 import { PopoverView } from 'react-native-ios-popover';
-import { Button } from './Button';
-import { ExampleItemPopoverView } from './ExampleItemPopoverView';
+
+import { Button } from './../components/Button';
+import { ExampleItemPopoverView } from './../components/ExampleItemPopoverView';
 
 
-export default function PopoverViewExample06(props: ViewProps) {
+export default function PopoverViewExample08(props: ViewProps) {
   const popoverRef = useRef<PopoverView>(null);
 
   return (
     <ExampleItemPopoverView
-      title={'PopoverViewExample06'}
-      subtitle={'Events Example'}
-      desc={'A simple `PopoverView` example for the popover did show/hide events'}
+      title={'PopoverViewExample08'}
+      subtitle={'Toggle Popover'}
+      desc={'A example `PopoverView` for the `toggleVisibility` function'}
       {...props}
     >
       <PopoverView
         ref={popoverRef}
-        onPopoverDidHide={() => Alert.alert('event', 'onPopoverDidHide')}
-        onPopoverDidShow={() => Alert.alert('event', 'onPopoverDidShow')}
+        popoverShouldDismiss={false}
         renderPopoverContent={() => (
           <View style={styles.popoverContentContainer}>
             <Text style={styles.popoverText}>
@@ -29,9 +29,12 @@ export default function PopoverViewExample06(props: ViewProps) {
           </View>
         )}
       >
-        <Button onPress={() => {
-          popoverRef.current?.setVisibility(true);
-        }}/>
+        <Button
+          buttonText={'⭐️ Toggle Popover'}
+          onPress={() => {
+            popoverRef.current?.toggleVisibility();
+          }}
+        />
       </PopoverView>
     </ExampleItemPopoverView>
   );

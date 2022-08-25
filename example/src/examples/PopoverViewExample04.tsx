@@ -3,8 +3,8 @@ import { useRef } from 'react';
 import { StyleSheet, View, Text, ViewProps } from 'react-native';
 
 import { PopoverView } from 'react-native-ios-popover';
-import { Button } from './Button';
-import { ExampleItemPopoverView } from './ExampleItemPopoverView';
+import { Button } from './../components/Button';
+import { ExampleItemPopoverView } from './../components/ExampleItemPopoverView';
 
 
 export default function PopoverViewExample04(props: ViewProps) {

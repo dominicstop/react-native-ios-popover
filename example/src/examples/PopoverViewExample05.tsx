@@ -4,8 +4,8 @@ import { StyleSheet, View, Text, TouchableOpacity, ViewProps, Alert } from 'reac
 
 import { PopoverView } from 'react-native-ios-popover';
 
-import { Button } from './Button';
-import { ExampleItemPopoverView } from './ExampleItemPopoverView';
+import { Button } from './../components/Button';
+import { ExampleItemPopoverView } from './../components/ExampleItemPopoverView';
 
 import * as Colors from '../constants/Colors';
 

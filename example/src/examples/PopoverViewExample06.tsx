@@ -1,27 +1,27 @@
 import * as React from 'react';
 import { useRef } from 'react';
-import { StyleSheet, View, Text, ViewProps } from 'react-native';
+import { StyleSheet, View, Text, ViewProps, Alert } from 'react-native';
 
 import { PopoverView } from 'react-native-ios-popover';
-import { Button } from './Button';
-import { ExampleItemPopoverView } from './ExampleItemPopoverView';
+
+import { Button } from './../components/Button';
+import { ExampleItemPopoverView } from './../components/ExampleItemPopoverView';
 
 
-export default function PopoverViewExample03(props: ViewProps) {
+export default function PopoverViewExample06(props: ViewProps) {
   const popoverRef = useRef<PopoverView>(null);
 
   return (
     <ExampleItemPopoverView
-      title={'PopoverViewExample03'}
-      subtitle={'popoverSize: "STRETCH"'}
-      desc={'A example `PopoverView` with the `popoverSize` prop set to "STRETCH"'}
+      title={'PopoverViewExample06'}
+      subtitle={'Events Example'}
+      desc={'A simple `PopoverView` example for the popover did show/hide events'}
       {...props}
     >
       <PopoverView
         ref={popoverRef}
-        popoverSize={{type: 'STRETCH'}}
-        popoverCanOverlapSourceViewRect={false}
-        permittedArrowDirections={["up", "down"]}
+        onPopoverDidHide={() => Alert.alert('event', 'onPopoverDidHide')}
+        onPopoverDidShow={() => Alert.alert('event', 'onPopoverDidShow')}
         renderPopoverContent={() => (
           <View style={styles.popoverContentContainer}>
             <Text style={styles.popoverText}>
@@ -40,9 +40,7 @@ export default function PopoverViewExample03(props: ViewProps) {
 
 const styles = StyleSheet.create({
   popoverContentContainer: {
-    flex: 1, 
-    alignItems: 'center', 
-    justifyContent: 'center'
+    padding: 20
   },
   popoverText: {
     fontSize: 16,

@@ -3,23 +3,23 @@ import { useRef } from 'react';
 import { StyleSheet, View, Text, ViewProps } from 'react-native';
 
 import { PopoverView } from 'react-native-ios-popover';
-import { Button } from './Button';
-import { ExampleItemPopoverView } from './ExampleItemPopoverView';
+
+import { Button } from '../components/Button';
+import { ExampleItemPopoverView } from '../components/ExampleItemPopoverView';
 
 
-export default function PopoverViewExample08(props: ViewProps) {
+export default function PopoverViewExample01(props: ViewProps) {
   const popoverRef = useRef<PopoverView>(null);
 
   return (
     <ExampleItemPopoverView
-      title={'PopoverViewExample08'}
-      subtitle={'Toggle Popover'}
-      desc={'A example `PopoverView` for the `toggleVisibility` function'}
+      title={'PopoverViewExample01'}
+      subtitle={'Min. Example'}
+      desc={'A bare min. `PopoverView` example usage'}
       {...props}
     >
       <PopoverView
         ref={popoverRef}
-        popoverShouldDismiss={false}
         renderPopoverContent={() => (
           <View style={styles.popoverContentContainer}>
             <Text style={styles.popoverText}>
@@ -28,12 +28,9 @@ export default function PopoverViewExample08(props: ViewProps) {
           </View>
         )}
       >
-        <Button
-          buttonText={'⭐️ Toggle Popover'}
-          onPress={() => {
-            popoverRef.current?.toggleVisibility();
-          }}
-        />
+        <Button onPress={() => {
+          popoverRef.current?.setVisibility(true);
+        }}/>
       </PopoverView>
     </ExampleItemPopoverView>
   );
