@@ -28,7 +28,7 @@ class RNIPopoverView: UIView {
   private(set) var reactPopoverView: UIView?;
   
   /// the view controller that holds/manages the popover content
-  private(set) var _popoverController: RNIPopoverViewController?;
+  private(set) var popoverController: RNIPopoverViewController?;
   
   // ------------------------
   // MARK: Properties - Flags
@@ -45,30 +45,26 @@ class RNIPopoverView: UIView {
   // --------------------------------------
   
   var didInitializePopoverVC: Bool {
-    self._popoverController != nil
-  };
-  
-  /// returns the current popover vc instance (or init. it first if it's nil)
-  var popoverController: RNIPopoverViewController {
-    if !self.didInitializePopoverVC {
-      self.setupInitializePopoverController();
-    };
-    
-    return self._popoverController!;
+    self.popoverController != nil
   };
   
   // shorthand to get the popover vc's presentation controller
   var popoverPresentation: UIPopoverPresentationController? {
-    return self.popoverController.popoverPresentationController;
+    return self.popoverController?.popoverPresentationController;
   };
   
   /// flag that indicates whether the popover is presented or not
   var isPopoverVisible: Bool {
-    guard let popoverVC = self._popoverController
+    guard let popoverVC = self.popoverController
     else { return false };
     
     // the view's window property is non-nil if a view is currently visible
     return popoverVC.viewIfLoaded?.window != nil;
+  };
+  
+  /// This is where the popover should be presented.
+  var targetViewController: UIViewController? {
+    self.viewController ?? self.reactViewController()
   };
   
   // -----------------------------
@@ -98,7 +94,7 @@ class RNIPopoverView: UIView {
       else { return };
       
       self._popoverSize = size;
-      self.popoverController.popoverSize = size;
+      self.popoverController?.popoverSize = size;
     }
   };
   
@@ -112,8 +108,7 @@ class RNIPopoverView: UIView {
       self._popoverBackgroundColor = color;
       
       if self.isPopoverVisible,
-         let presentationController =
-            self._popoverController?.popoverPresentationController {
+         let presentationController = self.popoverPresentation {
         
         // popover is visible, update background color
         presentationController.backgroundColor = color;
@@ -129,23 +124,17 @@ class RNIPopoverView: UIView {
       else { return };
       
       self._permittedArrowDirections = arrowDirections;
+      self.popoverPresentation?.permittedArrowDirections = arrowDirections;
       
-      if let popoverVC         = self._popoverController,
-         let popoverController = popoverVC.popoverPresentationController {
-        
-        popoverController.permittedArrowDirections = arrowDirections;
-        if #available(iOS 11.0, *) {
-          popoverVC.viewSafeAreaInsetsDidChange();
-        };
+      if #available(iOS 11.0, *) {
+        self.popoverController?.viewSafeAreaInsetsDidChange();
       };
     }
   };
   
   @objc var popoverCanOverlapSourceViewRect: Bool = false {
     willSet {
-      if let presentation = self.popoverPresentation {
-        presentation.canOverlapSourceViewRect = newValue;
-      };
+      self.popoverPresentation?.canOverlapSourceViewRect = newValue;
     }
   };
   
@@ -250,11 +239,11 @@ fileprivate extension RNIPopoverView {
       self?.popoverViewNotifyForBoundsChange(newBounds);
     };
     
-    self._popoverController = popoverVC;
+    self.popoverController = popoverVC;
   };
   
   func configurePopoverController(){
-    guard let presentation = self.popoverController.popoverPresentationController
+    guard let presentation = self.popoverController?.popoverPresentationController
     else { return };
     
     // setup popover presentation controller
@@ -281,7 +270,7 @@ fileprivate extension RNIPopoverView {
     self.reactPopoverView = nil;
     
     // remove preview popover vc
-    self._popoverController = nil;
+    self.popoverController = nil;
   };
   
   // TODO: Refactor: Remove/Move
@@ -310,22 +299,29 @@ extension RNIPopoverView {
     };
     
     // get the closest view controller
-    guard let parentVC = self.reactViewController() else {
+    guard let targetVC = self.reactViewController() else {
       // `setVisibility` failed...
       completion?(false, "Could not find a view controller to attach to");
       return;
     };
     
-    // update popover presentation config based on props
-    self.configurePopoverController();
+    guard let popoverVC = self.popoverController else {
+      // `setVisibility` failed...
+      completion?(false, "Popover view controller does not exist");
+      return;
+    };
     
     if visibility {
+      // A. Show popover...
+      // update popover presentation config based on props
+      self.configurePopoverController();
+      
       // send event to RN
       self.onPopoverWillShow?([:]);
       
-      // show popover
-      parentVC.present(self.popoverController, animated: true){
-        // `setVisibility` success...
+      // begin showing popover...
+      targetVC.present(popoverVC, animated: true){
+        // transition finished, popover shown.
         completion?(true, nil);
         
         // send event to RN
@@ -333,12 +329,13 @@ extension RNIPopoverView {
       };
       
     } else {
+      // B. Hide popover...
       // send event to RN
       self.onPopoverWillHide?([:]);
       
-      // hide popover
-      self.popoverController.dismiss(animated: true){
-        // `setVisibility` success...
+      // begin hiding popover...
+      popoverVC.dismiss(animated: true){
+        // transition finished, popover hidden.
         completion?(true, nil);
         
         // send event to RN
@@ -420,7 +417,7 @@ extension RNIPopoverView: RNICleanable {
       self.setVisibility(false, completion: nil);
     };
     
-    self._popoverController = nil;
+    self.popoverController = nil;
     
     if let popoverView = self.reactPopoverView {
       RNIUtilities.recursivelyRemoveFromViewRegistry(
