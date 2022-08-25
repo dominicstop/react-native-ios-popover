@@ -124,9 +124,10 @@ export class PopoverView extends
 
   _handleOnPopoverDidHide: OnPopoverDidHideEvent = (event) => {
     this.props.onPopoverDidHide?.(event);
+    event.stopPropagation();
+
     Helpers.setStateAsync(this, {mountPopover: false});
   };
-
   //#endregion
 
   render(){
