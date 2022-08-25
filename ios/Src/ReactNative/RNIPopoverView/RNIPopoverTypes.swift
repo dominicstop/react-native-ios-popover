@@ -23,4 +23,17 @@ enum RNIPopoverSize {
     
     self = match;
   };
+  
+  init?(dict: NSDictionary){
+    guard let type = dict["type"] as? String
+    else { return nil };
+    
+    self = Self.stringMap[type.uppercased()] ?? {
+      guard let width  = dict["width" ] as? CGFloat,
+            let height = dict["height"] as? CGFloat
+      else { return .INHERIT };
+      
+      return .CUSTOM(width: width, height: height);
+    }();
+  };
 };

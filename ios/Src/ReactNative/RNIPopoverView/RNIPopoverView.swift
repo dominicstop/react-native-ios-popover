@@ -90,24 +90,15 @@ class RNIPopoverView: UIView {
   // MARK: RN Exported Props
   // -----------------------
   
-  // TODO: Refactor: Re-write - Move Init
   private var _popoverSize: RNIPopoverSize = .INHERIT;
   @objc var popoverSize: NSDictionary? {
-    didSet {
-      guard let dictionary = self.popoverSize,
-            let typeString = dictionary["type"] as? String
+    willSet {
+      guard let dict = newValue,
+            let size = RNIPopoverSize(dict: dict)
       else { return };
       
-      self._popoverSize = {
-        if let width  = dictionary["width" ] as? CGFloat,
-           let height = dictionary["height"] as? CGFloat {
-          
-          return .CUSTOM(width: width, height: height);
-          
-        } else {
-          return .init(string: typeString) ?? .INHERIT;
-        };
-      }();
+      self._popoverSize = size;
+      self.popoverController.popoverSize = size;
     }
   };
   
