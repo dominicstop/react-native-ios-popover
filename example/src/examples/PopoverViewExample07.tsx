@@ -1,24 +1,28 @@
 import * as React from 'react';
 import { useState, useRef } from 'react';
-import { StyleSheet, View, Text, Switch, ViewProps, Alert } from 'react-native';
+import { StyleSheet, View, Text, Switch, Alert } from 'react-native';
 
 import { PopoverView } from 'react-native-ios-popover';
 
 import { Button } from './../components/Button';
 import { ExampleItemCard } from '../components/ExampleItemCard';
 
+import type { SharedExampleProps } from './SharedExampleTypes';
 
-export default function PopoverViewExample07(props: ViewProps) {
+
+export default function PopoverViewExample07(props: SharedExampleProps) {
   const popoverRef = useRef<PopoverView>(null);
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   return (
     <ExampleItemCard
+      style={props.style}
       title={'PopoverViewExample07'}
       subtitle={'onPopoverDidAttemptToDismiss'}
-      desc={'A example `PopoverView` that has a switch that toggles the `popoverShouldDismiss` prop'}
-      {...props}
+      description={[
+        'A example `PopoverView` that has a switch that toggles the `popoverShouldDismiss` prop'
+      ]}
     >
       <PopoverView
         ref={popoverRef}

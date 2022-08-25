@@ -1,98 +1,156 @@
 import * as React from 'react';
-import { StyleSheet, View, Text, ViewProps } from 'react-native';
+import { StyleSheet, View, Text, ViewStyle } from 'react-native';
 
 import * as Colors from '../constants/Colors';
 
 
-export type ExampleItemPopoverViewBaseProps = {
-  title?: string;
-  subtitle?: string;
-  desc?: string;
-  index?: number;
+export type ColorConfig = {
+  headerBGColorActive  : string;
+  headerBGColorInactive: string;
+
+  bodyBGColorActive  : string;
+  bodyBGColorInactive: string;
+
+  bodyDescriptionLabelColor: string;
 };
 
-export type ExampleItemPopoverViewProps = 
-  ViewProps & ExampleItemPopoverViewBaseProps; 
+export type ContextMenuCardProps = {
+  index?: number;
+  title?: string;
+  subtitle?: string;
+  description?: string[];
+  colorConfig?: ColorConfig,
 
-export class ExampleItemCard 
-  extends React.Component<ExampleItemPopoverViewProps> {
+  style?: ViewStyle;
+  extraContentContainerStyle?: ViewStyle;
+  children?: JSX.Element | JSX.Element[];
+};
 
-  render(){
-    const { children, ...props } = this.props;
+const defaultColorConfig: ColorConfig = {
+  headerBGColorActive  : Colors.PURPLE.A700,
+  headerBGColorInactive: Colors.BLUE  .A700,
 
-    return(
-      <View
-        style={[styles.rootContainer, props.style]}
-        {...props}
-      >
-        <View style={styles.titleContainer}>
-          <Text style={styles.textTitleIndex}>
+  bodyBGColorActive  : Colors.PURPLE[100],
+  bodyBGColorInactive: Colors.BLUE  [100],
+
+  bodyDescriptionLabelColor: Colors.BLUE[1100],
+};
+
+export function ExampleItemCard(props: ContextMenuCardProps) {
+
+  const colorConfig = props.colorConfig ?? defaultColorConfig;
+
+  // TODO - TBA: PopoverView Context
+  const isActive = false;
+
+  const titleContainerStyle = {
+    backgroundColor: (isActive
+      ? colorConfig.headerBGColorActive
+      : colorConfig.headerBGColorInactive
+    )
+  };
+
+  const bodyContainerStyle = {
+    backgroundColor: (isActive
+      ? colorConfig.bodyBGColorActive
+      : colorConfig.bodyBGColorInactive
+    )
+  };
+
+  const bodyDescriptionLabelTextStyle = {
+    color: colorConfig.bodyDescriptionLabelColor,
+  };
+
+  const descriptionMain = props.description?.[0];
+  const descriptionSub  = props.description?.slice(1);
+
+  return (
+    <View style={[styles.rootContainer, props.style]}>
+      <View style={[styles.headerContainer, titleContainerStyle]}>
+        <Text style={styles.headerTitleIndexText}>
             {`${props.index ?? 0}. `}
           </Text>
-          <Text style={styles.textTitle}>
+        <View style={styles.headerTitleContainer}>
+          <Text style={styles.headerTitleText}>
             {props.title ?? 'N/A'}
-            {props.subtitle && (
-              <Text style={styles.textSubtitle}>
-                {` (${props.subtitle})`}
-              </Text>
-            )}
           </Text>
+          {props.subtitle && (
+            <Text style={styles.headerSubtitleText}>
+              {props.subtitle}
+            </Text>
+          )}
         </View>
-        <View style={styles.subtitleContainer}>
-          <Text style={styles.textDescription}>
-            <Text style={styles.textDescriptionLabel}>
+      </View>
+      <View style={[styles.bodyContainer, bodyContainerStyle]}>
+        {descriptionMain && (
+          <Text style={styles.bodyDescriptionText}>
+            <Text style={[styles.bodyDescriptionLabelText, bodyDescriptionLabelTextStyle]}>
               {'Description: '}
             </Text>
-            {props.desc ?? "N/A"}
+            {descriptionMain}
           </Text>
-        </View>
-        {children}
+        )}
+        {descriptionSub?.map((description, index) => (
+          <Text 
+            key={`desc-${index}`}
+            style={[styles.bodyDescriptionText, styles.bodyDescriptionSubText]}
+          >
+            {description}
+          </Text>
+        ))}
+        {(React.Children.count(props.children) > 0) && (
+          <View style={props.extraContentContainerStyle}>
+            {props.children}
+          </View>
+        )}
       </View>
-    );
-  };
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
   rootContainer: {
     borderRadius: 10,
-    margin: 20,
     overflow: 'hidden',
-    backgroundColor: Colors.BLUE[50]
   },
-  titleContainer: {
+  headerContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: 15,
     paddingVertical: 8,
-    alignItems: 'center',
-    backgroundColor: Colors.BLUE[500]
   },
-  textTitle: {
+  headerTitleContainer: {
+    marginLeft: 5,
+  },
+  headerTitleText: {
     flex: 1,
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: '700',
     color: 'white',
-    marginLeft: 2,
   },
-  textTitleIndex: {
-    fontSize: 17,
-    fontWeight: '700',
+  headerTitleIndexText: {
+    fontSize: 16,
+    fontWeight: '800',
     color: 'rgba(255,255,255,0.75)',
   },
-  textSubtitle: {
+  headerSubtitleText: {
     fontSize: 14,
     color: 'rgba(255,255,255,0.75)',
-    fontWeight: '300',
+    fontWeight: '600',
   },
-  subtitleContainer: {
-    paddingHorizontal: 15,
-    paddingVertical: 10,
+  bodyContainer: {
+    paddingHorizontal: 12,
+    paddingTop: 7,
+    paddingBottom: 10,
   },
-  textDescription: {
+  bodyDescriptionText: {
     fontWeight: '300',
     color: 'rgba(0,0,0,0.75)'
   },
-  textDescriptionLabel: {
-    color: Colors.BLUE[1100],
+  bodyDescriptionLabelText: {
     fontWeight: 'bold',
+  },
+  bodyDescriptionSubText: {
+    marginTop: 10,
   },
 });

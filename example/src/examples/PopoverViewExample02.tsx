@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { useRef } from 'react';
-import { StyleSheet, View, Text, ViewProps } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 import { PopoverArrowDirections, PopoverView } from 'react-native-ios-popover';
 
 import { Button } from '../components/Button';
 import { ExampleItemCard } from '../components/ExampleItemCard';
+
+import type { SharedExampleProps } from './SharedExampleTypes';
 
 
 const DIRECTIONS_MAP: [string, PopoverArrowDirections[]][] = [
@@ -17,7 +19,7 @@ const DIRECTIONS_MAP: [string, PopoverArrowDirections[]][] = [
   ["[] or nil", [       ]]
 ];
 
-export default function PopoverViewExample02(props: ViewProps) {
+export default function PopoverViewExample02(props: SharedExampleProps) {
   const popoverRef = useRef<PopoverView>(null);
 
   const [index, setIndex] = React.useState(0);
@@ -25,10 +27,12 @@ export default function PopoverViewExample02(props: ViewProps) {
 
   return (
     <ExampleItemCard
+      style={props.style}
       title={'PopoverViewExample02'}
       subtitle={'Prop Example: `permittedArrowDirections`'}
-      desc={'A example `PopoverView` with the `permittedArrowDirections` set to "left"'}
-      {...props}
+      description={[
+        'A example `PopoverView` with the `permittedArrowDirections` set to "left"'
+      ]}
     >
       <PopoverView
         ref={popoverRef}

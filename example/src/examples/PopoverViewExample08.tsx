@@ -1,22 +1,26 @@
 import * as React from 'react';
 import { useRef } from 'react';
-import { StyleSheet, View, Text, ViewProps } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 import { PopoverView } from 'react-native-ios-popover';
 
 import { Button } from './../components/Button';
 import { ExampleItemCard } from '../components/ExampleItemCard';
 
+import type { SharedExampleProps } from './SharedExampleTypes';
 
-export default function PopoverViewExample08(props: ViewProps) {
+
+export default function PopoverViewExample08(props: SharedExampleProps) {
   const popoverRef = useRef<PopoverView>(null);
 
   return (
     <ExampleItemCard
+      style={props.style}
       title={'PopoverViewExample08'}
       subtitle={'Toggle Popover'}
-      desc={'A example `PopoverView` for the `toggleVisibility` function'}
-      {...props}
+      description={[
+        'A example `PopoverView` for the `toggleVisibility` function'
+      ]}
     >
       <PopoverView
         ref={popoverRef}
