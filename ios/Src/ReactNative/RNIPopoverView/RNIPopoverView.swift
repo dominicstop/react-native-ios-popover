@@ -448,14 +448,14 @@ extension RNIPopoverView: RNICleanable {
       self.setVisibility(false, completion: nil);
     };
     
-    self.popoverController = nil;
-    
     if let popoverVC = self.popoverController {
-      popoverVC.willMove(toParent: nil)
-      popoverVC.removeFromParent();
-      
-      popoverVC.view = nil;
+      popoverVC.detachFromParentVC();
       self.popoverController = nil;
+    };
+    
+    if let vc = self.viewController {
+      vc.detachFromParentVC();
+      self.viewController = nil;
     };
     
     if let popoverView = self.reactPopoverView {
