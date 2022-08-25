@@ -5,7 +5,7 @@ import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
 
 import { PopoverView } from 'react-native-ios-popover';
 
-import { Button } from './../components/Button';
+import { CardButton } from '../components/CardButton';
 import { ExampleItemCard } from '../components/ExampleItemCard';
 
 import type { SharedExampleProps } from './SharedExampleTypes';
@@ -46,7 +46,7 @@ export default function PopoverViewExample05(props: SharedExampleProps) {
           </View>
         )}
       >
-        <Button
+        <CardButton
           buttonText={'⭐️ Toggle Popover'}
           onPress={() => {
             popoverRef.current?.toggleVisibility()

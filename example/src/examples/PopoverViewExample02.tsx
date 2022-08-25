@@ -4,7 +4,7 @@ import { StyleSheet, View, Text } from 'react-native';
 
 import { PopoverArrowDirections, PopoverView } from 'react-native-ios-popover';
 
-import { Button } from '../components/Button';
+import { CardButton } from '../components/CardButton';
 import { ExampleItemCard } from '../components/ExampleItemCard';
 
 import type { SharedExampleProps } from './SharedExampleTypes';
@@ -48,7 +48,7 @@ export default function PopoverViewExample02(props: SharedExampleProps) {
           </View>
         )}
       >
-        <Button onPress={() => {
+        <CardButton onPress={() => {
           popoverRef.current?.setVisibility(true);
         }}/>
       </PopoverView>

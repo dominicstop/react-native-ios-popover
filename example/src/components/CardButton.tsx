@@ -4,7 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, TouchableOpacityProps } from 'react
 import * as Colors from '../constants/Colors';
 
 
-export function Button(props: TouchableOpacityProps & {
+export function CardButton(props: TouchableOpacityProps & {
   buttonText?: string;
 }){
   return(
