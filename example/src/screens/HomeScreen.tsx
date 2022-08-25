@@ -12,9 +12,8 @@ import PopoverViewExample06 from '../examples/PopoverViewExample06';
 import PopoverViewExample07 from '../examples/PopoverViewExample07';
 import PopoverViewExample08 from '../examples/PopoverViewExample08';
 
-// TODO:
-// import { DebugControls } from '../examples/DebugControls';
-// import { SHARED_ENV } from '../constants/SharedEnv';
+import { DebugControls } from '../examples/DebugControls';
+import { SHARED_ENV } from '../constants/SharedEnv';
 
 type ExampleListItem = {
   id: number;
@@ -22,8 +21,7 @@ type ExampleListItem = {
 };
 
 const EXAMPLE_COMPONENTS = [
-  // TODO:
-  // SHARED_ENV.enableReactNavigation && DebugControls,
+  SHARED_ENV.enableReactNavigation && DebugControls,
   PopoverViewExample01,
   PopoverViewExample02,
   PopoverViewExample03,
