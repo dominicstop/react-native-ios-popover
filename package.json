@@ -41,7 +41,7 @@
     "example-open-xcode": "echo 'Opening example xcworkspace...' ; open ./example/ios/IosPopoverExample.xcworkspace",
     "example-delete-xcworkspace": "echo 'Begin deleting example ios workspace project...' ; cd example/ios && echo 'Deleting 1 of 3...' ; rm -rf ./IosPopoverExample.xcworkspace &>/dev/null ; echo 'Deleting 2 of 3...' ; rm -rf ./Pods &>/dev/null ; echo 'Deleting 3 of 3...' ; rm -f Podfile.lock ; echo 'Example ios workspace project deleted.\n'",
     "example-install-pods": "echo 'Begin installing example pods...' ; cd example/ios && pod install --silent &>/dev/null ; echo 'Example pods installed.\n'",
-    "example-remove-library-dependencies": "echo 'Removing example library dependencies...' ; cd example/ios && remove react-native-ios-utilities &>/dev/null ; echo 'Example library dependencies removed.\n'",
+    "example-remove-library-dependencies": "echo 'Removing example library dependencies...' ; cd example/ios && yarn remove react-native-ios-utilities &>/dev/null ; echo 'Example library dependencies removed.\n'",
     "example-nuke-workspace": "echo 'Deleting example workspace...' && yarn example-remove-library-dependencies ; yarn example-delete-xcworkspace ; echo 'Example workspace deleted.'",
     
     "example-install-locally-react-native-ios-utilities": "cd example/ios && echo 'Example - Local Install: react-native-ios-utilities' && echo \"DIR: $REACT_NATIVE_IOS_UTILITIES_DIR\" && echo 'Installing...' && yarn add $REACT_NATIVE_IOS_UTILITIES_DIR &>/dev/null ; echo 'react-native-ios-utilities local install complete.\n'",
