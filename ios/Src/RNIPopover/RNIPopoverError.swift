@@ -23,10 +23,10 @@ enum RNIPopoverErrorCode:
 };
 
 
-class RNIPopoverGenericError: RNIBaseError<RNIGenericErrorCodes> {
+class RNIPopoverError: RNIBaseError<RNIPopoverErrorCode> {
   
   init(
-    code: RNIGenericErrorCodes,
+    code: RNIPopoverErrorCode,
     message: String? = nil,
     debug: String? = nil
   ) {
