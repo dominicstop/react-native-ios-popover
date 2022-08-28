@@ -3625,10 +3625,8 @@ react-is@^16.12.0, react-is@^16.13.0, react-is@^16.13.1, react-is@^16.8.4:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-native-ios-utilities@1.0.0-4:
+react-native-ios-utilities@/Volumes/SD-Card/Documents/Programming/libraries/react-native-ios-utilities:
   version "1.0.0-4"
-  resolved "https://registry.yarnpkg.com/react-native-ios-utilities/-/react-native-ios-utilities-1.0.0-4.tgz#32f366b138b4cd1daa8794251523715c3faf5013"
-  integrity sha512-jnx/n309nMzzCJMaHXjirDEsdVqD/O1616/YIX5c2iVspU6g3guhRpS6x2r7bcXmLsyyNGYmXPu5vZdEsbndFQ==
 
 react-native-safe-area-context@^3.3.2:
   version "3.4.1"
