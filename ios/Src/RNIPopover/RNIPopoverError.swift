@@ -8,6 +8,20 @@
 import Foundation;
 import react_native_ios_utilities;
 
+enum RNIPopoverErrorCode:
+  String, Codable, CaseIterable, RNIGenericErrorDefaultable {
+  
+  // default errors
+  case runtimeError,
+       libraryError,
+       reactError,
+       unknownError,
+       invalidArgument,
+       outOfBounds,
+       invalidReactTag,
+       nilValue;
+};
+
 
 class RNIPopoverGenericError: RNIBaseError<RNIGenericErrorCodes> {
   
