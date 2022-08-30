@@ -33,6 +33,7 @@
 
 - [x] (Commit: `99d3a18`) Refactor: Re-write `setVisibility` error handling.
 - [x] (Commit: `a355a4c`) Implement:  `setVisibility` — Add option to ignore "popover already visible/hidden"-related errors.
+- [x] (Commit: `2385908`) Refactor: `RNIPopoverViewModule.getVisibility` error handling.
 
 
 
