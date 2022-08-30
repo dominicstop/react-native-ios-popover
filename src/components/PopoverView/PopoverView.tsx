@@ -10,6 +10,7 @@ import type { OnPopoverDidHideEvent } from '../../types/PopoverViewEvents';
 import * as Helpers from '../../functions/helpers';
 
 import { IS_PLATFORM_IOS } from '../../constants/LibEnv';
+import { ErrorUtilities } from 'react-native-ios-utilities';
 
 
 export class PopoverView extends 
@@ -81,7 +82,7 @@ export class PopoverView extends
     try {
       if(visibility){
         await Promise.all([
-          Helpers.setStateAsync(this, {mountPopover: true}),
+          Helpers.setStateAsync(this, { mountPopover: true }),
           // temp bugfix: wait for popover to mount
           lazyPopover && Helpers.timeout(50)
         ]);
@@ -92,12 +93,17 @@ export class PopoverView extends
         visibility
       );
 
-    } catch(error){
-      if(__DEV__){
-        console.warn("PopoverView, setVisibility", error);
-      };
+    } catch(error: unknown){
+      if(ErrorUtilities.isNativeError(error)){
+        console.warn(`Code: ${error.code} - Message: ${error.message}`);
+        throw error;
 
-      throw error;
+      } else if((error as any) instanceof Error){
+        throw error;
+
+      } else {
+        throw error
+      };
     };
   };
 

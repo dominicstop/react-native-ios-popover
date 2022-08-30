@@ -24,22 +24,29 @@ class RNIPopoverViewModule: NSObject {
   ) {
     
     DispatchQueue.main.async {
-      guard let bridge = self.bridge,
-            let view   = bridge.uiManager?.view(forReactTag: node),
-            let popoverView = view as? RNIPopoverView
-      else {
-        let errorMessage = (
-            "RNIPopoverViewModule: setVisibility(\(visibility))"
-          + " - guard check failed"
-          + " - could not get `popoverView` instance"
+      let errorPrefix = "RNIPopoverViewModule: setVisibility(\(visibility))";
+      
+      guard let bridge = self.bridge else {
+        reject(
+          RNIPopoverErrorCode.libraryError.rawValue,
+          "\(errorPrefix) - guard check failed - bridge not initialized",
+          nil
         );
-        
-        // code, message, error
-        reject("LIB_ERROR", errorMessage, nil);
         return;
       };
       
-      popoverView.setVisibility(visibility) { success, message in
+      guard let view = bridge.uiManager?.view(forReactTag: node),
+            let popoverView = view as? RNIPopoverView
+      else {
+        reject(
+          RNIPopoverErrorCode.invalidReactTag.rawValue,
+          "\(errorPrefix) - guard check failed - could not get `popoverView` instance",
+          nil
+        );
+        return;
+      };
+      
+      popoverView.setVisibility(visibility) { success, error in
         #if DEBUG
         print("RNIPopoverViewModule, setVisibility: \(visibility)");
         #endif
@@ -48,13 +55,11 @@ class RNIPopoverViewModule: NSObject {
           resolve([:]);
           
         } else {
-          let errorMessage = (
-            "RNIPopoverViewModule: setVisibility(\(visibility))"
-            + " - failed: \(message ?? "N/A")"
-          );
+          let errorCode = error?.code ?? .unknownError;
+          let errorMessage = "\(errorPrefix) - failed: \(error?.message ?? "N/A")";
           
           // code, message, error
-          reject("LIB_ERROR", errorMessage, nil);
+          reject(errorCode.rawValue, errorMessage, nil);
         };
       };
     };

@@ -20,6 +20,9 @@ enum RNIPopoverErrorCode:
        outOfBounds,
        invalidReactTag,
        nilValue;
+  
+  case popoverAlreadyVisible,
+       popoverAlreadyHidden;
 };
 
 

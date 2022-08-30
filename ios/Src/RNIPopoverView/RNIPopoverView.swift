@@ -9,8 +9,6 @@ import UIKit;
 import react_native_ios_utilities;
 
 
-typealias Completion = ((_ success: Bool, _ message: String?) -> ());
-
 class RNIPopoverView: UIView {
   
   // ----------------
@@ -319,26 +317,42 @@ fileprivate extension RNIPopoverView {
 // ----------------------------------------
 
 extension RNIPopoverView {
+  
   /// show or hide the popover
-  func setVisibility(_ visibility: Bool, completion: Completion? = nil) {
+  func setVisibility(
+    _ visibility: Bool,
+    completion: ((_ success: Bool, _ error: RNIPopoverError?) -> ())? = nil
+  ) {
     let didChangeVisibility = self.isPopoverVisible != visibility;
     
     if !didChangeVisibility {
-      // `setVisibility` failed...
-      completion?(false, "Popover already \(visibility ? "visible" : "hidden")");
+      let visibilityString = visibility ? "visible" : "hidden";
+      
+      // Error - No change in visibility
+      completion?(false, RNIPopoverError(
+        code: (visibility
+          ? .popoverAlreadyVisible
+          : .popoverAlreadyHidden
+        ),
+        message: "Popover already \(visibilityString)"
+      ));
       return;
     };
     
     // get the closest view controller
     guard let targetVC = self.reactViewController() else {
-      // `setVisibility` failed...
-      completion?(false, "Could not find a view controller to attach to");
+      completion?(false, RNIPopoverError(
+        code: .libraryError,
+        message: "Could not find a parent view controller to attach to"
+      ));
       return;
     };
     
     guard let popoverVC = self.popoverController else {
-      // `setVisibility` failed...
-      completion?(false, "Popover view controller does not exist");
+      completion?(false, RNIPopoverError(
+        code: .libraryError,
+        message: "Popover view controller is not initialized yet"
+      ));
       return;
     };
     

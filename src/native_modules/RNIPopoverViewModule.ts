@@ -2,7 +2,8 @@ import { NativeModules } from 'react-native';
 
 
 interface RNIPopoverViewModule {
-  setVisibility(node: number, visibility: boolean): void;
+  setVisibility(node: number, visibility: boolean): Promise<void>;
+
   getVisibility(node: number): Promise<boolean>;
 };
 
