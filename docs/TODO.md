@@ -24,12 +24,15 @@
 
 - [ ] Refactor: Use `RNIWrapperView`
 - [ ] Implement: Lazy popover prop.
-- [ ] Refactor: Re-write props — Use `willSet` instead of `didSet`
-- [ ] Implement: Use `RNIError` - Categorize errors
-- [ ] Implement: Add argument to `setVisibility` — Ignore popover already open.
+- [ ] Refactor: iOS Native - Re-write props — Use `willSet` instead of `didSet`
 - [ ] Test: Check for memory leaks.
 - [ ] Implement: Add Context — `isPopoverVisible`.
-- [ ] Implement: `refreshPopoverVisibilityStatus`
+- [ ] Implement: `refreshPopoverVisibilityStatus`.
+
+<br>
+
+- [x] (Commit: `99d3a18`) Refactor: Re-write `setVisibility` error handling.
+- [x] (Commit: `a355a4c`) Implement:  `setVisibility` — Add option to ignore "popover already visible/hidden"-related errors.
 
 
 
