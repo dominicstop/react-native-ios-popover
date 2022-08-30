@@ -11,7 +11,7 @@ import * as Helpers from '../../functions/helpers';
 
 import { IS_PLATFORM_IOS } from '../../constants/LibEnv';
 import { ErrorUtilities, NativeError } from 'react-native-ios-utilities';
-import { RNIPopoverErrorCodes } from 'src/constants/RNIPopoverErrorCodes';
+import { RNIPopoverErrorCodes } from '../../constants/RNIPopoverErrorCodes';
 
 
 export class PopoverView extends 
