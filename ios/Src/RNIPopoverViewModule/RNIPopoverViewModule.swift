@@ -84,20 +84,10 @@ class RNIPopoverViewModule: NSObject {
   ) {
     
     DispatchQueue.main.async {
-      guard let bridge = self.bridge,
-            let view   = bridge.uiManager?.view(forReactTag: node),
-            let popoverView = view as? RNIPopoverView
-      else {
-        let errorMessage = (
-            "RNIPopoverViewModule: getVisibility()"
-          + " - guard check failed"
-          + " - could not get `popoverView` instance"
-        );
-        
-        // code, message, error
-        reject("LIB_ERROR", errorMessage, nil);
-        return;
-      };
+      let errorPrefix = "RNIPopoverViewModule: getVisibility()";
+      
+      guard let (_, popoverView) = self.getInstance(node, errorPrefix, reject)
+      else { return };
       
       #if DEBUG
       print("RNIPopoverViewModule, getVisibility: \(popoverView.isPopoverVisible)");
