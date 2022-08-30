@@ -10,7 +10,8 @@ import type { OnPopoverDidHideEvent } from '../../types/PopoverViewEvents';
 import * as Helpers from '../../functions/helpers';
 
 import { IS_PLATFORM_IOS } from '../../constants/LibEnv';
-import { ErrorUtilities } from 'react-native-ios-utilities';
+import { ErrorUtilities, NativeError } from 'react-native-ios-utilities';
+import { RNIPopoverErrorCodes } from 'src/constants/RNIPopoverErrorCodes';
 
 
 export class PopoverView extends 
@@ -75,7 +76,14 @@ export class PopoverView extends
   // ------------------------
 
   /** show or hide the popover */
-  setVisibility = async (visibility: boolean) => {
+  setVisibility = async (
+    visibility: boolean,
+    options: {
+      suppressVisibilityError: boolean
+    } = {
+      suppressVisibilityError: true
+    }
+  ) => {
     const { lazyPopover } = this.getProps();
     if(!IS_PLATFORM_IOS) return;
 
@@ -95,8 +103,20 @@ export class PopoverView extends
 
     } catch(error: unknown){
       if(ErrorUtilities.isNativeError(error)){
-        console.warn(`Code: ${error.code} - Message: ${error.message}`);
-        throw error;
+        const nativeError = error as NativeError;
+
+        const isVisibilityError = (
+          nativeError.code === RNIPopoverErrorCodes.popoverAlreadyHidden ||
+          nativeError.code === RNIPopoverErrorCodes.popoverAlreadyVisible
+        );
+
+        if(isVisibilityError && options.suppressVisibilityError){
+          // no-op - don't show "popover already visible/hidden"-related errors
+
+        } else {
+          console.warn(`Code: ${error.code} - Message: ${error.message}`);
+          throw error;
+        };
 
       } else if((error as any) instanceof Error){
         throw error;
