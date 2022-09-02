@@ -193,23 +193,23 @@ class Scripts {
     const prefix = "cd example/ios";
 
     listener({status: "Begin deleting example ios workspace project..."});
-    listener({status: "Deleting 1 of 3..."});
+    listener({status: "Delete Pods -  Deleting 1 of 3..."});
 
     await Helpers.spawn(
       `${prefix} && rm -rfv ./Pods`, 
       listener
     );
 
-    listener({status: "Deleting 2 of 3..."});
+    listener({status: "Delete Pods - Deleting 2 of 3..."});
     await Helpers.spawn(
       `${prefix} && rm -rfv ./Podfile.lock`, 
       listener
     );
 
-    listener({status: "Deleting 3 of 3..."});
-    if(skipDeletingWorkspace){
-    listener({status: "Skip deleting: IosPopoverExample.xcworkspace"});
+    listener({status: "Delete Pods - Deleting 3 of 3..."});
 
+    if(skipDeletingWorkspace){
+      listener({status: "Skip deleting: IosPopoverExample.xcworkspace"});
 
     } else {
       await Helpers.spawn(
@@ -270,7 +270,7 @@ class Scripts {
   static async exampleInstallDepLocal(listener){
     const prefix = "cd example";
     
-    listener({status: "Installing example local dependencies w/o resetting..."});
+    listener({status: "Installing example local dependencies..."});
 
     await Helpers.spawn(
       `echo 'Library - Local Install: react-native-ios-utilities' && echo "DIR: $REACT_NATIVE_IOS_UTILITIES_DIR"`, 
@@ -332,7 +332,7 @@ class Scripts {
   };
 
   static async libraryUseDepLocalSoft(listener){
-    listener({status: "Install lib. dep. locally w/o resetting..."});
+    listener({status: "Install library dep. locally..."});
 
     await Helpers.spawn(
       `echo 'Library - Local Install: react-native-ios-utilities' && echo "DIR: $REACT_NATIVE_IOS_UTILITIES_DIR"`, 
@@ -671,8 +671,8 @@ class ScriptOutputPage {
         break;
     };
 
-    topStatus.pushLine(`Script Finished - Press Q to quit`);
-    topStatus.pushLine(`\n\n`);
+    ScriptOutputPage.logStatus('Script Finished - Press Q to quit');
+    ScriptOutputPage.logStatus('Bye b\n');
     topStatus.scroll(Number.MAX_VALUE);
   };
 };
