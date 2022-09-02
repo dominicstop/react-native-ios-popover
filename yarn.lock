@@ -5912,7 +5912,7 @@ react-native-builder-bob@^0.18.0:
   optionalDependencies:
     jetifier "^1.6.6"
 
-react-native-ios-utilities@/Volumes/SD-Card/Documents/Programming/libraries/react-native-ios-utilities:
+"react-native-ios-utilities@file:../../react-native-ios-utilities":
   version "1.0.0-4"
 
 react-native@0.63.4:
