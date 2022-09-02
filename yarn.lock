@@ -2124,6 +2124,11 @@ bl@^4.1.0:
     inherits "^2.0.4"
     readable-stream "^3.4.0"
 
+blessed@^0.1.81:
+  version "0.1.81"
+  resolved "https://registry.yarnpkg.com/blessed/-/blessed-0.1.81.tgz#f962d687ec2c369570ae71af843256e6d0ca1129"
+  integrity sha512-LoF5gae+hlmfORcG1M5+5XZi4LBmvlXTzwJWzUlPryN/SJdSflZvROM2TwkT0GMpq7oqT48NRd4GS7BiVBc5OQ==
+
 boxen@^5.0.0:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/boxen/-/boxen-5.1.2.tgz#788cb686fc83c1f486dfa8a40c68fc2b831d2b50"
@@ -5912,7 +5917,7 @@ react-native-builder-bob@^0.18.0:
   optionalDependencies:
     jetifier "^1.6.6"
 
-"react-native-ios-utilities@file:../../react-native-ios-utilities":
+react-native-ios-utilities@/Volumes/SD-Card/Documents/Programming/libraries/react-native-ios-utilities:
   version "1.0.0-4"
 
 react-native@0.63.4:
