@@ -429,20 +429,28 @@ class ChooseScriptPage {
       
     })();
 
+    const choicesFiltered = RADIO_CHOICES.filter(item =>
+      item.type === RADIO_CHOICES_TYPES.choice
+    );
+
     // i.e. `[false, false, true...]`
     const selectedIndex = scriptChoiceArray.findIndex(item => item);
-
-    false && console.log('\n DEBUG', 
-    '\n - scriptChoiceRaw:', scriptChoiceRaw,  
-    '\n - scriptChoiceArrayRaw', scriptChoiceArrayRaw, 
-    '\n - scriptChoiceArray', scriptChoiceArray,
-    `\n - selectedIndex: ${selectedIndex}`
-    );
     
-    return ((selectedIndex === -1)
+    const choiceKey = ((selectedIndex === -1)
       ? null
-      : RADIO_CHOICES[selectedIndex]?.key ?? null
+      : choicesFiltered[selectedIndex]?.key ?? null
     );
+
+    (false && console.log('\n DEBUG', 
+      '\n - scriptChoiceRaw:', scriptChoiceRaw,  
+      '\n - scriptChoiceArrayRaw', scriptChoiceArrayRaw, 
+      '\n - scriptChoiceArray', scriptChoiceArray,
+      `\n - selectedIndex: ${selectedIndex}`,
+      `\n - choices[selectedIndex]: ${JSON.stringify(choices[selectedIndex])}`,
+      `\n - choiceKey: ${choiceKey}`
+    ));
+
+    return choiceKey;
   };
 
   static render(){
@@ -510,7 +518,8 @@ class ChooseScriptPage {
 
       } else {
         // B - Nothing was selected...
-        this.destroy();
+        RootElements.screen.destroy();
+        process.exit(1);
       };
     });
 
