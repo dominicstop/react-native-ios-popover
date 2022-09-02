@@ -34,19 +34,9 @@
     "build-and-run": "yarn run lint && yarn build && yarn run-debug && yarn run-release",
     "run-release": "cd example && npx react-native run-ios --simulator \"iPhone 8\" --configuration Release",
     "run-debug": "cd example && npx react-native run-ios --simulator \"iPhone 8\" --configuration Debug",
-    "example-open-xcode": "echo 'Opening example xcworkspace...' ; open ./example/ios/IosPopoverExample.xcworkspace",
-    "example-delete-xcworkspace": "echo 'Begin deleting example ios workspace project...' ; cd example/ios && echo 'Deleting 1 of 3...' ; rm -rf ./IosPopoverExample.xcworkspace &>/dev/null ; echo 'Deleting 2 of 3...' ; rm -rf ./Pods &>/dev/null ; echo 'Deleting 3 of 3...' ; rm -f Podfile.lock ; echo 'Example ios workspace project deleted.\n'",
-    "example-install-pods": "echo 'Begin installing example pods...' ; cd example/ios && pod install --silent &>/dev/null ; echo 'Example pods installed.\n'",
-    "example-remove-library-dependencies": "echo 'Removing example library dependencies...' ; cd example/ios && yarn remove react-native-ios-utilities &>/dev/null ; echo 'Example library dependencies removed.\n'",
-    "example-nuke-workspace": "echo 'Deleting example workspace...' && yarn example-remove-library-dependencies ; yarn example-delete-xcworkspace ; echo 'Example workspace deleted.'",
-    "example-install-locally-react-native-ios-utilities": "cd example/ios && echo 'Example - Local Install: react-native-ios-utilities' && echo \"DIR: $REACT_NATIVE_IOS_UTILITIES_DIR\" && echo 'Installing...' && yarn add $REACT_NATIVE_IOS_UTILITIES_DIR &>/dev/null ; echo 'react-native-ios-utilities local example install complete.\n'",
-    "library-install-locally-react-native-ios-utilities": "echo 'Library - Local Install: react-native-ios-utilities' && echo \"DIR: $REACT_NATIVE_IOS_UTILITIES_DIR\" && yarn add --dev $REACT_NATIVE_IOS_UTILITIES_DIR ; echo 'react-native-ios-utilities local library install complete.\n'",
-    "example-use-dependencies-local": "echo 'Installing example local dependencies w/o resetting...' && yarn example-install-locally-react-native-ios-utilities ; yarn example-install-pods ",
-    "example-use-dependencies-local-reset": "echo 'Resetting example project and installing example local dependencies...' && yarn run example-nuke-workspace ; yarn run example-use-dependencies-local ; yarn example-open-xcode ",
-    "example-use-dependencies-production": "cd example ; yarn add react-native-ios-utilities ; cd .. && yarn example-install-pods && yarn example-open-xcode",
-    "example-use-dependencies-production-reset": "yarn run example-nuke-workspace ; cd example ; yarn add react-native-ios-utilities ; cd .. && yarn example-install-pods && yarn example-open-xcode",
-    "use-dependencies-local": "echo 'Installing library + example dependencies locally...' &&  yarn library-install-locally-react-native-ios-utilities && yarn example-use-dependencies-local ; echo 'library + example local dependency install complete...' ",
-    "use-dependencies-npm": "echo 'Installing library + example dependencies via NPM...' && yarn add --dev react-native-ios-utilities ; yarn example-use-dependencies-production"
+    "use-dependencies-local": "echo '' &&  yarn library-install-locally-react-native-ios-utilities && yarn example-use-dependencies-local ; echo 'library + example local dependency install complete...' ",
+    "use-dependencies-npm": "echo 'Installing library + example dependencies via NPM...' && yarn add --dev react-native-ios-utilities ; yarn example-use-dependencies-production",
+    "util": "yarn node ./scripts/utility.js "
   },
   "keywords": [
     "react-native",
