@@ -22,6 +22,6 @@
     "@babel/runtime": "^7.12.5",
     "babel-plugin-module-resolver": "^4.0.0",
     "metro-react-native-babel-preset": "^0.64.0",
-    "react-native-ios-utilities": "/Volumes/SD-Card/Documents/Programming/libraries/react-native-ios-utilities"
+    "react-native-ios-utilities": "^1.0.0-5"
   }
 }
