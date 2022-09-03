@@ -98,31 +98,31 @@ class RNIPopoverView: UIView {
   
   private var _popoverBackgroundColor: UIColor = .clear;
   @objc var popoverBackgroundColor: NSNumber? {
-    didSet {
-      guard let number = self.popoverBackgroundColor,
-            let color  = RCTConvert.uiColor(number)
+    willSet {
+      guard let colorRaw = newValue,
+            let colorParsed = RCTConvert.uiColor(colorRaw)
       else { return };
       
-      self._popoverBackgroundColor = color;
+      self._popoverBackgroundColor = colorParsed;
       
       if self.isPopoverVisible,
          let presentationController = self.popoverPresentation {
         
         // popover is visible, update background color
-        presentationController.backgroundColor = color;
+        presentationController.backgroundColor = colorParsed;
       };
     }
   };
   
   private var _permittedArrowDirections: UIPopoverArrowDirection = .any;
   @objc var permittedArrowDirections: [NSString]? {
-    didSet {
-      guard let items = self.permittedArrowDirections as [String]?,
-            let arrowDirections = UIPopoverArrowDirection(stringValues: items)
+    willSet {
+      guard let valuesRaw = newValue as [String]?,
+            let valuesParsed = UIPopoverArrowDirection(stringValues: valuesRaw)
       else { return };
       
-      self._permittedArrowDirections = arrowDirections;
-      self.popoverPresentation?.permittedArrowDirections = arrowDirections;
+      self._permittedArrowDirections = valuesParsed;
+      self.popoverPresentation?.permittedArrowDirections = valuesParsed;
       
       if #available(iOS 11.0, *) {
         self.popoverController?.viewSafeAreaInsetsDidChange();
