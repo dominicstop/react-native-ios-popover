@@ -8,6 +8,13 @@ const blessed = require('blessed');
 // #region - Constants 
 // -------------------
 
+const SHARED = {
+  didTriggeRefreshLocalLibraries: false,
+
+  // @latest / @next / @version / etc..
+  prodVersion: 'next',
+};
+
 const DEPENDENCIES_DICT = {
   reactNativeIosUtilities: {
     localDIR: '',
@@ -25,14 +32,20 @@ const ID_KEYS = {
 };
 
 const SCRIPT_CHOICE_KEYS = {
-  exampleLocalDepInstallSoft: 'exampleLocalDepInstallSoft',
-  exampleLocalDepInstallHard: 'exampleLocalDepInstallHard',
+  exampleUseDepLocalSoft: 'exampleUseDepLocalSoft',
+  exampleUseDepLocalHard: 'exampleUseDepLocalHard',
+  exampleUseDepProductionSoft : 'exampleUseDepProductionSoft' ,
+  exampleUseDepProductionHard : 'exampleUseDepProductionHard' ,
 
-  libraryLocalDepInstallSoft: 'libraryLocalDepInstallSoft',
-  libraryLocalDepInstallHard: 'libraryLocalDepInstallHard',
+  libraryUseDepLocalSoft: 'libraryUseDepLocalSoft',
+  libraryUseDepLocalHard: 'libraryUseDepLocalHard',
+  libraryUseDepProductionSoft : 'libraryUseDepProductionSoft' ,
+  libraryUseDepProductionHard : 'libraryUseDepProductionHard' ,
 
-  localDepInstallSoft: 'localDepInstallSoft',
-  localDepInstallHard: 'localDepInstallHard',
+  useDependencyLocalSoft: 'useDependencyLocalSoft',
+  useDependencyLocalHard: 'useDependencyLocalHard',
+  useDependencyProductionSoft : 'useDependencyProductionSoft' ,
+  useDependencyProductionHard : 'useDependencyProductionHard' ,
 };
 
 const RADIO_CHOICES_TYPES = {
@@ -50,14 +63,26 @@ const RADIO_CHOICES = [{
   title: "Example - Local Install - Dep. - Soft ",
   subtitle: "Install example package dependencies w/o resetting",
   type: RADIO_CHOICES_TYPES.choice,
-  key: SCRIPT_CHOICE_KEYS.exampleLocalDepInstallSoft,
+  key: SCRIPT_CHOICE_KEYS.exampleUseDepLocalSoft,
 
 }, {
   title: "Example - Local Install - Dep. - Hard ",
   subtitle: "Clean install example package dependencies - Hard Reset",
   type: RADIO_CHOICES_TYPES.choice,
-  key: SCRIPT_CHOICE_KEYS.exampleLocalDepInstallHard,
+  key: SCRIPT_CHOICE_KEYS.exampleUseDepLocalHard,
 
+}, {
+  title: "Example - NPM Install - Dep. - Soft ",
+  subtitle: `Install example package dependencies via NPM (${SHARED.prodVersion})`,
+  type: RADIO_CHOICES_TYPES.choice,
+  key: SCRIPT_CHOICE_KEYS.exampleUseDepProductionSoft,
+
+}, {
+  title: "Example - NPM Install - Dep. - Hard ",
+  subtitle: `Clean install ex. pkg dep. via NPM (${SHARED.prodVersion}) - Hard Reset`,
+  type: RADIO_CHOICES_TYPES.choice,
+  key: SCRIPT_CHOICE_KEYS.exampleUseDepProductionHard,
+  
 }, {
   type: RADIO_CHOICES_TYPES.spacer,
   spaceAmount: 1,
@@ -71,13 +96,25 @@ const RADIO_CHOICES = [{
   title: "Library - Local Install - Dep. - Soft ",
   subtitle: "Install library dev. dependencies w/o resetting",
   type: RADIO_CHOICES_TYPES.choice,
-  key: SCRIPT_CHOICE_KEYS.libraryLocalDepInstallSoft,
+  key: SCRIPT_CHOICE_KEYS.libraryUseDepLocalSoft,
 
 }, {
   title: "Library - Local Install - Dep. - Hard ",
   subtitle: "Hard Reset + Install library dev. dependencies",
   type: RADIO_CHOICES_TYPES.choice,
-  key: SCRIPT_CHOICE_KEYS.libraryLocalDepInstallHard,
+  key: SCRIPT_CHOICE_KEYS.libraryUseDepLocalHard,
+
+}, {
+  title: "Library - NPM Install - Dep. - Soft ",
+  subtitle: `Install library package dependencies via NPM (${SHARED.prodVersion})`,
+  type: RADIO_CHOICES_TYPES.choice,
+  key: SCRIPT_CHOICE_KEYS.libraryUseDepProductionSoft,
+
+}, {
+  title: "Library - NPM Install - Dep. - Hard ",
+  subtitle: `Clean install lib pkg dep. via NPM (${SHARED.prodVersion}) - Hard Reset`,
+  type: RADIO_CHOICES_TYPES.choice,
+  key: SCRIPT_CHOICE_KEYS.libraryUseDepProductionHard,
 
 }, {
   type: RADIO_CHOICES_TYPES.spacer,
@@ -92,12 +129,24 @@ const RADIO_CHOICES = [{
   title: "Local Install - Dep. - Soft ",
   subtitle: "Install library dev. dep. + example dep. w/o resetting",
   type: RADIO_CHOICES_TYPES.choice,
-  key: SCRIPT_CHOICE_KEYS.localDepInstallSoft,
+  key: SCRIPT_CHOICE_KEYS.useDependencyLocalSoft,
+
 }, {
   title: "Local Install - Dep. - Hard ",
   subtitle: "Hard Reset + Install library dev. dep. + example dep.",
   type: RADIO_CHOICES_TYPES.choice,
-  key: SCRIPT_CHOICE_KEYS.localDepInstallHard,
+  key: SCRIPT_CHOICE_KEYS.useDependencyLocalHard,
+
+}, {
+  title: "NPM Install - Dep. - Soft ",
+  subtitle: "Install lib. dev. dep. + ex. dep. via NPM w/o resetting",
+  type: RADIO_CHOICES_TYPES.choice,
+  key: SCRIPT_CHOICE_KEYS.useDependencyProductionSoft,
+}, {
+  title: "NPM Install - Dep. - Hard ",
+  subtitle: "Hard install lib. dev. dep. + ex. dep. via NPM - Hard reset",
+  type: RADIO_CHOICES_TYPES.choice,
+  key: SCRIPT_CHOICE_KEYS.useDependencyProductionHard,
 }];
 
 const CONFIG_FLAGS = {
@@ -107,10 +156,6 @@ const CONFIG_FLAGS = {
 
   skipDeleteLibraryNodeModules: true,
   skipDeleteLibraryLockFile: true,
-};
-
-const SHARED = {
-  didTriggeRefreshLocalLibraries: false
 };
 
 // #endregion
@@ -145,66 +190,7 @@ class Helpers {
   };
 };
 
-class Scripts {
-  static async testHelloWorld(listener){
-    listener({status: "Testing... Hello world"});
-
-    await Helpers.spawn(
-      `echo "Hello World from terminal via echo..."`, 
-      listener
-    );
-
-    listener({status: "Testing... 1"});
-
-
-    await Helpers.spawn(
-      `echo "ls -l"`, 
-      listener
-    );
-
-    await Helpers.spawn(
-      `node --version`, 
-      listener
-    );
-
-    listener({status: "Testing... 2"});
-
-    await Helpers.spawn(
-      `npm --version`, 
-      listener
-    );
-
-    listener({status: "Testing... 2.1"});
-
-    await Helpers.spawn(
-      `pod --version`, 
-      listener
-    );
-
-    listener({status: "Testing... 2.2"});
-
-    await Helpers.spawn(
-      `yarn --version`, 
-      listener
-    );
-
-    listener({status: "Testing... 3"});
-
-    await Helpers.spawn(
-      `cal`, 
-      listener
-    );
-
-    listener({status: "Testing... 4"});
-
-    await Helpers.spawn(
-      `cd example && ls && cd ios && ls && cd Pods && ls`, 
-      listener
-    );
-
-    listener({status: "Test complete."});
-
-  };
+class BaseScripts {
 
   static async refreshLocalLibraries(listener){
     // guard check
@@ -302,28 +288,21 @@ class Scripts {
     listener({status: "Example node_modules deleted."});
   };
 
-  static async exampleResetNodeModules(listener){
-    // guard check
-    if(CONFIG_FLAGS.skipDeleteExampleNodeModules){
-      listener({status: "Skip: Reset example node_modules..."});
-      return;
-    };
+  static async exampleInstallNodeModules(listener){
+    listener({status: "Installing example node_modules..."});
 
-    await Scripts.exampleDeleteNodeModules(listener);
-
-    listener({status: "Resetting example node_modules..."});
     await Helpers.spawn(
       `cd example && yarn`, 
       listener
     );
 
-    listener({status: "Example node_modules reset."});
+    listener({status: "Example node_modules installed."});
   };
 
-  static async exampleRemoveDependencies(listener){
+  static async exampleUninstallDependencies(listener){
     const prefix = "cd example/ios";
 
-    listener({status: "Removing example dependencies..."});
+    listener({status: "Uninstalling example dependencies..."});
 
     await Helpers.spawn(
       `${prefix} && yarn remove react-native-ios-utilities`, 
@@ -331,16 +310,6 @@ class Scripts {
     );
 
     listener({status: "Example dependencies removed."});
-  };
-
-  // remove example dependencies + delete example workspace
-  static async exampleNukeWorkspace(listener){
-    //status, stdout, stderr
-
-    listener({status: "Removing example dependencies + pods/xcworkspace..."});
-
-    await Scripts.exampleRemoveDependencies(listener);
-    await Scripts.exampleDeleteWorkspace(listener);
   };
 
   static async exampleInstallPods(listener){
@@ -354,11 +323,13 @@ class Scripts {
     listener({status: "Example pods installed."});
   };
 
-  // install example local package dep. - no pods
+  // install example local package dep.
+  // Note: Does not trigger pod install by itself
   static async exampleInstallDepLocal(listener){
     const prefix = "cd example";
     
-    await Scripts.refreshLocalLibraries(listener);
+    // refresh local lib. if needed
+    await BaseScripts.refreshLocalLibraries(listener);
 
     listener({status: "Installing example local dependencies..."});
     await Helpers.spawn(
@@ -367,60 +338,29 @@ class Scripts {
     );
 
     await Helpers.spawn(
-      `${prefix} && yarn add --dev $REACT_NATIVE_IOS_UTILITIES_DIR`, 
+      `${prefix} && yarn add $REACT_NATIVE_IOS_UTILITIES_DIR`, 
       listener
     );
 
     listener({status: "react-native-ios-utilities local example install complete."});
   };
 
-  // install latest example package dep. via NPM - no pods
+  // install latest example package dep. via NPM
+  // Note: Does not trigger pod install by itself
   static async exampleInstallDepProduction(listener){
-    listener({status: "Installing latest example dependencies via NPM"});
+    listener({status: 
+        `Installing latest example dependencies (${SHARED.prodVersion}) `
+      + "via NPM"
+    });
     
     await Helpers.spawn(
-      `cd example && yarn add react-native-ios-utilities`, 
+      `cd example && yarn add react-native-ios-utilities@${SHARED.prodVersion}`, 
       listener
     );
 
-    listener({status: "react-native-ios-utilities example install complete."});
-  };
-
-  // Script Choice:
-  // install example local dep. + pods w/o resetting
-  static async exampleUseDepLocalSoft(listener){
-    listener({status: "Installing example local dependencies + pods..."});
-    
-    await Scripts.exampleInstallDepLocal(listener);
-    await Scripts.exampleInstallPods(listener);
-  };
-
-  // Script Choice: exampleLocalDepInstallHard
-  // nuke xcworkspace then install example local dep. + pods
-  static async exampleUseDepLocalHard(listener){
-    listener({status: "Resetting example project + install local dep + pod install..."});
-    
-    await Scripts.exampleNukeWorkspace(listener);
-    await Scripts.exampleResetNodeModules(listener);
-    await Scripts.exampleInstallDepLocal(listener);
-    await Scripts.exampleInstallPods(listener);
-  };
-
-  // install example package dep. prod. + pod install
-  static async exampleUseDepProductionSoft(listener){
-    listener({status: "Install dep. production + pod install..."});
-
-    await Scripts.exampleInstallDepProduction(listener);
-    await Scripts.exampleInstallPods(listener);
-  };
-
-  // nuke example xcworkspace + install package dep. prod. + pod install
-  static async exampleUseDepProductionHard(listener){
-    listener({status: "Install dep. production + pod install..."});
-
-    await Scripts.exampleNukeWorkspace(listener);
-    await Scripts.exampleInstallDepProduction(listener);
-    await Scripts.exampleInstallPods(listener);
+    listener({status: 
+      `Latest example dependencies (${SHARED.prodVersion}) installed via NPM`
+    });
   };
 
   // ---------------------------------------
@@ -433,11 +373,7 @@ class Scripts {
     };
 
     listener({status: "Deleting library node_modules - 1/2..."});
-
-    await Helpers.spawn(
-      `rm -rfv ./node_modules`, 
-      listener
-    );
+    await Helpers.spawn(`rm -rfv ./node_modules`, listener);
 
     listener({status: "Deleting library node_modules - 2/2..."});
     
@@ -445,35 +381,38 @@ class Scripts {
       listener({status: "Skip - delete library lockfile"});
 
     } else {
-      await Helpers.spawn(
-        `rm -rfv ./yarn.lock`, 
-        listener
-      );
+      await Helpers.spawn(`rm -rfv ./yarn.lock`, listener);
     };
 
     listener({status: "Library node_modules deleted."});
   };
 
-  static async libraryResetNodeModules(listener){
-    // guard check
-    if(CONFIG_FLAGS.skipDeleteLibraryNodeModules){
-      listener({status: "Skip: Reset library node_modules..."});
-      return;
-    };
+  static async libraryInstallNodeModules(listener){
+    listener({status: "Installing library node_modules..."});
+    await Helpers.spawn(`yarn`, listener);
 
-    await Scripts.libraryDeleteNodeModules(listener);
+    listener({status: "library node_modules installed."});
+  };
 
-    listener({status: "Resetting library node_modules..."});
+  static async libraryUninstallDependencies(listener){
+    listener({status: "Uninstalling library dependencies..."});
     await Helpers.spawn(
-      `yarn install`, 
+      `yarn remove react-native-ios-utilities`, 
       listener
     );
 
-    listener({status: "Library node_modules reset."});
+    listener({status: "library dependencies removed."});
   };
 
-  static async libraryUseDepLocalSoft(listener){
-    await Scripts.refreshLocalLibraries(listener);
+  static async libraryBobBuild(listener){
+    listener({status:`Running 'bob build' in library...`});
+    await Helpers.spawn(`yarn run bob build`, listener);
+
+    listener({status:`library 'bob build' complete...`});
+  };
+
+  static async libraryInstallDepLocal(listener){
+    await BaseScripts.refreshLocalLibraries(listener);
 
     listener({status: "Install library dep. locally..."});
     await Helpers.spawn(
@@ -485,38 +424,281 @@ class Scripts {
       `yarn add --dev $REACT_NATIVE_IOS_UTILITIES_DIR`, 
       listener
     );
+
+    listener({status: "library dep. installed locally."});
+  };
+
+  // install latest example package dep. via NPM
+  static async libraryInstallDepProduction(listener){
+    listener({status: 
+        `Installing latest library dependencies (${SHARED.prodVersion}) `
+      + "via NPM"
+    });
+
+    await Helpers.spawn(
+      `yarn add react-native-ios-utilities@${SHARED.prodVersion}`, 
+      listener
+    );
+
+    listener({status: 
+      `Latest library dependencies (${SHARED.prodVersion}) installed via NPM`
+    });
+  };
+};
+
+// compound scripts
+class CompScripts {
+
+  static async exampleResetNodeModules(listener){
+    // guard check
+    if(CONFIG_FLAGS.skipDeleteExampleNodeModules){
+      listener({status: "Skip: Reset example node_modules..."});
+      return;
+    };
+
+    listener({status: "Resetting example node_modules..."});
+
+    await BaseScripts.exampleDeleteNodeModules(listener);
+    await BaseScripts.exampleInstallNodeModules(listener);
+
+    listener({status: "Example node_modules reset."});
+  };
+
+  // ---------------------------------------
+
+  static async libraryResetNodeModules(listener){
+    // guard check
+    if(CONFIG_FLAGS.skipDeleteLibraryNodeModules){
+      listener({status: "Skip: Reset library node_modules..."});
+      return;
+    };
+
+    await BaseScripts.libraryDeleteNodeModules(listener);
+    await BaseScripts.exampleInstallNodeModules(listener);
+
+
+    listener({status: "Library node_modules reset."});
+  };
+};
+
+
+class MainScripts {
+
+  static async testHelloWorld(listener){
+    listener({status: "Testing... Hello world"});
+    await Helpers.spawn(`echo "Hello World from terminal via echo..."`, listener);
+
+    listener({status: "Testing... 1"});
+    await Helpers.spawn(`echo "ls -l"`, listener);
+    await Helpers.spawn(`node --version`, listener);
+
+    listener({status: "Testing... 2"});
+    await Helpers.spawn(`npm --version`, listener);
+
+    listener({status: "Testing... 2.1"});
+    await Helpers.spawn(`pod --version`, listener);
+
+    listener({status: "Testing... 2.2"});
+    await Helpers.spawn(`yarn --version`, listener);
+
+    listener({status: "Testing... 3"});
+    await Helpers.spawn(`cal`, listener);
+
+    listener({status: "Testing... 4"});
+    await Helpers.spawn(
+      `cd example && ls && cd ios && ls && cd Pods && ls`, 
+      listener
+    );
+
+    listener({status: "Test complete."});
+  };
+
+  // ---------------------------------------
+
+  // install example local dep. + pods w/o resetting
+  static async exampleUseDepLocalSoft(listener){
+    listener({status: "Installing example local dependencies + pods..."});
+    
+    await BaseScripts.exampleInstallDepLocal(listener);
+    await BaseScripts.exampleInstallPods(listener);
+
+    listener({status: "example local dependencies + pods installed..."});
+  };
+
+  // delete xcworkspace then install example local dep. + pods
+  static async exampleUseDepLocalHard(listener){
+    listener({status: 
+        "Begin Resetting example project + install example local  "
+      + "dependencies + install example pods..."
+    });
+    
+    await BaseScripts.exampleDeleteWorkspace(listener);
+    await BaseScripts.exampleUninstallDependencies(listener);
+    await CompScripts.exampleResetNodeModules(listener);
+    await BaseScripts.exampleInstallDepLocal(listener);
+    await BaseScripts.exampleInstallPods(listener);
+
+    listener({status: 
+        "Example project reset + example local dependencies "
+      + " installed + example pods installed."
+    });
+  };
+
+  // install example package dep. prod. + pod install
+  static async exampleUseDepProductionSoft(listener){
+    listener({status: 
+        `Install example dependency latest (${SHARED.prodVersion}) via NPM `
+      + "+ install example pods"
+    });
+
+    await BaseScripts.exampleInstallDepProduction(listener);
+    await BaseScripts.exampleInstallPods(listener);
+
+    listener({status: 
+        `Example dependency latest (${SHARED.prodVersion}) installed via NPM `
+      + "+ installed example pods"
+    });
+  };
+
+  static async exampleUseDepProductionHard(listener){
+    listener({status: 
+        "Begin Resetting example project + install example latest "
+      + `dependencies (${SHARED.prodVersion}) + install example pods`
+    });
+
+    await BaseScripts.exampleDeleteWorkspace(listener);
+    await BaseScripts.exampleUninstallDependencies(listener);
+    await CompScripts.exampleResetNodeModules(listener);
+    await BaseScripts.exampleInstallDepProduction(listener);
+    await BaseScripts.exampleInstallPods(listener);
+
+    listener({status: 
+        "Example project reset + example latest dependencies"
+      + `(${SHARED.prodVersion}) installed + example pods installed.`
+    });
+  };
+
+  // ---------------------------------------
+
+  static async libraryUseDepLocalSoft(listener){
+    listener({status: "Use local dep. for library..."});
+    await BaseScripts.libraryInstallDepLocal(listener);
+    await BaseScripts.libraryBobBuild(listener);
+
+    listener({status: "Library is now using local deps."});
   };
 
   static async libraryUseDepLocalHard(listener){
-    listener({status: "Hard reset library + install library dep. locally..."});
+    listener({status: 
+        "Begin Resetting library node_modules + install local "
+      + `library dependencies...`
+    });
 
-    await Scripts.libraryResetNodeModules(listener);
-    await Scripts.libraryUseDepLocalSoft(listener);
+    await BaseScripts.libraryUninstallDependencies(listener);
+    await CompScripts.libraryResetNodeModules(listener);
+    await BaseScripts.libraryInstallDepLocal(listener);
+    await BaseScripts.libraryBobBuild(listener);
 
-    await Helpers.spawn(
-      `yarn add --dev $REACT_NATIVE_IOS_UTILITIES_DIR`, 
-      listener
-    );
+    listener({status: 
+        "Library node_modules reset + library example local "
+      + `dependencies installed.`
+    });
+  };
+
+  static async libraryUseDepProductionSoft(listener){
+    listener({status: 
+        `Install library dependency latest (${SHARED.prodVersion}) `
+      + `via NPM`
+    });
+
+    await BaseScripts.libraryInstallDepProduction(listener);
+    await BaseScripts.libraryBobBuild(listener);
+
+    listener({status: 
+        `Library dependency latest (${SHARED.prodVersion}) installed `
+      + "via NPM"
+    });
+  };
+
+  static async libraryUseDepProductionHard(listener){
+    listener({status: 
+        "Begin Resetting library node_modules + install library latest "
+      + `dependencies (${SHARED.prodVersion})`
+    });
+
+    await BaseScripts.libraryUninstallDependencies(listener);
+    await CompScripts.libraryResetNodeModules(listener);
+    await BaseScripts.libraryInstallDepProduction(listener);
+    await BaseScripts.libraryBobBuild(listener);
+
+    listener({status: 
+        "Library node_modules reset + library example latest dependencies"
+      + `(${SHARED.prodVersion}) installed.`
+    });
   };
 
   // ---------------------------------------
 
   // soft install dependency for library + example
   static async useDependencyLocalSoft(listener){
-    listener({status: "Installing library + example dependencies locally w/o resetting..."});
+    listener({status: 
+      "Installing library + example dependencies locally w/o resetting..."
+    });
 
-    await Scripts.refreshLocalLibraries(listener);
-    await Scripts.libraryUseDepLocalSoft(listener);
-    await Scripts.exampleUseDepLocalSoft(listener);
+    await BaseScripts.refreshLocalLibraries(listener);
+    await MainScripts.libraryUseDepLocalSoft(listener);
+    await MainScripts.exampleUseDepLocalSoft(listener);
+
+    listener({status: 
+      "Library + example dependencies installed locally w/o resetting..."
+    });
   };
 
   // hard install dependency for library + example
   static async useDependencyLocalHard(listener){
-    listener({status: "Reset lib + example, then install library + example dep. locally..."});
+    listener({status: 
+        "Reset library + example, then install library + example "
+      + "dependency locally..."
+    });
 
-    await Scripts.refreshLocalLibraries(listener);
-    await Scripts.exampleUseDepLocalHard(listener);
-    await Scripts.libraryUseDepLocalHard(listener);
+    await BaseScripts.refreshLocalLibraries(listener);
+    await MainScripts.exampleUseDepLocalHard(listener);
+    await MainScripts.libraryUseDepLocalHard(listener);
+
+    listener({status: 
+        "Library + example reset, and library + example dependency "
+      + "installed locally..."
+    });
+  };
+
+  static async useDependencyProductionSoft(listener){
+    listener({status: 
+      "Installing library + example dependencies via NPM w/o resetting..."
+    });
+
+    await BaseScripts.refreshLocalLibraries(listener);
+    await MainScripts.libraryUseDepProductionSoft(listener);
+    await MainScripts.exampleUseDepProductionSoft(listener);
+
+    listener({status: 
+      "Library + example dependencies installed via NPM w/o resetting..."
+    });
+  };
+
+  static async useDependencyProductionHard(listener){
+    listener({status: 
+        "Reset library + example, then install library + example "
+      + `dependency via NPM (${SHARED.prodVersion})...`
+    });
+
+    await BaseScripts.refreshLocalLibraries(listener);
+    await MainScripts.exampleUseDepLocalHard(listener);
+    await MainScripts.libraryUseDepLocalHard(listener);
+
+    listener({status: 
+        "Library + example reset, and library + example dependency "
+      + `installed via NPM (${SHARED.prodVersion})...`
+    });
   };
 };
 
@@ -820,42 +1002,78 @@ class ScriptOutputPage {
 
     // run script based on "script choice key"
     switch (props.choiceKey) {
-      case SCRIPT_CHOICE_KEYS.exampleLocalDepInstallSoft:
-        await Scripts.exampleUseDepLocalSoft((output) => {
+      case SCRIPT_CHOICE_KEYS.exampleUseDepLocalSoft:
+        await MainScripts.exampleUseDepLocalSoft((output) => {
           ScriptOutputPage.log(output);
         });
         break;
 
-      case SCRIPT_CHOICE_KEYS.exampleLocalDepInstallHard:
-        await Scripts.exampleUseDepLocalHard((output) => {
+      case SCRIPT_CHOICE_KEYS.exampleUseDepLocalHard:
+        await MainScripts.exampleUseDepLocalHard((output) => {
           ScriptOutputPage.log(output);
         });
         break;
-      
+
+      case SCRIPT_CHOICE_KEYS.exampleUseDepProductionSoft:
+        await MainScripts.exampleUseDepProductionSoft((output) => {
+          ScriptOutputPage.log(output);
+        });
+        break;
+
+      case SCRIPT_CHOICE_KEYS.exampleUseDepProductionHard:
+        await MainScripts.exampleUseDepProductionHard((output) => {
+          ScriptOutputPage.log(output);
+        });
+        break;
+
       // ------------------------------
 
-      case SCRIPT_CHOICE_KEYS.libraryLocalDepInstallSoft:
-        await Scripts.libraryUseDepLocalSoft((output) => {
+      case SCRIPT_CHOICE_KEYS.libraryUseDepLocalSoft:
+        await MainScripts.libraryUseDepLocalSoft((output) => {
           ScriptOutputPage.log(output);
         });
         break;
 
-      case SCRIPT_CHOICE_KEYS.libraryLocalDepInstallHard:
-        await Scripts.libraryUseDepLocalHard((output) => {
+      case SCRIPT_CHOICE_KEYS.libraryUseDepLocalHard:
+        await MainScripts.libraryUseDepLocalHard((output) => {
+          ScriptOutputPage.log(output);
+        });
+        break;
+
+      case SCRIPT_CHOICE_KEYS.libraryUseDepProductionSoft:
+        await MainScripts.libraryUseDepProductionSoft((output) => {
+          ScriptOutputPage.log(output);
+        });
+        break;
+
+      case SCRIPT_CHOICE_KEYS.libraryUseDepProductionHard:
+        await MainScripts.libraryUseDepProductionHard((output) => {
           ScriptOutputPage.log(output);
         });
         break;
 
       // ------------------------------
 
-      case SCRIPT_CHOICE_KEYS.localDepInstallSoft:
-        await Scripts.useDependencyLocalSoft((output) => {
+      case SCRIPT_CHOICE_KEYS.useDependencyLocalSoft:
+        await MainScripts.useDependencyLocalSoft((output) => {
           ScriptOutputPage.log(output);
         });
         break;
 
-      case SCRIPT_CHOICE_KEYS.localDepInstallHard:
-        await Scripts.useDependencyLocalHard((output) => {
+      case SCRIPT_CHOICE_KEYS.useDependencyLocalHard:
+        await MainScripts.useDependencyLocalHard((output) => {
+          ScriptOutputPage.log(output);
+        });
+        break;
+
+      case SCRIPT_CHOICE_KEYS.useDependencyProductionSoft:
+        await MainScripts.useDependencyProductionSoft((output) => {
+          ScriptOutputPage.log(output);
+        });
+        break;
+
+      case SCRIPT_CHOICE_KEYS.useDependencyProductionHard:
+        await MainScripts.useDependencyProductionHard((output) => {
           ScriptOutputPage.log(output);
         });
         break;
@@ -863,10 +1081,12 @@ class ScriptOutputPage {
       // ------------------------------
       
       case 'test':
-        ScriptOutputPage.logStatus('Choice not implemented, running test script instead...');
+        ScriptOutputPage.logStatus(
+          'Choice not implemented, running test script instead...'
+        );
 
         // debug
-        await Scripts.testHelloWorld(({status, stdout, stderr}) => {
+        await MainScripts.testHelloWorld(({status, stdout, stderr}) => {
           if(status){
             topStatus.pushLine(`status: ${status}`);
             topStatus.scroll(Number.MAX_VALUE);
