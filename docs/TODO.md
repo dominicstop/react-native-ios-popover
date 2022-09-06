@@ -20,20 +20,21 @@
 	* Might be related to making the classes/protocols public?
 
 
-
-
-- [ ] Refactor: Use `RNIWrapperView`
+- [ ] 
 - [ ] Implement: Lazy popover prop.
-- [ ] Refactor: iOS Native - Re-write props — Use `willSet` instead of `didSet`
 - [ ] Test: Check for memory leaks.
 - [ ] Implement: Add Context — `isPopoverVisible`.
 - [ ] Implement: `refreshPopoverVisibilityStatus`.
+- [ ] Refactor: Make classes public.
+- [ ] Example: Add example for dynamic sized  popover, i.e. grow/shrink.
 
 <br>
 
 - [x] (Commit: `99d3a18`) Refactor: Re-write `setVisibility` error handling.
 - [x] (Commit: `a355a4c`) Implement:  `setVisibility` — Add option to ignore "popover already visible/hidden"-related errors.
 - [x] (Commit: `2385908`) Refactor: `RNIPopoverViewModule.getVisibility` error handling.
+- [x] (Commit: `d42d0d1`) Refactor: iOS Native - Re-write props — Use `willSet` instead of `didSet`.
+- [x] (Commit: `44c3c54`) Refactor: Use `RNIWrapperView`
 
 
 
