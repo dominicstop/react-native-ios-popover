@@ -10,9 +10,13 @@ import type { OnPopoverDidHideEvent } from '../../types/PopoverViewEvents';
 import * as Helpers from '../../functions/helpers';
 
 import { IS_PLATFORM_IOS } from '../../constants/LibEnv';
-import { ErrorUtilities, NativeError } from 'react-native-ios-utilities';
+import { ErrorUtilities, NativeError, RNIWrapperView } from 'react-native-ios-utilities';
 import { RNIPopoverErrorCodes } from '../../constants/RNIPopoverErrorCodes';
 
+
+const NATIVE_ID_KEYS = {
+  popoverWrapperView: 'popoverContentView',
+};
 
 export class PopoverView extends 
   React.PureComponent<PopoverViewProps, PopoverViewState> {
@@ -181,11 +185,20 @@ export class PopoverView extends
         onPopoverWillHideViaTap={props.onPopoverWillHideViaTap}
         onPopoverDidAttemptToDismiss={props.onPopoverDidAttemptToDismiss}
       >
-        <View style={styles.popoverContainer}>
-          {(mountPopover || !props.lazyPopover) && (
-            props.renderPopoverContent?.()
-          )}
-        </View>
+        {(mountPopover || !props.lazyPopover) as any && (
+          <RNIWrapperView
+            style={styles.popoverContentWrapper}
+            nativeID={NATIVE_ID_KEYS.popoverWrapperView}
+            isDummyView={true}
+            shouldAutoDetachSubviews={true}
+            shouldCreateTouchHandlerForSubviews={true}
+            shouldNotifyComponentWillUnmount={true}
+            shouldAutoCleanupOnJSUnmount={true}
+            shouldAutoSetSizeOnLayout={true}
+          >
+            {props.renderPopoverContent?.()}
+          </RNIWrapperView>
+        )}
         {this.props.children}
       </RNIPopoverView>
     ) : (
@@ -197,7 +210,7 @@ export class PopoverView extends
 };
 
 const styles = StyleSheet.create({
-  popoverContainer: {
+  popoverContentWrapper: {
     position: 'absolute',
     color: 'transparent',
   },

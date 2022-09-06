@@ -6,14 +6,16 @@
 //
 
 import UIKit;
+import react_native_ios_utilities
 
 class RNIPopoverViewController: UIViewController {
   
-  /// the  content to show in the popover
-  var reactPopoverView: UIView?;
   
-  /// called whenever the popover view's bound changes
-  var boundsDidChangeBlock: ((CGRect) -> Void)?;
+  var popoverWrapperView: RNIWrapperView?;
+  
+  var popoverView: UIView? {
+    self.popoverWrapperView?.reactViews.first
+  };
   
   var popoverSize: RNIPopoverSize = .INHERIT {
     didSet {
@@ -24,37 +26,35 @@ class RNIPopoverViewController: UIViewController {
   override func loadView() {
     super.loadView();
     
-    if let reactPopoverView  = self.reactPopoverView {
+    if let popoverView  = self.popoverView {
       if #available(iOS 11.0, *) {
-        self.view.addSubview(reactPopoverView);
+        self.view.addSubview(popoverView);
         
-        reactPopoverView.translatesAutoresizingMaskIntoConstraints = false;
+        popoverView.translatesAutoresizingMaskIntoConstraints = false;
         let safeArea = view.safeAreaLayoutGuide;
         
         NSLayoutConstraint.activate([
           // pin content to parent edges w/o the arrow
-          reactPopoverView.topAnchor     .constraint(equalTo: safeArea.topAnchor     ),
-          reactPopoverView.bottomAnchor  .constraint(equalTo: safeArea.bottomAnchor  ),
-          reactPopoverView.leadingAnchor .constraint(equalTo: safeArea.leadingAnchor ),
-          reactPopoverView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+          popoverView.topAnchor     .constraint(equalTo: safeArea.topAnchor     ),
+          popoverView.bottomAnchor  .constraint(equalTo: safeArea.bottomAnchor  ),
+          popoverView.leadingAnchor .constraint(equalTo: safeArea.leadingAnchor ),
+          popoverView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
         ]);
         
       } else {
-        self.view = reactPopoverView;
+        self.view = popoverView;
       };
     };
   };
   
   override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews();
-    
     self.setPopoverSize();
   };
   
   /// get popover size
   private func getPopoverSize() -> CGSize? {
-    guard let frame = self.reactPopoverView?.subviews.first?.frame
-    else { return nil };
+    guard let frame = self.popoverView?.frame else { return nil };
     
     return CGSize(
       // set min. size
@@ -71,11 +71,17 @@ class RNIPopoverViewController: UIViewController {
         
       case .STRETCH:
         self.preferredContentSize = CGSize(width: 0, height: 0);
-        self.boundsDidChangeBlock?(self.view.bounds);
+        self.popoverWrapperView?
+          .notifyForBoundsChangeForContent(size: self.view.bounds.size);
+        
+        self.popoverWrapperView?
+          .notifyForBoundsChangeForWrapper(size: self.view.bounds.size);
         
       case .CUSTOM(let width, let height):
-        self.preferredContentSize = CGSize(width: width, height: height);
-        self.boundsDidChangeBlock?(self.view.bounds);
+        let nextSize = CGSize(width: width, height: height);
+        self.preferredContentSize = nextSize;
+        self.popoverWrapperView?.notifyForBoundsChangeForContent(size: nextSize);
+        self.popoverWrapperView?.notifyForBoundsChangeForWrapper(size: nextSize);
     };
   };
 };

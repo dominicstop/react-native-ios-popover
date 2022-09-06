@@ -23,7 +23,7 @@ class RNIPopoverView: UIView {
   private(set) weak var viewController: RNINavigationEventsReportingViewController?;
   
   /// the content to show in the popover
-  private(set) var reactPopoverView: UIView?;
+  private(set) var popoverWrapperView: RNIWrapperView?;
   
   /// the view controller that holds/manages the popover content
   private(set) var popoverController: RNIPopoverViewController?;
@@ -199,26 +199,24 @@ class RNIPopoverView: UIView {
   override func insertReactSubview(_ subview: UIView!, at atIndex: Int) {
     super.insertSubview(subview, at: atIndex);
     
-    if atIndex == 0 {
-      // remove previous popover
-      self.removeOldPopoverIfAny();
+    if atIndex == 0,
+       let wrapperView = subview as? RNIWrapperView {
       
-      subview.removeFromSuperview();
-      self.reactPopoverView = subview;
-      self.touchHandler.attach(to: subview);
+      // remove previous popover, if any
+      self.popoverWrapperView?.cleanup();
+      self.popoverWrapperView = wrapperView;
+      
+      wrapperView.isMovingToParent = true;
+      wrapperView.removeFromSuperview();
       
       self.setupInitializePopoverController();
+      self.configurePopoverController();
+      wrapperView.isMovingToParent = false;
     };
   };
   
   override func removeReactSubview(_ subview: UIView!) {
     super.removeReactSubview(subview);
-    
-    if self.reactPopoverView == subview {
-      // popover contents has been unmounted
-      self.touchHandler.detach(from: subview);
-      self.reactPopoverView = nil;
-    };
   };
   
   #if DEBUG
@@ -256,17 +254,16 @@ fileprivate extension RNIPopoverView {
   };
   
   func setupInitializePopoverController(){
+    if let previousPopover = self.popoverController {
+      previousPopover.detachFromParentVC();
+    };
+    
     let popoverVC = RNIPopoverViewController();
     
     // setup popover vc
-    popoverVC.reactPopoverView = self.reactPopoverView;
+    popoverVC.popoverWrapperView = self.popoverWrapperView;
     popoverVC.popoverSize = self._popoverSize;
     popoverVC.modalPresentationStyle = .popover;
-    
-    // TODO - Refactor: Rewrite
-    popoverVC.boundsDidChangeBlock = { [weak self] (newBounds: CGRect) in
-      self?.popoverViewNotifyForBoundsChange(newBounds);
-    };
     
     self.popoverController = popoverVC;
   };
@@ -283,32 +280,6 @@ fileprivate extension RNIPopoverView {
     presentation.backgroundColor = self._popoverBackgroundColor;
     presentation.permittedArrowDirections = self._permittedArrowDirections;
     presentation.canOverlapSourceViewRect = self.popoverCanOverlapSourceViewRect;
-  };
-  
-  // TODO: Refactor: Remove/Move
-  func removeOldPopoverIfAny(){
-    guard let prevPopoverView = self.reactPopoverView
-    else { return };
-    
-    RNIUtilities.recursivelyRemoveFromViewRegistry(
-      bridge: self.bridge,
-      reactView: prevPopoverView
-    );
-    
-    self.touchHandler.detach(from: prevPopoverView);
-    self.reactPopoverView = nil;
-    
-    // remove preview popover vc
-    self.popoverController = nil;
-  };
-  
-  // TODO: Refactor: Remove/Move
-  func popoverViewNotifyForBoundsChange(_ newBounds: CGRect){
-    guard let bridge    = self.bridge,
-          let reactView = self.reactPopoverView
-    else { return };
-        
-    bridge.uiManager.setSize(newBounds.size, for: reactView);
   };
 };
 
@@ -472,11 +443,8 @@ extension RNIPopoverView: RNICleanable {
       self.viewController = nil;
     };
     
-    if let popoverView = self.reactPopoverView {
-      RNIUtilities.recursivelyRemoveFromViewRegistry(
-        bridge   : self.bridge,
-        reactView: popoverView
-      );
+    if let popoverWrapperView = self.popoverWrapperView {
+      popoverWrapperView.cleanup();
     };
     
     self.removeFromSuperview();
