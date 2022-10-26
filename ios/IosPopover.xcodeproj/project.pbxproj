@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8835718728BAEE0A00F0EE1E /* RNIPopoverTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835717928BAEE0A00F0EE1E /* RNIPopoverTypes.swift */; };
 		8835718828BAEE0A00F0EE1E /* RNIPopoverViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835717A28BAEE0A00F0EE1E /* RNIPopoverViewManager.swift */; };
 		8835718928BAEE0A00F0EE1E /* RNIPopoverViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8835717B28BAEE0A00F0EE1E /* RNIPopoverViewManager.m */; };
 		8835718A28BAEE0A00F0EE1E /* RNIPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8835717C28BAEE0A00F0EE1E /* RNIPopoverViewController.swift */; };
@@ -32,7 +31,6 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libIosPopover.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libIosPopover.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		8835717928BAEE0A00F0EE1E /* RNIPopoverTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNIPopoverTypes.swift; sourceTree = "<group>"; };
 		8835717A28BAEE0A00F0EE1E /* RNIPopoverViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNIPopoverViewManager.swift; sourceTree = "<group>"; };
 		8835717B28BAEE0A00F0EE1E /* RNIPopoverViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNIPopoverViewManager.m; sourceTree = "<group>"; };
 		8835717C28BAEE0A00F0EE1E /* RNIPopoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNIPopoverViewController.swift; sourceTree = "<group>"; };
@@ -74,12 +72,11 @@
 		8835717728BAEE0A00F0EE1E /* Src */ = {
 			isa = PBXGroup;
 			children = (
+				8835718028BAEE0A00F0EE1E /* IosPopover-Bridging-Header.h */,
 				8835717828BAEE0A00F0EE1E /* RNIPopoverView */,
 				8835717E28BAEE0A00F0EE1E /* Extensions */,
-				8835718028BAEE0A00F0EE1E /* IosPopover-Bridging-Header.h */,
 				8835718128BAEE0A00F0EE1E /* RNIPopover */,
 				8835718328BAEE0A00F0EE1E /* RNIPopoverViewModule */,
-				8835718628BAEE0A00F0EE1E /* RNIHelpers */,
 			);
 			path = Src;
 			sourceTree = "<group>";
@@ -87,7 +84,6 @@
 		8835717828BAEE0A00F0EE1E /* RNIPopoverView */ = {
 			isa = PBXGroup;
 			children = (
-				8835717928BAEE0A00F0EE1E /* RNIPopoverTypes.swift */,
 				8835717A28BAEE0A00F0EE1E /* RNIPopoverViewManager.swift */,
 				8835717B28BAEE0A00F0EE1E /* RNIPopoverViewManager.m */,
 				8835717C28BAEE0A00F0EE1E /* RNIPopoverViewController.swift */,
@@ -119,13 +115,6 @@
 				8835718528BAEE0A00F0EE1E /* RNIPopoverViewModule.m */,
 			);
 			path = RNIPopoverViewModule;
-			sourceTree = "<group>";
-		};
-		8835718628BAEE0A00F0EE1E /* RNIHelpers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = RNIHelpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,7 +180,6 @@
 				8835718E28BAEE0B00F0EE1E /* RNIPopoverViewModule.swift in Sources */,
 				8835718828BAEE0A00F0EE1E /* RNIPopoverViewManager.swift in Sources */,
 				8835718C28BAEE0B00F0EE1E /* UIPopoverArrowDirection+Helpers.swift in Sources */,
-				8835718728BAEE0A00F0EE1E /* RNIPopoverTypes.swift in Sources */,
 				8835718928BAEE0A00F0EE1E /* RNIPopoverViewManager.m in Sources */,
 				8835718D28BAEE0B00F0EE1E /* RNIPopoverError.swift in Sources */,
 			);
@@ -311,6 +299,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Src/IosPopover-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -330,6 +319,7 @@
 				PRODUCT_NAME = IosPopover;
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "Src/IosPopover-Bridging-Header.h";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
