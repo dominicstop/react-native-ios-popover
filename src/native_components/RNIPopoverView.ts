@@ -1,18 +1,15 @@
 import { requireNativeComponent, Platform, ViewProps, HostComponent, View } from 'react-native';
-import type { RNICleanupMode } from 'react-native-ios-utilities';
+import type { RNIInternalCleanupModeProps } from 'react-native-ios-utilities';
 
 import type { PopoverArrowDirections, PopoverSizeConfig } from '../types/PopoverRelatedTypes';
 import type { OnPopoverDidHideEvent, OnPopoverWillShowEvent, OnPopoverWillHideEvent, OnPopoverDidShowEvent, OnPopoverDidHideViaTapEvent, OnPopoverWillHideViaTapEvent, OnPopoverDidAttemptToDismissEvent } from '../types/PopoverViewEvents';
 
+
+type BaseProps = 
+  ViewProps & RNIInternalCleanupModeProps;
+
 // TODO: Add type annotation - Remove `any` type usage
-export type RNIPopoverViewProps = ViewProps & {
-  // Internal
-  // --------
-
-  internalCleanupMode?: RNICleanupMode;
-
-  // Value Props
-  // -----------
+export type RNIPopoverViewProps = BaseProps & {
 
   popoverBackgroundColor?: number;
   permittedArrowDirections?: Array<PopoverArrowDirections>;

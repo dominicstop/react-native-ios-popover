@@ -9,7 +9,7 @@ import UIKit;
 import react_native_ios_utilities;
 
 
-class RNIPopoverView: UIView {
+class RNIPopoverView: UIView, RNIInternalCleanupMode {
   
   // ----------------
   // MARK: Properties
@@ -37,18 +37,7 @@ class RNIPopoverView: UIView {
   
   /// Whether or not `cleanup` method was called
   private(set) var didTriggerCleanup = false;
-  
-  // MARK: - Properties - Feature Flags
-  // ----------------------------------
-  
-  private var shouldEnableAttachToParentVC: Bool {
-    self.cleanupMode == .viewController
-  };
-  
-  private var shouldEnableCleanup: Bool {
-    self.cleanupMode != .disabled
-  };
-  
+
   // --------------------------------------
   // MARK: Properties - Computed Properties
   // --------------------------------------
@@ -74,15 +63,6 @@ class RNIPopoverView: UIView {
   /// This is where the popover should be presented.
   var targetViewController: UIViewController? {
     self.viewController ?? self.reactViewController()
-  };
-  
-  var cleanupMode: RNICleanupMode {
-    get {
-      switch self._internalCleanupMode {
-        case .automatic: return .reactComponentWillUnmount;
-        default: return self._internalCleanupMode;
-      };
-    }
   };
   
   // -----------------------------
@@ -159,7 +139,7 @@ class RNIPopoverView: UIView {
   // controls whether the popover should dismiss when the bg is tapped
   @objc var popoverShouldDismiss: Bool = true;
   
-  private var _internalCleanupMode: RNICleanupMode = .automatic;
+  private(set) var _internalCleanupMode: RNICleanupMode = .automatic;
   @objc var internalCleanupMode: String? {
     willSet {
       guard
