@@ -5,7 +5,8 @@
 //  Created by Dominic Go on 12/7/20.
 //
 
-import Foundation
+import Foundation;
+import react_native_ios_utilities;
 
 @objc(RNIPopoverViewModule)
 class RNIPopoverViewModule: NSObject {
