@@ -1,7 +1,9 @@
 import { NativeModules } from 'react-native';
+import type { RNIJSComponentWillUnmountNotifiable } from 'react-native-ios-utilities';
 
 
-interface RNIPopoverViewModule {
+
+interface RNIPopoverViewModule extends RNIJSComponentWillUnmountNotifiable {
   setVisibility(node: number, visibility: boolean): Promise<void>;
 
   getVisibility(node: number): Promise<boolean>;

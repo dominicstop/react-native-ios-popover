@@ -32,6 +32,13 @@ export class PopoverView extends
     };
   };
 
+  componentWillUnmount(): void {
+    RNIPopoverViewModule.notifyComponentWillUnmount(
+      findNodeHandle(this.nativeRef)!,
+      {}
+    );
+  };
+
   private getProps = () => {
     const {
       popoverBackgroundColor,

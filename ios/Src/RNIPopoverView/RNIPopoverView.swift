@@ -483,3 +483,14 @@ extension RNIPopoverView: RNICleanable {
     self.removeFromSuperview();
   };
 };
+
+// MARK: - RNIJSComponentWillUnmountNotifiable
+// -------------------------------------------
+
+extension RNIPopoverView: RNIJSComponentWillUnmountNotifiable {
+  
+  func notifyOnJSComponentWillUnmount(){
+    guard self.cleanupMode == .reactComponentWillUnmount else { return };
+    self.cleanup();
+  };
+};
