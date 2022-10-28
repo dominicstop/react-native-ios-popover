@@ -60,9 +60,9 @@ If you wish to use a specific version of this library, then please install the c
 
 | Library Version | `react-native-ios-utilities` Version |
 | --------------- | ------------------------------------ |
-| `0.XX.XX`       | `N/A` (No External Dependencies)     |
-| `1.XX.XX`       | `0.XX.XX`                            |
-| `2.XX.XX`       | `1.XX.XX`                            |
+| `0.0.XX`        | `N/A` (No External Dependencies)     |
+| `1.0.XX`        | `0.1.XX`                             |
+| `2.0.XX`        | `2.0.XX`                             |
 
 <br><br>
 
