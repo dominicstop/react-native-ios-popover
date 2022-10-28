@@ -18,14 +18,14 @@ class RNIPopoverViewModule: NSObject {
   
   private func getInstance(
     _ node: NSNumber,
-    _ errorPrefix: String,
-    _ reject: @escaping RCTPromiseRejectBlock
+    _ errorPrefix: String? = nil,
+    _ reject: RCTPromiseRejectBlock? = nil
   ) -> (bridge: RCTBridge, popoverView: RNIPopoverView)? {
       
     guard let bridge = self.bridge else {
-      reject(
+      reject?(
         RNIPopoverErrorCode.libraryError.rawValue,
-        "\(errorPrefix) - guard check failed - bridge not initialized",
+        "\(errorPrefix ?? "N/A") - guard check failed - bridge not initialized",
         nil
       );
       return nil;
@@ -34,9 +34,9 @@ class RNIPopoverViewModule: NSObject {
     guard let view = bridge.uiManager?.view(forReactTag: node),
           let popoverView = view as? RNIPopoverView
     else {
-      reject(
+      reject?(
         RNIPopoverErrorCode.invalidReactTag.rawValue,
-        "\(errorPrefix) - guard check failed - could not get `popoverView` instance",
+        "\(errorPrefix ?? "N/A") - guard check failed - could not get `popoverView` instance",
         nil
       );
       return nil;
@@ -94,6 +94,27 @@ class RNIPopoverViewModule: NSObject {
       #endif
       
       resolve(popoverView.isPopoverVisible);
+    };
+  };
+  
+  @objc func notifyComponentWillUnmount(
+    _ node: NSNumber,
+    params: NSDictionary
+  ){
+    DispatchQueue.main.async {
+      guard let (_, popoverView) = self.getInstance(node) else {
+        #if DEBUG
+        print(
+            "LOG - ViewManager, RNIWrapperViewModule: notifyComponentWillUnmount"
+          + " - for node: \(node)"
+          + " - no corresponding view found for node"
+          + " - the view might have already been unmounted..."
+        );
+        #endif
+        return;
+      };
+      
+      popoverView.notifyOnJSComponentWillUnmount();
     };
   };
 };
