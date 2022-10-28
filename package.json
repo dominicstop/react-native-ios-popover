@@ -74,7 +74,7 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-ios-utilities": "*"
+    "react-native-ios-utilities": "~2.0.0"
   },
   "release-it": {
     "git": {
