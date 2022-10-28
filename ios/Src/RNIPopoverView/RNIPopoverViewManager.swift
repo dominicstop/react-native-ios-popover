@@ -18,14 +18,4 @@ class RNIPopoverViewManager: RCTViewManager {
   override func view() -> UIView! {
     return RNIPopoverView(bridge: self.bridge);
   };
-  
-  @objc func setVisibility(_ node: NSNumber, visibility: Bool){
-    DispatchQueue.main.async {
-      guard let view = self.bridge.uiManager.view(forReactTag: node),
-            let popoverView = view as? RNIPopoverView
-      else { return };
-      
-      popoverView.setVisibility(visibility);
-    };
-  };
 };

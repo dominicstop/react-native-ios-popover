@@ -33,20 +33,9 @@ RCT_EXPORT_VIEW_PROPERTY(onPopoverDidAttemptToDismiss, RCTBubblingEventBlock);
 RCT_EXPORT_VIEW_PROPERTY(popoverSize, NSDictionary);
 RCT_EXPORT_VIEW_PROPERTY(permittedArrowDirections, NSArray);
 RCT_EXPORT_VIEW_PROPERTY(popoverBackgroundColor, NSNumber);
-
-// --------------------------
-// MARK: Export Props - Flags
-// --------------------------
+RCT_EXPORT_VIEW_PROPERTY(internalCleanupMode, NSString);
 
 RCT_EXPORT_VIEW_PROPERTY(popoverShouldDismiss, BOOL);
 RCT_EXPORT_VIEW_PROPERTY(popoverCanOverlapSourceViewRect, BOOL);
-
-
-// ---------------------------
-// MARK: View Manager Commands
-// ---------------------------
-
-RCT_EXTERN_METHOD(setVisibility: (nonnull NSNumber *)node
-                  visibility   : (nonnull BOOL     *)visibility);
 
 @end
