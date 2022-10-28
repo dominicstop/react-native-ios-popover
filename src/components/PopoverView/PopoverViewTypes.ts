@@ -7,6 +7,7 @@ export type PopoverViewProps = ViewProps & Partial<Pick<RNIPopoverViewProps,
   | 'popoverSize'
   | 'popoverShouldDismiss'
   | 'popoverCanOverlapSourceViewRect'
+  | 'internalCleanupMode'
   // events
   | 'onPopoverDidHide'
   | 'onPopoverWillShow'

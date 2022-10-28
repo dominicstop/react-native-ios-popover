@@ -40,6 +40,7 @@ export class PopoverView extends
       popoverShouldDismiss,
       popoverCanOverlapSourceViewRect,
       lazyPopover,
+      internalCleanupMode,
       renderPopoverContent,
       onPopoverDidHide,
       onPopoverWillShow,
@@ -61,6 +62,7 @@ export class PopoverView extends
       permittedArrowDirections,
       popoverSize,
       popoverCanOverlapSourceViewRect,
+      internalCleanupMode,
       renderPopoverContent,
       onPopoverDidHide,
       onPopoverWillShow,
@@ -176,6 +178,7 @@ export class PopoverView extends
         popoverSize={props.popoverSize}
         popoverShouldDismiss={props.popoverShouldDismiss}
         popoverCanOverlapSourceViewRect={props.popoverCanOverlapSourceViewRect}
+        internalCleanupMode={props.internalCleanupMode}
         // events
         onPopoverWillShow={props.onPopoverWillShow}
         onPopoverWillHide={props.onPopoverWillHide}
