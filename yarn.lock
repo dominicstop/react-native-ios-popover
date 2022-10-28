@@ -5917,10 +5917,10 @@ react-native-builder-bob@^0.18.0:
   optionalDependencies:
     jetifier "^1.6.6"
 
-react-native-ios-utilities@^1.0.0-8:
-  version "1.0.0-8"
-  resolved "https://registry.yarnpkg.com/react-native-ios-utilities/-/react-native-ios-utilities-1.0.0-8.tgz#aba197c5458db8cb5e45eb5310ebbafa415a6361"
-  integrity sha512-gV5VPVMc90dOcQhy919aQAVdnxSETCNtl5c47yqsDpA8xZc5EtWny6E7NdyjHgj/bsOjl7PpX0Q4PpDpc5hCPg==
+react-native-ios-utilities@^1.0.0-9:
+  version "1.0.0-9"
+  resolved "https://registry.yarnpkg.com/react-native-ios-utilities/-/react-native-ios-utilities-1.0.0-9.tgz#8f42b028189b01ad1b9dee0bad2237358a795caa"
+  integrity sha512-wqTsC7ct3Ku1IeO69fnegQuYD2pxRQFFBI4nDnvTu5ORehwMWoKeM39FAhO5022T2erg5jzXtzu0rV/wASCUmQ==
 
 react-native@0.63.4:
   version "0.63.4"
