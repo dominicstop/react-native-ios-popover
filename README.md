@@ -56,13 +56,14 @@ If you are using any other library that uses `react-native-ios-utilities` (e.g. 
 
 ### Installation: Versions and Compatibility
 
-If you wish to use a specific version of this library, then please install the corresponding version of `react-native-ios-utilities`.
+The library's peer dependency requirements are enforced using [semver](http://semver.org/) (i.e. `major.minor.patch`). If you wish to use a specific version of this library, then please install the corresponding version of `react-native-ios-utilities`.<br><br>📝 **Note**: As a general rule, the `major` version should be the same between the **library** and the **dependency**. For example, if you're using `react-native-ios-popover@2.3.12`, then you should install `react-native-ios-popover@2.x.x`, etc.
 
-| Library Version | `react-native-ios-utilities` Version |
-| --------------- | ------------------------------------ |
-| `0.0.XX`        | `N/A` (No External Dependencies)     |
-| `1.0.XX`        | `0.1.XX`                             |
-| `2.0.XX`        | `2.0.XX`                             |
+| Library Version <br>`react-native-ios-popover` | Dependency Version <br>`react-native-ios-utilities` |
+| ---------------------------------------------- | --------------------------------------------------- |
+| `0.x.x`                                        | `N/A` (No External Dependencies)                    |
+| `1.x.x`                                        | `0.x.x`                                             |
+| `2.0.x`                                        | `2.0.x`                                             |
+| `3.0.x`                                        | `3.0.x`                                             |
 
 <br><br>
 
