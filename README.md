@@ -20,18 +20,20 @@ Re-write in progress (see [TODO](https://github.com/dominicstop/react-native-ios
 ## 1. Installation
 
 ```sh
-# 1 install via npm...
+# 1.1 install via npm...
 npm install react-native-ios-popover
 
 # 1.2 ...or install via yarn 
 yarn add react-native-ios-popover
 
-# 2.1 install dependency via npm...
+
+# 2.1 install the lib's peer dependency via npm...
 npm install react-native-ios-utilities
 
-# 2.2 ...or install dependency via yarn
+# 2.2 ...or install the lib's peer dependency via yarn
 # Note: See "Installation: Dependencies" section for more details
 yarn install react-native-ios-utilities
+
 
 # 3. then run pod install (uses auto-linking)
 cd ios && pod install
