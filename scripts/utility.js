@@ -12,7 +12,7 @@ const SHARED = {
   didTriggeRefreshLocalLibraries: false,
 
   // @latest / @next / @version / etc..
-  prodVersion: 'next',
+  prodVersion: 'latest',
 };
 
 const DEPENDENCIES_DICT = {
