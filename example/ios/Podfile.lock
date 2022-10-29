@@ -188,7 +188,7 @@ PODS:
   - react-native-ios-popover (2.0.1):
     - React-Core
     - react-native-ios-utilities
-  - react-native-ios-utilities (3.0.0-0):
+  - react-native-ios-utilities (3.0.0-1):
     - React-Core
   - react-native-safe-area-context (3.4.1):
     - React-Core
@@ -375,7 +375,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
   react-native-ios-popover: ac8c7eb6954f8621c2227f659a5eec31b73d5d9b
-  react-native-ios-utilities: 1612e6b77f7bb77cd25cbdd515aa95b399f286f7
+  react-native-ios-utilities: 7a29f5dd69cc7a9d1c2df44483e863f082f3f4c7
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
