@@ -7,24 +7,24 @@
 
 import Foundation
 
-enum RNIPopoverSize {
+public enum RNIPopoverSize {
   case INHERIT;
   case STRETCH;
   case CUSTOM(width: CGFloat, height: CGFloat);
   
-  static let stringMap: [String: RNIPopoverSize] = [
+  public static let stringMap: [String: RNIPopoverSize] = [
     "INHERIT": .INHERIT,
     "STRETCH": .STRETCH,
   ];
   
-  init?(string: String){
+  public init?(string: String){
     guard let match = Self.stringMap[string.uppercased()]
     else { return nil };
     
     self = match;
   };
   
-  init?(dict: NSDictionary){
+  public init?(dict: NSDictionary){
     guard let type = dict["type"] as? String
     else { return nil };
     

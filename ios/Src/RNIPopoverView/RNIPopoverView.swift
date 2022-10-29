@@ -9,7 +9,7 @@ import UIKit;
 import react_native_ios_utilities;
 
 
-class RNIPopoverView: UIView, RNIInternalCleanupMode {
+public class RNIPopoverView: UIView, RNIInternalCleanupMode {
   
   // ----------------
   // MARK: Properties
@@ -33,26 +33,26 @@ class RNIPopoverView: UIView, RNIInternalCleanupMode {
   // ------------------------
   
   /// Whether or not the current view was successfully added as child VC
-  private(set) var didAttachToParentVC = false;
+  private(set) public var didAttachToParentVC = false;
   
   /// Whether or not `cleanup` method was called
-  private(set) var didTriggerCleanup = false;
+  private(set) public var didTriggerCleanup = false;
 
   // --------------------------------------
   // MARK: Properties - Computed Properties
   // --------------------------------------
   
-  var didInitializePopoverVC: Bool {
+  public var didInitializePopoverVC: Bool {
     self.popoverController != nil
   };
   
   // shorthand to get the popover vc's presentation controller
-  var popoverPresentation: UIPopoverPresentationController? {
+  public var popoverPresentation: UIPopoverPresentationController? {
     return self.popoverController?.popoverPresentationController;
   };
   
   /// flag that indicates whether the popover is presented or not
-  var isPopoverVisible: Bool {
+  public var isPopoverVisible: Bool {
     guard let popoverVC = self.popoverController
     else { return false };
     
@@ -61,7 +61,7 @@ class RNIPopoverView: UIView, RNIInternalCleanupMode {
   };
   
   /// This is where the popover should be presented.
-  var targetViewController: UIViewController? {
+  public var targetViewController: UIViewController? {
     self.viewController ?? self.reactViewController()
   };
   
@@ -84,26 +84,26 @@ class RNIPopoverView: UIView, RNIInternalCleanupMode {
   // MARK: RN Exported Props
   // -----------------------
   
-  private var _popoverSize: RNIPopoverSize = .INHERIT;
+  internal(set) public var synthesizedPopoverSize: RNIPopoverSize = .INHERIT;
   @objc var popoverSize: NSDictionary? {
     willSet {
       guard let dict = newValue,
             let size = RNIPopoverSize(dict: dict)
       else { return };
       
-      self._popoverSize = size;
+      self.synthesizedPopoverSize = size;
       self.popoverController?.popoverSize = size;
     }
   };
   
-  private var _popoverBackgroundColor: UIColor = .clear;
+  internal(set) public var synthesizedPopoverBackgroundColor: UIColor = .clear;
   @objc var popoverBackgroundColor: NSNumber? {
     willSet {
       guard let colorRaw = newValue,
             let colorParsed = RCTConvert.uiColor(colorRaw)
       else { return };
       
-      self._popoverBackgroundColor = colorParsed;
+      self.synthesizedPopoverBackgroundColor = colorParsed;
       
       if self.isPopoverVisible,
          let presentationController = self.popoverPresentation {
@@ -114,14 +114,14 @@ class RNIPopoverView: UIView, RNIInternalCleanupMode {
     }
   };
   
-  private var _permittedArrowDirections: UIPopoverArrowDirection = .any;
+  internal(set) public var synthesizedPermittedArrowDirections: UIPopoverArrowDirection = .any;
   @objc var permittedArrowDirections: [NSString]? {
     willSet {
       guard let valuesRaw = newValue as [String]?,
             let valuesParsed = UIPopoverArrowDirection(stringValues: valuesRaw)
       else { return };
       
-      self._permittedArrowDirections = valuesParsed;
+      self.synthesizedPermittedArrowDirections = valuesParsed;
       self.popoverPresentation?.permittedArrowDirections = valuesParsed;
       
       if #available(iOS 11.0, *) {
@@ -130,6 +130,7 @@ class RNIPopoverView: UIView, RNIInternalCleanupMode {
     }
   };
   
+  internal(set) public var synthesizedInternalCleanupMode: RNICleanupMode = .automatic;
   @objc var popoverCanOverlapSourceViewRect: Bool = false {
     willSet {
       self.popoverPresentation?.canOverlapSourceViewRect = newValue;
@@ -137,17 +138,16 @@ class RNIPopoverView: UIView, RNIInternalCleanupMode {
   };
   
   // controls whether the popover should dismiss when the bg is tapped
-  @objc var popoverShouldDismiss: Bool = true;
+  @objc internal(set) public var popoverShouldDismiss: Bool = true;
   
-  private(set) var _internalCleanupMode: RNICleanupMode = .automatic;
-  @objc var internalCleanupMode: String? {
+  // MARK: RNIInternalCleanupMode
+  @objc internal(set) public var internalCleanupMode: String? {
     willSet {
-      guard
-        let rawString = newValue,
-        let cleanupMode = RNICleanupMode(rawValue: rawString)
+      guard let rawString = newValue,
+            let cleanupMode = RNICleanupMode(rawValue: rawString)
       else { return };
       
-      self._internalCleanupMode = cleanupMode;
+      self.synthesizedInternalCleanupMode = cleanupMode;
     }
   };
 
@@ -208,7 +208,7 @@ class RNIPopoverView: UIView, RNIInternalCleanupMode {
   // MARK: RN Lifecycle
   // ------------------
   
-  override func insertReactSubview(_ subview: UIView!, at atIndex: Int) {
+  public override func insertReactSubview(_ subview: UIView!, at atIndex: Int) {
     super.insertSubview(subview, at: atIndex);
     
     if atIndex == 0,
@@ -227,7 +227,7 @@ class RNIPopoverView: UIView, RNIInternalCleanupMode {
     };
   };
   
-  override func removeReactSubview(_ subview: UIView!) {
+  public override func removeReactSubview(_ subview: UIView!) {
     super.removeReactSubview(subview);
   };
   
@@ -274,7 +274,7 @@ fileprivate extension RNIPopoverView {
     
     // setup popover vc
     popoverVC.popoverWrapperView = self.popoverWrapperView;
-    popoverVC.popoverSize = self._popoverSize;
+    popoverVC.popoverSize = self.synthesizedPopoverSize;
     popoverVC.modalPresentationStyle = .popover;
     
     self.popoverController = popoverVC;
@@ -289,8 +289,8 @@ fileprivate extension RNIPopoverView {
     presentation.sourceView = self;
     presentation.sourceRect = self.bounds;
     
-    presentation.backgroundColor = self._popoverBackgroundColor;
-    presentation.permittedArrowDirections = self._permittedArrowDirections;
+    presentation.backgroundColor = self.synthesizedPopoverBackgroundColor;
+    presentation.permittedArrowDirections = self.synthesizedPermittedArrowDirections;
     presentation.canOverlapSourceViewRect = self.popoverCanOverlapSourceViewRect;
   };
 };
@@ -299,7 +299,7 @@ fileprivate extension RNIPopoverView {
 // MARK:- Functions for View Manager/Module
 // ----------------------------------------
 
-extension RNIPopoverView {
+public extension RNIPopoverView {
   
   /// show or hide the popover
   func setVisibility(
@@ -379,13 +379,13 @@ extension RNIPopoverView {
 
 extension RNIPopoverView: UIPopoverPresentationControllerDelegate {
   
-  func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+  public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
     // force to use popover on iPhone
     return .none;
   };
   
   // popover will dismiss via tap
-  func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
+  public func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
     #if DEBUG
     print("RCTPopoverView, UIPopoverPresentationControllerDelegate - willDismiss");
     #endif
@@ -396,7 +396,7 @@ extension RNIPopoverView: UIPopoverPresentationControllerDelegate {
   };
   
   // popover did dismiss via tap
-  func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+  public func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
     #if DEBUG
     print("RCTPopoverView, UIPopoverPresentationControllerDelegate - didDismiss");
     #endif
@@ -407,7 +407,7 @@ extension RNIPopoverView: UIPopoverPresentationControllerDelegate {
   };
   
   // popover should dismiss via tap
-  func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
+  public func presentationControllerShouldDismiss(_ presentationController: UIPresentationController) -> Bool {
     #if DEBUG
     print("RCTPopoverView, UIPopoverPresentationControllerDelegate - shouldDismiss");
     #endif
@@ -426,7 +426,7 @@ extension RNIPopoverView: UIPopoverPresentationControllerDelegate {
 // -------------------------------------
 
 extension RNIPopoverView: RNINavigationEventsNotifiable {
-  func notifyViewControllerDidPop(sender: RNINavigationEventsReportingViewController) {
+  public func notifyViewControllerDidPop(sender: RNINavigationEventsReportingViewController) {
     guard self.cleanupMode == .viewController else { return };
     self.cleanup();
   };
@@ -438,7 +438,7 @@ extension RNIPopoverView: RNINavigationEventsNotifiable {
 
 extension RNIPopoverView: RNICleanable {
   
-  func cleanup(){
+  public func cleanup(){
     guard !self.didTriggerCleanup else { return };
     self.didTriggerCleanup = true;
     
@@ -469,7 +469,7 @@ extension RNIPopoverView: RNICleanable {
 
 extension RNIPopoverView: RNIJSComponentWillUnmountNotifiable {
   
-  func notifyOnJSComponentWillUnmount(){
+  public func notifyOnJSComponentWillUnmount(){
     guard self.cleanupMode == .reactComponentWillUnmount else { return };
     self.cleanup();
   };

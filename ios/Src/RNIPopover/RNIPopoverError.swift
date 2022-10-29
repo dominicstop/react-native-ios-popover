@@ -8,7 +8,7 @@
 import Foundation;
 import react_native_ios_utilities;
 
-enum RNIPopoverErrorCode:
+public enum RNIPopoverErrorCode:
   String, Codable, CaseIterable, RNIGenericErrorDefaultable {
   
   // default errors
@@ -26,7 +26,7 @@ enum RNIPopoverErrorCode:
 };
 
 
-class RNIPopoverError: RNIBaseError<RNIPopoverErrorCode> {
+public class RNIPopoverError: RNIBaseError<RNIPopoverErrorCode> {
   
   init(
     code: RNIPopoverErrorCode,

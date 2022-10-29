@@ -8,7 +8,7 @@
 import UIKit;
 import react_native_ios_utilities
 
-class RNIPopoverViewController: UIViewController {
+public class RNIPopoverViewController: UIViewController {
   
   
   var popoverWrapperView: RNIWrapperView?;
@@ -23,7 +23,7 @@ class RNIPopoverViewController: UIViewController {
     }
   };
   
-  override func loadView() {
+  public override func loadView() {
     super.loadView();
     
     if let popoverView  = self.popoverView {
@@ -47,7 +47,7 @@ class RNIPopoverViewController: UIViewController {
     };
   };
   
-  override func viewWillLayoutSubviews() {
+  public override func viewWillLayoutSubviews() {
     super.viewWillLayoutSubviews();
     self.setPopoverSize();
   };
